@@ -18,6 +18,10 @@ that makes it easy to work with existing container tooling. The `runsc` runtime
 integrates with Docker and Kubernetes, making it simple to run sandboxed
 containers.
 
+> [!WARNING]  
+> To allow gVisor to run on Android, most sandboxing and isolation layers have been disabled. This fork should not be used for sensitive or production-level security environments.
+
+
 ## What **isn't** gVisor?
 
 *   gVisor is **not a syscall filter** (e.g. `seccomp-bpf`), nor a wrapper over
