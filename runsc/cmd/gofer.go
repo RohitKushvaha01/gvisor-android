@@ -354,12 +354,16 @@ func (g *Gofer) serve(spec *specs.Spec, conf *config.Config, root string, ruid i
 	rootfsConf := g.mountConfs[0]
 	if rootfsConf.ShouldUseLisafs() {
 		// Start with root mount, then add any other additional mount as needed.
+		mountPath := "/"
+		if !g.chroot {
+			mountPath = root
+		}
 		cfgs = append(cfgs, connectionConfig{
 			sock:      sandboxsetup.NewSocket(ioFDs[0]),
-			mountPath: "/", // fsgofer process is always chroot()ed. So serve root.
+			mountPath: mountPath,
 			readonly:  spec.Root.Readonly || rootfsConf.ShouldUseOverlayfs(),
 		})
-		log.Infof("Serving %q mapped to %q on FD %d (ro: %t)", "/", root, ioFDs[0], cfgs[0].readonly)
+		log.Infof("Serving %q mapped to %q on FD %d (ro: %t)", mountPath, root, ioFDs[0], cfgs[0].readonly)
 		ioFDs = ioFDs[1:]
 	}
 
@@ -384,13 +388,17 @@ func (g *Gofer) serve(spec *specs.Spec, conf *config.Config, root string, ruid i
 		ioFD := ioFDs[0]
 		ioFDs = ioFDs[1:]
 		readonly := specutils.IsReadonlyMount(m.Options) || mountConf.ShouldUseOverlayfs()
+		mountPath := m.Destination
+		if !g.chroot {
+			mountPath = m.Source
+		}
 		cfgs = append(cfgs, connectionConfig{
 			sock:      sandboxsetup.NewSocket(ioFD),
-			mountPath: m.Destination,
+			mountPath: mountPath,
 			readonly:  readonly,
 			mount:     m,
 		})
-		log.Infof("Serving %q mapped on FD %d (ro: %t)", m.Destination, ioFD, readonly)
+		log.Infof("Serving %q mapped on FD %d (ro: %t)", mountPath, ioFD, readonly)
 	}
 
 	if len(ioFDs) > 0 {

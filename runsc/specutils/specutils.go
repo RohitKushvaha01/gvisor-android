@@ -293,6 +293,57 @@ func fixSpec(spec *specs.Spec, bundleDir string, conf *config.Config) error {
 			}
 		}
 	}
+
+	if spec.Process.Capabilities == nil {
+		defaultCaps := []string{
+			"CAP_AUDIT_WRITE",
+			"CAP_CHOWN",
+			"CAP_DAC_OVERRIDE",
+			"CAP_FOWNER",
+			"CAP_FSETID",
+			"CAP_KILL",
+			"CAP_MKNOD",
+			"CAP_NET_BIND_SERVICE",
+			"CAP_NET_RAW",
+			"CAP_SETGID",
+			"CAP_SETFCAP",
+			"CAP_SETPCAP",
+			"CAP_SETUID",
+			"CAP_SYS_CHROOT",
+		}
+		spec.Process.Capabilities = &specs.LinuxCapabilities{
+			Bounding:    defaultCaps,
+			Effective:   defaultCaps,
+			Inheritable: defaultCaps,
+			Permitted:   defaultCaps,
+			Ambient:     []string{},
+		}
+	}
+
+	if conf.Rootless {
+		if spec.Linux == nil {
+			spec.Linux = &specs.Linux{}
+		}
+		if len(spec.Linux.UIDMappings) == 0 {
+			spec.Linux.UIDMappings = []specs.LinuxIDMapping{
+				{
+					ContainerID: 0,
+					HostID:      uint32(os.Getuid()),
+					Size:        1,
+				},
+			}
+		}
+		if len(spec.Linux.GIDMappings) == 0 {
+			spec.Linux.GIDMappings = []specs.LinuxIDMapping{
+				{
+					ContainerID: 0,
+					HostID:      uint32(os.Getgid()),
+					Size:        1,
+				},
+			}
+		}
+	}
+
 	return nil
 }
 
