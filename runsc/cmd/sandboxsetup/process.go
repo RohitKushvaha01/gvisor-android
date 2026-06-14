@@ -26,7 +26,6 @@ import (
 	"gvisor.dev/gvisor/pkg/log"
 	"gvisor.dev/gvisor/runsc/cmd/util"
 	"gvisor.dev/gvisor/runsc/flag"
-	"gvisor.dev/gvisor/runsc/specutils"
 	"gvisor.dev/gvisor/runsc/starttime"
 )
 
@@ -41,7 +40,7 @@ func SetCapsAndCallSelf(args []string, caps *specs.LinuxCapabilities) error {
 	if err := ApplyCaps(caps); err != nil {
 		return fmt.Errorf("ApplyCaps() failed: %v", err)
 	}
-	binPath := specutils.ExePath
+	binPath := "/proc/self/exe"
 
 	log.Infof("Execve %q again, bye!", binPath)
 	err := unix.Exec(binPath, args, starttime.AppendEnviron(os.Environ()))
@@ -68,7 +67,7 @@ func CallSelfAsNobody(args []string) error {
 		return fmt.Errorf("error dropping capabilities: %w", err)
 	}
 
-	binPath := specutils.ExePath
+	binPath := "/proc/self/exe"
 
 	log.Infof("Execve %q again, bye!", binPath)
 	err := unix.Exec(binPath, args, starttime.AppendEnviron(os.Environ()))
@@ -121,7 +120,7 @@ func ExecProcUmounter() (*exec.Cmd, *os.File) {
 	}
 	defer r.Close()
 
-	cmd := exec.Command(specutils.ExePath)
+	cmd := exec.Command("/proc/self/exe")
 	cmd.Args = append(cmd.Args, "umount", "--sync-fd=3", "/proc")
 	cmd.ExtraFiles = append(cmd.ExtraFiles, r)
 	cmd.Stdin = os.Stdin

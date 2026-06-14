@@ -1449,6 +1449,9 @@ func (c *Container) createGoferProcess(conf *config.Config, mountHints *boot.Pod
 	nextFD := donations.Transfer(cmd, 3)
 
 	cmd.Args = append(cmd.Args, "gofer", "--bundle", c.BundleDir)
+	if !specutils.NamespaceSupported() {
+		cmd.Args = append(cmd.Args, "--setup-root=false", "--chroot=false")
+	}
 	cmd.Args = append(cmd.Args, "--gofer-mount-confs="+c.GoferMountConfs.String())
 
 	// Open the spec file to donate to the sandbox.
@@ -1553,14 +1556,15 @@ func (c *Container) createGoferProcess(conf *config.Config, mountHints *boot.Pod
 		cmd.SysProcAttr.Pdeathsig = unix.SIGKILL
 	}
 
-	// Enter new namespaces to isolate from the rest of the system. Don't unshare
-	// cgroup because gofer is added to a cgroup in the caller's namespace.
-	nss := []specs.LinuxNamespace{
-		{Type: specs.IPCNamespace},
-		{Type: specs.MountNamespace},
-		{Type: specs.NetworkNamespace},
-		{Type: specs.PIDNamespace},
-		{Type: specs.UTSNamespace},
+	var nss []specs.LinuxNamespace
+	if !conf.TestOnlyAllowRunAsCurrentUserWithoutChroot && specutils.NamespaceSupported() {
+		nss = []specs.LinuxNamespace{
+			{Type: specs.IPCNamespace},
+			{Type: specs.MountNamespace},
+			{Type: specs.NetworkNamespace},
+			{Type: specs.PIDNamespace},
+			{Type: specs.UTSNamespace},
+		}
 	}
 
 	rootlessEUID := unix.Geteuid() != 0
@@ -1578,26 +1582,32 @@ func (c *Container) createGoferProcess(conf *config.Config, mountHints *boot.Pod
 	} else {
 		userNS, ok := specutils.GetNS(specs.UserNamespace, c.Spec)
 		if !ok {
-			return nil, nil, nil, nil, fmt.Errorf("unable to run a rootless container without userns")
-		}
-		nss = append(nss, userNS)
-		if sandbox.CanUseUnprivilegedMapping(c.Spec) {
-			specutils.SetUIDGIDMappings(cmd, c.Spec)
-			cmd.SysProcAttr.GidMappingsEnableSetgroups = false
+			if specutils.UserNamespaceSupported() {
+				return nil, nil, nil, nil, fmt.Errorf("unable to run a rootless container without userns")
+			}
+			log.Warningf("User namespaces not supported by the kernel, running gofer in the current user namespace")
 		} else {
-			setUserMappings = true
+			nss = append(nss, userNS)
+			if sandbox.CanUseUnprivilegedMapping(c.Spec) {
+				specutils.SetUIDGIDMappings(cmd, c.Spec)
+				cmd.SysProcAttr.GidMappingsEnableSetgroups = false
+			} else {
+				setUserMappings = true
+			}
 		}
-		syncFile, err := sandbox.ConfigureCmdForRootless(cmd, &donations)
-		if err != nil {
-			return nil, nil, nil, nil, err
-		}
-		defer syncFile.Close()
-		uid, gid := sandbox.SandboxUserGroupIDs(c.Spec)
-		if uid != 0 {
-			cmd.Args = append(cmd.Args, fmt.Sprintf("--uid=%d", uid))
-		}
-		if gid != 0 {
-			cmd.Args = append(cmd.Args, fmt.Sprintf("--gid=%d", gid))
+		if ok {
+			syncFile, err := sandbox.ConfigureCmdForRootless(cmd, &donations)
+			if err != nil {
+				return nil, nil, nil, nil, err
+			}
+			defer syncFile.Close()
+			uid, gid := sandbox.SandboxUserGroupIDs(c.Spec)
+			if uid != 0 {
+				cmd.Args = append(cmd.Args, fmt.Sprintf("--uid=%d", uid))
+			}
+			if gid != 0 {
+				cmd.Args = append(cmd.Args, fmt.Sprintf("--gid=%d", gid))
+			}
 		}
 	}
 

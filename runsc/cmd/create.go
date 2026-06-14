@@ -97,7 +97,8 @@ func (c *Create) FetchSpec(conf *config.Config, f *flag.FlagSet) (string, *specs
 	}
 	bundleDir := c.bundleDir
 	if bundleDir == "" {
-		c.bundleDir = getwdOrDie()
+		bundleDir = getwdOrDie()
+		c.bundleDir = bundleDir
 	}
 	spec, err := specutils.ReadSpec(bundleDir, conf)
 	if err != nil {

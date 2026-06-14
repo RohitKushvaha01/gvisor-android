@@ -244,11 +244,22 @@ func MaybeRunAsRoot() error {
 		return nil
 	}
 
+	const reexecEnv = "_RUNSC_REEXEC"
+	if os.Getenv(reexecEnv) == "1" {
+		log.Warningf("Already re-executed but still lacks capabilities, continuing anyway")
+		return nil
+	}
+
+	if _, err := os.Stat("/proc/self/ns/user"); os.IsNotExist(err) {
+		log.Infof("User namespaces not supported by the kernel, continuing as current user")
+		return nil
+	}
+
 	// Current process doesn't have required capabilities, create user namespace
 	// and run as root inside the namespace to acquire capabilities.
 	log.Infof("*** Re-running as root in new user namespace ***")
 
-	cmd := exec.Command("/proc/self/exe", os.Args[1:]...)
+	cmd := exec.Command(ExePath, os.Args[1:]...)
 
 	cmd.SysProcAttr = &unix.SysProcAttr{
 		Cloneflags: unix.CLONE_NEWUSER | unix.CLONE_NEWNS,
@@ -271,12 +282,13 @@ func MaybeRunAsRoot() error {
 		Setsid: true,
 	}
 
-	cmd.Env = os.Environ()
+	cmd.Env = append(os.Environ(), reexecEnv+"=1")
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Start(); err != nil {
-		return fmt.Errorf("re-executing self: %w", err)
+		log.Warningf("Failed to re-execute in new user namespace: %v. Continuing as current user.", err)
+		return nil
 	}
 	ch := make(chan os.Signal, 1)
 	signal.Notify(ch)
@@ -302,6 +314,44 @@ func MaybeRunAsRoot() error {
 	// Child completed with success.
 	os.Exit(0)
 	panic("unreachable")
+}
+
+// UserNamespaceSupported returns true if the kernel supports and permits user namespaces.
+func UserNamespaceSupported() bool {
+	if _, err := os.Stat("/proc/self/ns/user"); err != nil {
+		return false
+	}
+	cmd := exec.Command("/proc/self/exe", "--help")
+	cmd.SysProcAttr = &unix.SysProcAttr{
+		Cloneflags: unix.CLONE_NEWUSER,
+	}
+	if err := cmd.Start(); err != nil {
+		return false
+	}
+	cmd.Process.Kill()
+	cmd.Wait()
+	return true
+}
+
+// NamespaceSupported returns true if the current process is capable of creating namespaces.
+func NamespaceSupported() bool {
+	var flags uintptr
+	if unix.Geteuid() == 0 {
+		flags = unix.CLONE_NEWNS
+	} else {
+		flags = unix.CLONE_NEWUSER | unix.CLONE_NEWNS
+	}
+
+	cmd := exec.Command("/proc/self/exe", "--help")
+	cmd.SysProcAttr = &unix.SysProcAttr{
+		Cloneflags: flags,
+	}
+	if err := cmd.Start(); err != nil {
+		return false
+	}
+	cmd.Process.Kill()
+	cmd.Wait()
+	return true
 }
 
 // KnownNamespaces returns a list of all supported namespace types.

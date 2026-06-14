@@ -31,6 +31,10 @@ import (
 	"gvisor.dev/gvisor/runsc/specutils"
 )
 
+// capLastCapDefault is the fallback capability limit used when
+// /proc/sys/kernel/cap_last_cap cannot be read (e.g. on Android/Termux).
+const capLastCapDefault = 37
+
 // mountInChroot creates the destination mount point in the given chroot and
 // mounts the source.
 func mountInChroot(chroot, src, dst, typ string, flags uint32) error {
@@ -97,7 +101,14 @@ func setupMinimalProcfs(chroot string) error {
 		"/proc/sys/kernel/cap_last_cap",
 	} {
 		if err := sandboxsetup.CopyFile(filepath.Join(chroot, f), f); err != nil {
-			return fmt.Errorf("failed to copy %q -> %q: %w", f, filepath.Join(chroot, f), err)
+			if f == "/proc/sys/kernel/cap_last_cap" {
+				log.Warningf("Failed to copy %q: %v. Writing fallback value %d.", f, err, capLastCapDefault)
+				if err := os.WriteFile(filepath.Join(chroot, f), []byte(fmt.Sprintf("%d\n", capLastCapDefault)), 0444); err != nil {
+					return fmt.Errorf("failed to write fallback value to %q: %w", filepath.Join(chroot, f), err)
+				}
+			} else {
+				return fmt.Errorf("failed to copy %q -> %q: %w", f, filepath.Join(chroot, f), err)
+			}
 		}
 	}
 	// Create symlink for /proc/self.

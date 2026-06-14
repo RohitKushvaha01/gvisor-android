@@ -95,6 +95,12 @@ const (
 // changed in tests that aren't linked in the same binary.
 var ExePath = "/proc/self/exe"
 
+func init() {
+	if path, err := os.Readlink("/proc/self/exe"); err == nil {
+		ExePath = path
+	}
+}
+
 // Version is the supported spec version.
 var Version = specs.Version
 

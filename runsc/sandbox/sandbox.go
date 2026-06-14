@@ -1059,12 +1059,15 @@ func (s *Sandbox) createSandboxProcess(conf *config.Config, args *Args, startSyn
 	// are virtualized inside the sandbox. Be paranoid and run inside an empty
 	// namespace for these. Don't unshare cgroup because sandbox is added to a
 	// cgroup in the caller's namespace.
-	log.Infof("Sandbox will be started in new mount, IPC and UTS namespaces")
-	nss := []specs.LinuxNamespace{
-		{Type: specs.IPCNamespace},
-		{Type: specs.MountNamespace},
-		{Type: specs.UTSNamespace},
-		{Type: specs.PIDNamespace},
+	var nss []specs.LinuxNamespace
+	if !conf.TestOnlyAllowRunAsCurrentUserWithoutChroot && specutils.NamespaceSupported() {
+		log.Infof("Sandbox will be started in new mount, IPC and UTS namespaces")
+		nss = []specs.LinuxNamespace{
+			{Type: specs.IPCNamespace},
+			{Type: specs.MountNamespace},
+			{Type: specs.UTSNamespace},
+			{Type: specs.PIDNamespace},
+		}
 	}
 
 	if specutils.NVProxyEnabled(args.Spec, conf) {
@@ -1083,7 +1086,7 @@ func (s *Sandbox) createSandboxProcess(conf *config.Config, args *Args, startSyn
 		nss = append(nss, ns)
 	} else if conf.Network == config.NetworkHost {
 		log.Infof("Sandbox will be started in the host network namespace")
-	} else {
+	} else if !conf.TestOnlyAllowRunAsCurrentUserWithoutChroot && specutils.NamespaceSupported() {
 		log.Infof("Sandbox will be started in new network namespace")
 		nss = append(nss, specs.LinuxNamespace{Type: specs.NetworkNamespace})
 	}
@@ -1128,7 +1131,7 @@ func (s *Sandbox) createSandboxProcess(conf *config.Config, args *Args, startSyn
 				cmd.SysProcAttr.Credential = &syscall.Credential{Uid: 0, Gid: 0}
 			}
 		} else {
-			if rootlessEUID {
+			if rootlessEUID && specutils.UserNamespaceSupported() {
 				return fmt.Errorf("unable to run a rootless container without userns")
 			}
 			log.Infof("Sandbox will be started in the current user namespace")
@@ -1140,8 +1143,8 @@ func (s *Sandbox) createSandboxProcess(conf *config.Config, args *Args, startSyn
 
 		// If we have CAP_SYS_ADMIN, we can create an empty chroot and
 		// bind-mount the executable inside it.
-		if conf.TestOnlyAllowRunAsCurrentUserWithoutChroot {
-			log.Warningf("Running sandbox in test mode without chroot. This is only safe in tests!")
+		if conf.TestOnlyAllowRunAsCurrentUserWithoutChroot || !specutils.NamespaceSupported() {
+			log.Warningf("Running sandbox without chroot.")
 		} else if specutils.HasCapabilities(capability.CAP_SYS_ADMIN) || rootlessEUID {
 			log.Infof("Sandbox will be started in minimal chroot")
 			cmd.Args = append(cmd.Args, "--setup-root")
@@ -1151,9 +1154,8 @@ func (s *Sandbox) createSandboxProcess(conf *config.Config, args *Args, startSyn
 	} else {
 		// If we have CAP_SETUID and CAP_SETGID, then we can also run
 		// as user nobody.
-		if conf.TestOnlyAllowRunAsCurrentUserWithoutChroot {
-			log.Warningf("Running sandbox in test mode as current user (uid=%d gid=%d). This is only safe in tests!", os.Getuid(), os.Getgid())
-			log.Warningf("Running sandbox in test mode without chroot. This is only safe in tests!")
+		if conf.TestOnlyAllowRunAsCurrentUserWithoutChroot || !specutils.NamespaceSupported() {
+			log.Warningf("Running sandbox as current user (uid=%d gid=%d) without chroot.", os.Getuid(), os.Getgid())
 		} else if rootlessEUID || specutils.HasCapabilities(capability.CAP_SETUID, capability.CAP_SETGID) {
 			log.Infof("Sandbox will be started in new user namespace")
 			nss = append(nss, specs.LinuxNamespace{Type: specs.UserNamespace})
@@ -1198,7 +1200,7 @@ func (s *Sandbox) createSandboxProcess(conf *config.Config, args *Args, startSyn
 					uintptr(capability.CAP_SYS_PTRACE))
 			}
 		} else {
-			return fmt.Errorf("can't run sandbox process as user nobody since we don't have CAP_SETUID or CAP_SETGID")
+			log.Warningf("can't run sandbox process as user nobody since we don't have CAP_SETUID or CAP_SETGID; continuing as current user")
 		}
 	}
 

@@ -102,6 +102,7 @@ type Gofer struct {
 	devIoFD    int
 	applyCaps  bool
 	setUpRoot  bool
+	chroot     bool
 	mountConfs specutils.GoferMountConfFlags
 
 	// uid and gid are the user and group IDs to switch to after setting up the
@@ -137,6 +138,7 @@ func (g *Gofer) SetFlags(f *flag.FlagSet) {
 	f.StringVar(&g.bundleDir, "bundle", "", "path to the root of the bundle directory, defaults to the current directory")
 	f.BoolVar(&g.applyCaps, "apply-caps", true, "if true, apply capabilities to restrict what the Gofer process can do")
 	f.BoolVar(&g.setUpRoot, "setup-root", true, "if true, set up an empty root for the process")
+	f.BoolVar(&g.chroot, "chroot", true, "if true, chroot to /root")
 
 	// Open FDs that are donated to the gofer.
 	f.Var(&g.ioFDs, "io-fds", "list of FDs to connect gofer servers. Follows the same order as --gofer-mount-confs. FDs are only donated if the mount is backed by lisafs.")
@@ -207,7 +209,7 @@ func (g *Gofer) Execute(_ context.Context, f *flag.FlagSet, args ...any) subcomm
 		if err := sandboxsetup.SetupRootFS(spec, conf, g.mountConfs, g.devIoFD, makeRPCMountOpener(goferToHostRPC), containerID, g.bundleDir); err != nil {
 			util.Fatalf("Error setting up root FS: %v", err)
 		}
-		if !conf.TestOnlyAllowRunAsCurrentUserWithoutChroot {
+		if !conf.TestOnlyAllowRunAsCurrentUserWithoutChroot && g.chroot {
 			cleanupUnmounter := g.syncFDs.spawnProcUnmounter()
 			defer cleanupUnmounter()
 		}
@@ -224,6 +226,7 @@ func (g *Gofer) Execute(_ context.Context, f *flag.FlagSet, args ...any) subcomm
 		overrides := g.syncFDs.flags()
 		overrides["apply-caps"] = "false"
 		overrides["setup-root"] = "false"
+		overrides["chroot"] = fmt.Sprintf("%t", g.chroot)
 		for key, value := range extensionPrepare.FlagOverrides {
 			overrides[key] = value
 		}
@@ -264,7 +267,7 @@ func (g *Gofer) Execute(_ context.Context, f *flag.FlagSet, args ...any) subcomm
 
 	// Find what path is going to be served by this gofer.
 	root := spec.Root.Path
-	if !conf.TestOnlyAllowRunAsCurrentUserWithoutChroot {
+	if !conf.TestOnlyAllowRunAsCurrentUserWithoutChroot && g.chroot {
 		root = "/root"
 	}
 
@@ -291,7 +294,7 @@ func (g *Gofer) Execute(_ context.Context, f *flag.FlagSet, args ...any) subcomm
 	unix.Umask(0)
 
 	procFDPath := sandboxsetup.ProcFDBindMount
-	if conf.TestOnlyAllowRunAsCurrentUserWithoutChroot {
+	if conf.TestOnlyAllowRunAsCurrentUserWithoutChroot || !g.chroot {
 		procFDPath = "/proc/self/fd"
 	}
 	if err := fsgofer.OpenProcSelfFD(procFDPath); err != nil {
@@ -301,13 +304,17 @@ func (g *Gofer) Execute(_ context.Context, f *flag.FlagSet, args ...any) subcomm
 	// procfs isn't needed anymore.
 	g.syncFDs.unmountProcfs()
 
-	if err := unix.Chroot(root); err != nil {
-		util.Fatalf("failed to chroot to %q: %v", root, err)
+	if !conf.TestOnlyAllowRunAsCurrentUserWithoutChroot && g.chroot {
+		if err := unix.Chroot(root); err != nil {
+			util.Fatalf("failed to chroot to %q: %v", root, err)
+		}
+		if err := unix.Chdir("/"); err != nil {
+			util.Fatalf("changing working dir: %v", err)
+		}
+		log.Infof("Process chroot'd to %q", root)
+	} else {
+		log.Infof("Process chroot skipped")
 	}
-	if err := unix.Chdir("/"); err != nil {
-		util.Fatalf("changing working dir: %v", err)
-	}
-	log.Infof("Process chroot'd to %q", root)
 
 	ruid := unix.Getuid()
 	euid := unix.Geteuid()

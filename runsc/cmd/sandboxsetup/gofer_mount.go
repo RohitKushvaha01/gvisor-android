@@ -252,7 +252,7 @@ func SetupRootFS(spec *specs.Spec, conf *config.Config, mountConfs []specutils.G
 		log.Warningf("CreateContainer hooks are not executed since container rootfs is not on lisafs")
 	}
 
-	if !conf.TestOnlyAllowRunAsCurrentUserWithoutChroot {
+	if !conf.TestOnlyAllowRunAsCurrentUserWithoutChroot && specutils.NamespaceSupported() {
 		if err := PivotRoot("/proc/fs"); err != nil {
 			util.Fatalf("failed to change the root file system: %v", err)
 		}

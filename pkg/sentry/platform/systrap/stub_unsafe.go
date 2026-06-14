@@ -17,6 +17,8 @@ package systrap
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
+	"runtime"
 	"strconv"
 	"strings"
 	"unsafe"
@@ -327,16 +329,31 @@ func stubInit() {
 		unix.PROT_READ); errno != 0 {
 		panic("mprotect failed: " + errno.Error())
 	}
-	if errno := hostsyscall.RawSyscallErrno(
-		unix.SYS_MSEAL,
-		stubStart,
-		stubROMapEnd-stubStart,
-		0); errno != 0 && errno != unix.ENOSYS {
-		panic("mseal failed: " + errno.Error())
+	if !isAndroid() && os.Getenv("GVISOR_DISABLE_MSEAL") != "1" {
+		if errno := hostsyscall.RawSyscallErrno(
+			unix.SYS_MSEAL,
+			stubStart,
+			stubROMapEnd-stubStart,
+			0); errno != 0 && errno != unix.ENOSYS {
+			panic("mseal failed: " + errno.Error())
+		}
 	}
 
 	// Set the end.
 	stubEnd = stubStart + mapLen + uintptr(gap)
 	log.Debugf("stubStart %x stubSysmsgStart %x stubSysmsgStack %x, stubContextQueue %x, stubThreadContextRegion %x, mapLen %x", stubStart, stubSysmsgStart, stubSysmsgStack, stubContextQueueRegion, stubContextRegion, mapLen)
 	log.Debugf("%s", archState.String())
+}
+
+func isAndroid() bool {
+	if runtime.GOOS == "android" {
+		return true
+	}
+	if os.Getenv("ANDROID_DATA") != "" || os.Getenv("ANDROID_ROOT") != "" {
+		return true
+	}
+	if _, err := os.Stat("/system/bin/app_process"); err == nil {
+		return true
+	}
+	return false
 }

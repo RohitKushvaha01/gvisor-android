@@ -17,6 +17,8 @@ package sandboxsetup
 
 import (
 	"fmt"
+	"os"
+	"strings"
 
 	"github.com/moby/sys/capability"
 	specs "github.com/opencontainers/runtime-spec/specs-go"
@@ -43,6 +45,10 @@ func ApplyCaps(caps *specs.LinuxCapabilities) error {
 		return err
 	}
 	if err := curCaps.Load(); err != nil {
+		if os.IsPermission(err) || strings.Contains(err.Error(), "permission denied") {
+			log.Warningf("Failed to load capabilities due to permission error: %v. Skipping capability configuration.", err)
+			return nil
+		}
 		return err
 	}
 
@@ -64,6 +70,10 @@ func ApplyCaps(caps *specs.LinuxCapabilities) error {
 	}
 
 	if err := newCaps.Apply(capability.CAPS | capability.BOUNDS | capability.AMBS); err != nil {
+		if os.IsPermission(err) || strings.Contains(err.Error(), "permission denied") {
+			log.Warningf("Failed to apply capabilities due to permission error: %v. Skipping capability configuration.", err)
+			return nil
+		}
 		return err
 	}
 	log.Infof("Capabilities applied: %+v", newCaps)

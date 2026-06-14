@@ -73,7 +73,7 @@ func createIDMappedUserNS(uidMappings, gidMappings []specs.LinuxIDMapping) (*os.
 		})
 	}
 
-	proc, err := os.StartProcess("/proc/self/exe", []string{"runsc[getUsernsFD]"}, &os.ProcAttr{
+	proc, err := os.StartProcess(specutils.ExePath, []string{"runsc[getUsernsFD]"}, &os.ProcAttr{
 		Sys: &syscall.SysProcAttr{
 			Cloneflags:  unix.CLONE_NEWUSER,
 			UidMappings: sysUIDMaps,
