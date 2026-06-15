@@ -130,6 +130,7 @@ func RegisterFlags(flagSet *flag.FlagSet) {
 	flagSet.Var(fileAccessTypePtr(FileAccessExclusive), "file-access", "specifies which filesystem validation to use for the root mount: exclusive (default), shared.")
 	flagSet.Var(fileAccessTypePtr(FileAccessShared), "file-access-mounts", "specifies which filesystem validation to use for volumes other than the root mount: shared (default), exclusive.")
 	flagSet.Bool("overlay", false, "DEPRECATED: use --overlay2=all:memory to achieve the same effect")
+	flagSet.Bool("persistent-rootfs", false, "allow mounting the rootfs so any changes made in the rootfs remain persistent even after the container exits")
 	flagSet.Var(defaultOverlay2(), flagOverlay2, "wrap mounts with overlayfs. Format is\n"+
 		"* 'none' to turn overlay mode off\n"+
 		"* {mount}:{medium}[,size={size}], where\n"+

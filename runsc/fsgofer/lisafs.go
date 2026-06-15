@@ -1311,7 +1311,14 @@ func fchown(hostFD int, uid lisafs.UID, gid lisafs.GID) error {
 	if gid.Ok() {
 		g = int(gid)
 	}
-	return unix.Fchownat(hostFD, "", u, g, unix.AT_EMPTY_PATH|unix.AT_SYMLINK_NOFOLLOW)
+	err := unix.Fchownat(hostFD, "", u, g, unix.AT_EMPTY_PATH|unix.AT_SYMLINK_NOFOLLOW)
+	if err == unix.EPERM {
+		// In rootless/userns-less environments (e.g. Android/Termux), changing file ownership
+		// on the host is not permitted. Ignore the EPERM error to allow file/directory creation.
+		//log.Warningf("fchown failed with EPERM, ignoring: uid=%d gid=%d", uid, gid)
+		return nil
+	}
+	return err
 }
 
 func fstatTo(hostFD int) (lisafs.Statx, error) {

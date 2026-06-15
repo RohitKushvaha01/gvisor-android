@@ -1078,7 +1078,7 @@ func (c *Container) initGoferConfs(ovlConf config.Overlay2, mountHints *boot.Pod
 		}
 		overlaySize = rootfsHint.Size
 	}
-	if c.Spec.Root.Readonly {
+	if c.Spec.Root.Readonly || ovlConf.RootOverlayMedium() == config.NoOverlay {
 		overlayMedium = config.NoOverlay
 	}
 	goferConf, err := createGoferConf(overlayMedium, overlaySize, mountType, c.Spec.Root.Path)

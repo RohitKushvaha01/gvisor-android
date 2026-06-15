@@ -99,6 +99,10 @@ type Config struct {
 	// will be backed by application memory.
 	Overlay bool `flag:"overlay"`
 
+	// PersistentRootFS indicates that any changes in rootfs should be persistent
+	// on the host, i.e., rootfs overlay is disabled.
+	PersistentRootFS bool `flag:"persistent-rootfs"`
+
 	// Overlay2 holds configuration about wrapping mounts in overlayfs.
 	// DO NOT call it directly, use GetOverlay2() instead.
 	Overlay2 Overlay2 `flag:"overlay2"`
@@ -566,14 +570,18 @@ func (c *Config) GetHostUDS() HostUDS {
 // GetOverlay2 returns the overlay configuration, taking into consideration all
 // flags that affect the result.
 func (c *Config) GetOverlay2() Overlay2 {
+	o := c.Overlay2
 	if c.Overlay {
 		if c.Overlay2.Enabled() {
 			panic("Overlay2 cannot be set when --overlay=true")
 		}
 		// Using a deprecated flag, honor it to avoid breaking users.
-		return Overlay2{rootMount: true, subMounts: true, medium: "memory"}
+		o = Overlay2{rootMount: true, subMounts: true, medium: "memory"}
 	}
-	return c.Overlay2
+	if c.PersistentRootFS {
+		o.rootMount = false
+	}
+	return o
 }
 
 // Bundle is a set of flag name-value pairs.
@@ -1086,7 +1094,7 @@ func (o Overlay2) String() string {
 
 // Enabled returns true if the overlay option is enabled for any mounts.
 func (o *Overlay2) Enabled() bool {
-	return o.medium != NoOverlay
+	return o.medium != NoOverlay && (o.rootMount || o.subMounts)
 }
 
 // RootOverlayMedium returns the overlay medium config of the root mount.
