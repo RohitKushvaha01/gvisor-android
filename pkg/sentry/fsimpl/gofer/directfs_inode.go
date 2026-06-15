@@ -527,7 +527,13 @@ func fchown(fd int, uid auth.KUID, gid auth.KGID) error {
 	if gid.Ok() {
 		g = int(gid)
 	}
-	return unix.Fchownat(fd, "", u, g, unix.AT_EMPTY_PATH|unix.AT_SYMLINK_NOFOLLOW)
+	err := unix.Fchownat(fd, "", u, g, unix.AT_EMPTY_PATH|unix.AT_SYMLINK_NOFOLLOW)
+	if err == unix.EPERM {
+		// In rootless/userns-less environments (e.g. Android/Termux), changing file ownership
+		// on the host is not permitted. Ignore the EPERM error to allow file/directory creation.
+		return nil
+	}
+	return err
 }
 
 // Precondition: i.handleMu must be locked.
@@ -783,6 +789,21 @@ func (i *directfsInode) symlink(name, target string, creds *auth.Credentials, d 
 func (i *directfsInode) openCreate(name string, accessFlags uint32, mode linux.FileMode, uid auth.KUID, gid auth.KGID, createDentry bool, d *dentry) (*dentry, handle, error) {
 	createFlags := unix.O_CREAT | unix.O_EXCL | int(accessFlags) | hostOpenFlags
 	childHandleFD, err := unix.Openat(i.controlFD, name, createFlags, uint32(mode&^linux.FileTypeMask))
+	if err == unix.EACCES && (createFlags&unix.O_ACCMODE != unix.O_RDONLY) {
+		// On some filesystems (like 9p host mounts), creating a file with read-only
+		// permissions and O_WRONLY/O_RDWR flags fails with EACCES.
+		// Try creating it with owner write permission, then fchmod it back.
+		writableMode := mode | 0200
+		childHandleFD, err = unix.Openat(i.controlFD, name, createFlags, uint32(writableMode&^linux.FileTypeMask))
+		if err == nil {
+			// Restore the original permissions.
+			if chmodErr := unix.Fchmod(childHandleFD, uint32(mode&^linux.FileTypeMask)); chmodErr != nil {
+				_ = unix.Close(childHandleFD)
+				_ = unix.Unlinkat(i.controlFD, name, 0)
+				return nil, noHandle, chmodErr
+			}
+		}
+	}
 	if err != nil {
 		return nil, noHandle, err
 	}

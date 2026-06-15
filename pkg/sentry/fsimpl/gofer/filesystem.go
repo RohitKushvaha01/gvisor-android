@@ -957,7 +957,7 @@ func (fs *filesystem) OpenAt(ctx context.Context, rp *vfs.ResolvingPath, opts vf
 	// support, and it isn't clear that there's any way to implement this in
 	// 9P.
 	if opts.Flags&linux.O_TMPFILE != 0 {
-		return nil, linuxerr.EOPNOTSUPP
+		return nil, linuxerr.EINVAL
 	}
 	mayCreate := opts.Flags&linux.O_CREAT != 0
 	mustCreate := opts.Flags&(linux.O_CREAT|linux.O_EXCL) == (linux.O_CREAT | linux.O_EXCL)

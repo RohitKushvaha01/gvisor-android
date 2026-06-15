@@ -592,6 +592,16 @@ func (fd *controlFDLisa) OpenCreate(mode linux.FileMode, uid lisafs.UID, gid lis
 	// Now open an FD to the newly created file with the flags requested by the client.
 	flags |= openFlags
 	newHostFD, err := unix.Openat(int(procSelfFD.FD()), strconv.Itoa(childHostFD), int(flags)&^unix.O_NOFOLLOW, 0)
+	if err == unix.EACCES && (flags&unix.O_ACCMODE != unix.O_RDONLY) {
+		// In rootless/userns-less environments, opening a newly created read-only file
+		// with O_RDWR/O_WRONLY fails because the host process does not have CAP_DAC_OVERRIDE.
+		// Temporarily make the file writable, open it, and then restore the permissions.
+		if chmodErr := unix.Fchmod(childHostFD, uint32((mode|0200)&^linux.FileTypeMask)); chmodErr == nil {
+			newHostFD, err = unix.Openat(int(procSelfFD.FD()), strconv.Itoa(childHostFD), int(flags)&^unix.O_NOFOLLOW, 0)
+			// Always restore the original permissions.
+			_ = unix.Fchmod(childHostFD, uint32(mode&^linux.FileTypeMask))
+		}
+	}
 	if err != nil {
 		return nil, lisafs.Statx{}, nil, -1, err
 	}

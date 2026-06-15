@@ -345,7 +345,7 @@ func (fs *filesystem) MknodAt(ctx context.Context, rp *vfs.ResolvingPath, opts v
 func (fs *filesystem) OpenAt(ctx context.Context, rp *vfs.ResolvingPath, opts vfs.OpenOptions) (*vfs.FileDescription, error) {
 	if opts.Flags&linux.O_TMPFILE != 0 {
 		// Not yet supported.
-		return nil, linuxerr.EOPNOTSUPP
+		return nil, linuxerr.EINVAL
 	}
 
 	// Handle O_CREAT and !O_CREAT separately, since in the latter case we
