@@ -745,7 +745,16 @@ func (fd *controlFDLisa) Link(dir lisafs.ControlFDImpl, name string) (*lisafs.Co
 		return nil, lisafs.Statx{}, err
 	}
 	dirFD := dir.(*controlFDLisa)
-	if err := unix.Linkat(oldDirFD, oldName, dirFD.hostFD, name, 0); err != nil {
+	if err = unix.Linkat(oldDirFD, oldName, dirFD.hostFD, name, 0); err != nil {
+		// Android filesystem (like sdcardfs, exFAT) or security policy doesn't allow hard links.
+		// Fallback to creating a relative symlink instead.
+		relTarget, relErr := filepath.Rel(dirFD.Node().FilePath(), fd.Node().FilePath())
+		if relErr == nil {
+			log.Warningf("Linkat failed with error: %v. Falling back to symlink to: %q", err, relTarget)
+			err = unix.Symlinkat(relTarget, dirFD.hostFD, name)
+		}
+	}
+	if err != nil {
 		return nil, lisafs.Statx{}, err
 	}
 	cu := cleanup.Make(func() {
