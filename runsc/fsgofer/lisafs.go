@@ -26,6 +26,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 
 	"golang.org/x/sys/unix"
@@ -299,7 +300,14 @@ func (fd *controlFDLisa) Close() {
 
 // Stat implements lisafs.ControlFDImpl.Stat.
 func (fd *controlFDLisa) Stat() (lisafs.Statx, error) {
-	return fstatTo(fd.hostFD)
+	stat, err := fstatTo(fd.hostFD)
+	if err != nil {
+		return lisafs.Statx{}, err
+	}
+	if count, ok := parseLinkCountFromFD(fd.hostFD); ok {
+		stat.Nlink = count
+	}
+	return stat, nil
 }
 
 // SetStat implements lisafs.ControlFDImpl.SetStat.
@@ -425,11 +433,12 @@ func (fd *controlFDLisa) Walk(name string) (*lisafs.ControlFD, lisafs.Statx, err
 		return nil, lisafs.Statx{}, err
 	}
 
-	stat, err := fstatTo(childHostFD)
+	resolvedFD, stat, err := resolveIfFaked(fd.hostFD, name, childHostFD)
 	if err != nil {
-		_ = unix.Close(childHostFD)
+		unix.Close(childHostFD)
 		return nil, lisafs.Statx{}, err
 	}
+	childHostFD = resolvedFD
 
 	if err := checkSupportedFileType(uint32(stat.Mode)); err != nil {
 		_ = unix.Close(childHostFD)
@@ -456,7 +465,7 @@ func (fd *controlFDLisa) WalkStat(path lisafs.StringArray, recordStat func(lisaf
 	defer closeCurDirFD()
 	if len(path) > 0 && len(path[0]) == 0 {
 		// Write stat results for dirFD if the first path component is "".
-		stat, err := fstatTo(fd.hostFD)
+		stat, err := fd.Stat()
 		if err != nil {
 			return err
 		}
@@ -478,13 +487,16 @@ func (fd *controlFDLisa) WalkStat(path lisafs.StringArray, recordStat func(lisaf
 		if err != nil {
 			return err
 		}
+
+		resolvedFD, stat, err := resolveIfFaked(curDirFD, name, curFD)
+		if err != nil {
+			unix.Close(curFD)
+			return err
+		}
+		curFD = resolvedFD
 		closeCurDirFD()
 		curDirFD = curFD
 
-		stat, err := fstatTo(curFD)
-		if err != nil {
-			return err
-		}
 		if err := checkSupportedFileType(uint32(stat.Mode)); err != nil {
 			log.Warningf("WalkStat: checkSupportedFileType() failed for file %q with mode %#o while walking path %+v: %v", name, stat.Mode, path, err)
 			return err
@@ -743,6 +755,259 @@ func (fd *controlFDLisa) Symlink(name string, target string, uid lisafs.UID, gid
 	return newControlFDLisa(symlinkFD, fd, name, linux.ModeSymlink).FD(), symlinkStat, nil
 }
 
+const l2sPrefix = ".l2s."
+
+func parseLinkCountFromFD(hostFD int) (uint32, bool) {
+	if procSelfFD == nil {
+		return 0, false
+	}
+	buf := make([]byte, 4096)
+	n, err := unix.Readlinkat(int(procSelfFD.FD()), strconv.Itoa(hostFD), buf)
+	if err != nil {
+		return 0, false
+	}
+	pathStr := string(buf[:n])
+	const deletedSuffix = " (deleted)"
+	if strings.HasSuffix(pathStr, deletedSuffix) {
+		pathStr = pathStr[:len(pathStr)-len(deletedSuffix)]
+	}
+	base := filepath.Base(pathStr)
+	if len(base) >= 5 && strings.HasPrefix(base, l2sPrefix) {
+		countStr := base[len(base)-4:]
+		if count, err := strconv.Atoi(countStr); err == nil {
+			return uint32(count), true
+		}
+	}
+	return 0, false
+}
+
+func resolveIfFaked(parentFD int, name string, currentFD int) (int, lisafs.Statx, error) {
+	stat, err := fstatTo(currentFD)
+	if err != nil {
+		return currentFD, lisafs.Statx{}, err
+	}
+
+	if stat.Mode&unix.S_IFMT == unix.S_IFLNK {
+		buf := make([]byte, 4096)
+		n, err := unix.Readlinkat(parentFD, name, buf)
+		if err != nil {
+			return currentFD, stat, nil
+		}
+		target := string(buf[:n])
+		targetBase := filepath.Base(target)
+		if strings.HasPrefix(targetBase, l2sPrefix) {
+			finalBuf := make([]byte, 4096)
+			nFinal, err := unix.Readlinkat(parentFD, target, finalBuf)
+			if err != nil {
+				return currentFD, stat, nil
+			}
+			finalTarget := string(finalBuf[:nFinal])
+
+			if len(finalTarget) >= 5 {
+				countStr := finalTarget[len(finalTarget)-4:]
+				if count, err := strconv.Atoi(countStr); err == nil {
+					intermediateDir := filepath.Dir(target)
+					finalPath := filepath.Join(intermediateDir, finalTarget)
+
+					finalFD, err := tryOpen(func(flags int) (int, error) {
+						return unix.Openat(parentFD, finalPath, flags, 0)
+					})
+					if err != nil {
+						return currentFD, stat, nil
+					}
+
+					finalStat, err := fstatTo(finalFD)
+					if err != nil {
+						unix.Close(finalFD)
+						return currentFD, stat, nil
+					}
+
+					unix.Close(currentFD)
+					finalStat.Nlink = uint32(count)
+					return finalFD, finalStat, nil
+				}
+			}
+		}
+	}
+
+	return currentFD, stat, nil
+}
+
+func decrementLinkCount(dirFD int, name string) (bool, error) {
+	buf := make([]byte, 4096)
+	n, err := unix.Readlinkat(dirFD, name, buf)
+	if err != nil {
+		if err == unix.EINVAL || err == unix.ENOENT {
+			return false, nil
+		}
+		return false, err
+	}
+	target := string(buf[:n])
+	targetBase := filepath.Base(target)
+	if !strings.HasPrefix(targetBase, l2sPrefix) {
+		return false, nil
+	}
+
+	finalBuf := make([]byte, 4096)
+	nFinal, err := unix.Readlinkat(dirFD, target, finalBuf)
+	if err != nil {
+		return false, err
+	}
+	finalTarget := string(finalBuf[:nFinal])
+	if len(finalTarget) < 5 {
+		return false, fmt.Errorf("invalid final target: %q", finalTarget)
+	}
+	countStr := finalTarget[len(finalTarget)-4:]
+	count, err := strconv.Atoi(countStr)
+	if err != nil {
+		return false, fmt.Errorf("failed to parse count from %q: %v", finalTarget, err)
+	}
+
+	intermediateDir := filepath.Dir(target)
+	finalPath := filepath.Join(intermediateDir, finalTarget)
+
+	newCount := count - 1
+	if newCount > 0 {
+		newFinalTarget := finalTarget[:len(finalTarget)-4] + fmt.Sprintf("%04d", newCount)
+		newFinalPath := filepath.Join(intermediateDir, newFinalTarget)
+
+		if err := fsutil.RenameAt(dirFD, finalPath, dirFD, newFinalPath); err != nil {
+			return true, err
+		}
+
+		if err := unix.Unlinkat(dirFD, target, 0); err != nil {
+			return true, err
+		}
+		if err := unix.Symlinkat(newFinalTarget, dirFD, target); err != nil {
+			return true, err
+		}
+
+		if err := unix.Unlinkat(dirFD, name, 0); err != nil {
+			return true, err
+		}
+	} else {
+		if err := unix.Unlinkat(dirFD, name, 0); err != nil {
+			return true, err
+		}
+		if err := unix.Unlinkat(dirFD, target, 0); err != nil {
+			return true, err
+		}
+		if err := unix.Unlinkat(dirFD, finalPath, 0); err != nil {
+			return true, err
+		}
+	}
+
+	return true, nil
+}
+
+func createFakedHardlink(oldDirFD int, oldName string, oldPath string, dirFD *controlFDLisa, name string) error {
+	var stat unix.Stat_t
+	if err := unix.Fstatat(oldDirFD, oldName, &stat, unix.AT_SYMLINK_NOFOLLOW); err != nil {
+		return err
+	}
+	if stat.Mode&unix.S_IFMT == unix.S_IFDIR {
+		return unix.EPERM
+	}
+
+	buf := make([]byte, 4096)
+	n, err := unix.Readlinkat(oldDirFD, oldName, buf)
+	isFaked := false
+	var target string
+	if err == nil {
+		target = string(buf[:n])
+		targetBase := filepath.Base(target)
+		if strings.HasPrefix(targetBase, l2sPrefix) {
+			isFaked = true
+		}
+	}
+
+	oldDir := path.Dir(oldPath)
+
+	if isFaked {
+		finalBuf := make([]byte, 4096)
+		nFinal, err := unix.Readlinkat(oldDirFD, target, finalBuf)
+		if err != nil {
+			return err
+		}
+		finalTarget := string(finalBuf[:nFinal])
+
+		if len(finalTarget) < 5 {
+			return fmt.Errorf("invalid final target: %q", finalTarget)
+		}
+		countStr := finalTarget[len(finalTarget)-4:]
+		count, err := strconv.Atoi(countStr)
+		if err != nil {
+			return err
+		}
+
+		newCount := count + 1
+		newFinalTarget := finalTarget[:len(finalTarget)-4] + fmt.Sprintf("%04d", newCount)
+
+		intermediateDir := filepath.Dir(target)
+		finalPath := filepath.Join(intermediateDir, finalTarget)
+		newFinalPath := filepath.Join(intermediateDir, newFinalTarget)
+
+		if err := fsutil.RenameAt(oldDirFD, finalPath, oldDirFD, newFinalPath); err != nil {
+			return err
+		}
+
+		if err := unix.Unlinkat(oldDirFD, target, 0); err != nil {
+			_ = fsutil.RenameAt(oldDirFD, newFinalPath, oldDirFD, finalPath)
+			return err
+		}
+		if err := unix.Symlinkat(newFinalTarget, oldDirFD, target); err != nil {
+			_ = unix.Symlinkat(finalTarget, oldDirFD, target)
+			_ = fsutil.RenameAt(oldDirFD, newFinalPath, oldDirFD, finalPath)
+			return err
+		}
+
+		intermediatePath := path.Clean(path.Join(oldDir, target))
+		relTarget, err := filepath.Rel(dirFD.Node().FilePath(), intermediatePath)
+		if err != nil {
+			return err
+		}
+
+		return unix.Symlinkat(relTarget, dirFD.hostFD, name)
+	} else {
+		var intermediateName string
+		for suffix := 1; suffix < 1000; suffix++ {
+			intermediateName = fmt.Sprintf("%s%s%04d", l2sPrefix, oldName, suffix)
+			var st unix.Stat_t
+			if err := unix.Fstatat(oldDirFD, intermediateName, &st, unix.AT_SYMLINK_NOFOLLOW); err != nil {
+				if err == unix.ENOENT {
+					break
+				}
+				return err
+			}
+		}
+
+		finalTarget := intermediateName + ".0002"
+
+		if err := fsutil.RenameAt(oldDirFD, oldName, oldDirFD, finalTarget); err != nil {
+			return err
+		}
+
+		if err := unix.Symlinkat(finalTarget, oldDirFD, intermediateName); err != nil {
+			_ = fsutil.RenameAt(oldDirFD, finalTarget, oldDirFD, oldName)
+			return err
+		}
+
+		if err := unix.Symlinkat(intermediateName, oldDirFD, oldName); err != nil {
+			_ = unix.Unlinkat(oldDirFD, intermediateName, 0)
+			_ = fsutil.RenameAt(oldDirFD, finalTarget, oldDirFD, oldName)
+			return err
+		}
+
+		intermediatePath := path.Join(oldDir, intermediateName)
+		relTarget, err := filepath.Rel(dirFD.Node().FilePath(), intermediatePath)
+		if err != nil {
+			return err
+		}
+
+		return unix.Symlinkat(relTarget, dirFD.hostFD, name)
+	}
+}
+
 // Link implements lisafs.ControlFDImpl.Link.
 func (fd *controlFDLisa) Link(dir lisafs.ControlFDImpl, name string) (*lisafs.ControlFD, lisafs.Statx, error) {
 	// Using linkat(targetFD, "", newdirfd, name, AT_EMPTY_PATH) requires
@@ -757,20 +1022,18 @@ func (fd *controlFDLisa) Link(dir lisafs.ControlFDImpl, name string) (*lisafs.Co
 	dirFD := dir.(*controlFDLisa)
 	if err = unix.Linkat(oldDirFD, oldName, dirFD.hostFD, name, 0); err != nil {
 		// Android filesystem (like sdcardfs, exFAT) or security policy doesn't allow hard links.
-		// Fallback to creating a relative symlink instead.
-		relTarget, relErr := filepath.Rel(dirFD.Node().FilePath(), fd.Node().FilePath())
-		if relErr == nil {
-			log.Warningf("Linkat failed with error: %v. Falling back to symlink to: %q", err, relTarget)
-			err = unix.Symlinkat(relTarget, dirFD.hostFD, name)
-		}
+		// Fallback to creating a faked hard link instead.
+		err = createFakedHardlink(oldDirFD, oldName, fd.Node().FilePath(), dirFD, name)
 	}
 	if err != nil {
 		return nil, lisafs.Statx{}, err
 	}
 	cu := cleanup.Make(func() {
 		// Best effort attempt to remove the hard link in case of failure.
-		if err := unix.Unlinkat(dirFD.hostFD, name, 0); err != nil {
-			log.Warningf("error unlinking file %q after failure: %v", path.Join(dirFD.Node().FilePath(), name), err)
+		if handled, cleanupErr := decrementLinkCount(dirFD.hostFD, name); cleanupErr != nil || !handled {
+			if err := unix.Unlinkat(dirFD.hostFD, name, 0); err != nil {
+				log.Warningf("error unlinking file %q after failure: %v", path.Join(dirFD.Node().FilePath(), name), err)
+			}
 		}
 	})
 	defer cu.Clean()
@@ -782,10 +1045,13 @@ func (fd *controlFDLisa) Link(dir lisafs.ControlFDImpl, name string) (*lisafs.Co
 		return nil, lisafs.Statx{}, err
 	}
 
-	linkStat, err := fstatTo(linkFD)
+	resolvedFD, linkStat, err := resolveIfFaked(dirFD.hostFD, name, linkFD)
 	if err != nil {
+		unix.Close(linkFD)
 		return nil, lisafs.Statx{}, err
 	}
+	linkFD = resolvedFD
+
 	cu.Release()
 	return newControlFDLisa(linkFD, dirFD, name, linux.FileMode(linkStat.Mode)).FD(), linkStat, nil
 }
@@ -1020,16 +1286,33 @@ func (fd *controlFDLisa) BindAt(name string, sockType uint32, mode linux.FileMod
 
 // Unlink implements lisafs.ControlFDImpl.Unlink.
 func (fd *controlFDLisa) Unlink(name string, flags uint32) error {
+	if flags&unix.AT_REMOVEDIR == 0 {
+		handled, err := decrementLinkCount(fd.hostFD, name)
+		if err != nil {
+			return err
+		}
+		if handled {
+			return nil
+		}
+	}
 	return unix.Unlinkat(fd.hostFD, name, int(flags))
 }
 
 // RenameAt implements lisafs.ControlFDImpl.RenameAt.
 func (fd *controlFDLisa) RenameAt(oldName string, newDir lisafs.ControlFDImpl, newName string) error {
+	if _, err := decrementLinkCount(newDir.(*controlFDLisa).hostFD, newName); err != nil {
+		return err
+	}
 	return fsutil.RenameAt(fd.hostFD, oldName, newDir.(*controlFDLisa).hostFD, newName)
 }
 
 // RenameAt2 implements lisafs.ControlFDImpl.RenameAt2.
 func (fd *controlFDLisa) RenameAt2(oldName string, newDir lisafs.ControlFDImpl, newName string, flags uint32) error {
+	if flags&(linux.RENAME_NOREPLACE|linux.RENAME_EXCHANGE) == 0 {
+		if _, err := decrementLinkCount(newDir.(*controlFDLisa).hostFD, newName); err != nil {
+			return err
+		}
+	}
 	return fsutil.RenameAt2(fd.hostFD, oldName, newDir.(*controlFDLisa).hostFD, newName, flags)
 }
 
@@ -1157,7 +1440,14 @@ func (fd *openFDLisa) Close() {
 
 // Stat implements lisafs.OpenFDImpl.Stat.
 func (fd *openFDLisa) Stat() (lisafs.Statx, error) {
-	return fstatTo(fd.hostFD)
+	stat, err := fstatTo(fd.hostFD)
+	if err != nil {
+		return lisafs.Statx{}, err
+	}
+	if count, ok := parseLinkCountFromFD(fd.hostFD); ok {
+		stat.Nlink = count
+	}
+	return stat, nil
 }
 
 // Sync implements lisafs.OpenFDImpl.Sync.
