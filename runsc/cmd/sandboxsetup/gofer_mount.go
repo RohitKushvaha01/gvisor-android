@@ -559,7 +559,7 @@ func ResolveMounts(conf *config.Config, mounts []specs.Mount, root string, mount
 			panic(fmt.Sprintf("%q could not be made relative to %q: %v", dst, root, err))
 		}
 
-		opts, err := AdjustMountOptions(conf, filepath.Join(root, relDst), m.Options)
+		opts, err := AdjustMountOptions(conf, m.Source, m.Options)
 		if err != nil {
 			return nil, err
 		}

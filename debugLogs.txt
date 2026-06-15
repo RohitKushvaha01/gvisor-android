@@ -1,1643 +1,1243 @@
-I0614 09:15:34.019585   26535 cli.go:271] **************** gVisor ****************
-I0614 09:15:34.019709   26535 cli.go:272] Version release-20260608.0-35-g7b253dc6808a-dirty, go1.26.3, arm64, 8 CPUs, linux, PID 26535, PPID 26532, UID 10270, GID 10270
-D0614 09:15:34.019736   26535 cli.go:273] Page size: 0x1000 (4096 bytes)
-I0614 09:15:34.019757   26535 cli.go:274] Args: [./runsc --debug --debug-log=debugLogs.txt --ignore-cgroups --directfs=false --network=none --overlay2=root:memory --rootless --root=/data/data/com.termux/files/home run my-kernel]
-I0614 09:15:34.019811   26535 config.go:518] Platform: systrap
-I0614 09:15:34.019850   26535 config.go:519] RootDir: /data/data/com.termux/files/home
-I0614 09:15:34.019864   26535 config.go:520] FileAccess: exclusive / Directfs: false / Overlay: root:memory
-I0614 09:15:34.019888   26535 config.go:521] Network: none
-I0614 09:15:34.019904   26535 config.go:522] UseCPUNums: false
-I0614 09:15:34.019914   26535 config.go:524] Debug: true. Strace: false, max size: 1024, syscalls: 
-W0614 09:15:34.019926   26535 config.go:527] --allow-suid is disabled, SUID/SGID bits on executables will be ignored.
-D0614 09:15:34.019944   26535 config.go:545] Config.RootDir (--root): /data/data/com.termux/files/home
-D0614 09:15:34.019958   26535 config.go:545] Config.Traceback (--traceback): system
-D0614 09:15:34.019971   26535 config.go:545] Config.Debug (--debug): true
-D0614 09:15:34.019980   26535 config.go:545] Config.LogFilename (--log): (empty)
-D0614 09:15:34.019990   26535 config.go:545] Config.LogFormat (--log-format): text
-D0614 09:15:34.019999   26535 config.go:545] Config.DebugLog (--debug-log): debugLogs.txt
-D0614 09:15:34.020008   26535 config.go:545] Config.DebugToUserLog (--debug-to-user-log): false
-D0614 09:15:34.020016   26535 config.go:545] Config.DebugCommand (--debug-command): (empty)
-D0614 09:15:34.020023   26535 config.go:545] Config.PanicLog (--panic-log): (empty)
-D0614 09:15:34.020032   26535 config.go:545] Config.CoverageReport (--coverage-report): (empty)
-D0614 09:15:34.020041   26535 config.go:545] Config.DebugLogFormat (--debug-log-format): text
-D0614 09:15:34.020049   26535 config.go:545] Config.FileAccess (--file-access): exclusive
-D0614 09:15:34.020059   26535 config.go:545] Config.FileAccessMounts (--file-access-mounts): shared
-D0614 09:15:34.020069   26535 config.go:545] Config.Overlay (--overlay): false
-D0614 09:15:34.020096   26535 config.go:545] Config.Overlay2 (--overlay2): root:memory
-D0614 09:15:34.020107   26535 config.go:545] Config.FSGoferHostUDS (--fsgofer-host-uds): false
-D0614 09:15:34.020116   26535 config.go:545] Config.HostUDS (--host-uds): none
-D0614 09:15:34.020134   26535 config.go:545] Config.HostFifo (--host-fifo): none
-D0614 09:15:34.020147   26535 config.go:545] Config.HostSettings (--host-settings): check
-D0614 09:15:34.020159   26535 config.go:545] Config.Network (--network): none
-D0614 09:15:34.020169   26535 config.go:545] Config.EnableRaw (--net-raw): false
-D0614 09:15:34.020177   26535 config.go:545] Config.AllowPacketEndpointWrite (--allow-packet-socket-write): false
-D0614 09:15:34.020186   26535 config.go:545] Config.AllowLiveTCPMigration (--allow-live-tcp-migration): true
-D0614 09:15:34.020194   26535 config.go:545] Config.HostGSO (--gso): true
-D0614 09:15:34.020202   26535 config.go:545] Config.GVisorGSO (--software-gso): true
-D0614 09:15:34.020210   26535 config.go:545] Config.GVisorGRO (--gvisor-gro): false
-D0614 09:15:34.020219   26535 config.go:545] Config.TXChecksumOffload (--tx-checksum-offload): false
-D0614 09:15:34.020228   26535 config.go:545] Config.RXChecksumOffload (--rx-checksum-offload): true
-D0614 09:15:34.020237   26535 config.go:545] Config.QDisc (--qdisc): fifo
-D0614 09:15:34.020248   26535 config.go:545] Config.TBFRate (--qdisc-tbf-rate): 0
-D0614 09:15:34.020257   26535 config.go:545] Config.TBFBurst (--qdisc-tbf-burst): 0
-D0614 09:15:34.020266   26535 config.go:545] Config.LogPackets (--log-packets): false
-D0614 09:15:34.020274   26535 config.go:545] Config.PCAP (--pcap-log): (empty)
-D0614 09:15:34.020282   26535 config.go:545] Config.Platform (--platform): systrap
-D0614 09:15:34.020304   26535 config.go:545] Config.PlatformDevicePath (--platform_device_path): (empty)
-D0614 09:15:34.020314   26535 config.go:545] Config.MetricServer (--metric-server): (empty)
-D0614 09:15:34.020323   26535 config.go:545] Config.FinalMetricsLog (--final-metrics-log): (empty)
-D0614 09:15:34.020332   26535 config.go:545] Config.ProfilingMetrics (--profiling-metrics): (empty)
-D0614 09:15:34.020340   26535 config.go:545] Config.ProfilingMetricsLog (--profiling-metrics-log): (empty)
-D0614 09:15:34.020348   26535 config.go:545] Config.ProfilingMetricsRate (--profiling-metrics-rate-us): 1000
-D0614 09:15:34.020356   26535 config.go:545] Config.Strace (--strace): false
-D0614 09:15:34.020364   26535 config.go:545] Config.StraceSyscalls (--strace-syscalls): (empty)
-D0614 09:15:34.020373   26535 config.go:545] Config.StraceLogSize (--strace-log-size): 1024
-D0614 09:15:34.020382   26535 config.go:545] Config.StraceEvent (--strace-event): false
-D0614 09:15:34.020390   26535 config.go:547] Config.DisableSeccomp: false
-D0614 09:15:34.020403   26535 config.go:545] Config.EnableCoreTags (--enable-core-tags): false
-D0614 09:15:34.020412   26535 config.go:545] Config.WatchdogAction (--watchdog-action): log
-D0614 09:15:34.020437   26535 config.go:545] Config.PanicSignal (--panic-signal): -1
-D0614 09:15:34.020447   26535 config.go:545] Config.ProfileEnable (--profile): false
-D0614 09:15:34.020456   26535 config.go:545] Config.ProfileBlock (--profile-block): (empty)
-D0614 09:15:34.020465   26535 config.go:545] Config.ProfileCPU (--profile-cpu): (empty)
-D0614 09:15:34.020475   26535 config.go:545] Config.ProfileGCInterval (--profile-gc-interval): 0s
-D0614 09:15:34.020488   26535 config.go:545] Config.ProfileHeap (--profile-heap): (empty)
-D0614 09:15:34.020496   26535 config.go:545] Config.ProfileMutex (--profile-mutex): (empty)
-D0614 09:15:34.020504   26535 config.go:545] Config.TraceFile (--trace): (empty)
-D0614 09:15:34.020512   26535 config.go:545] Config.NumNetworkChannels (--num-network-channels): 1
-D0614 09:15:34.020521   26535 config.go:545] Config.NetworkProcessorsPerChannel (--network-processors-per-channel): 0
-D0614 09:15:34.020529   26535 config.go:545] Config.Rootless (--rootless): true
-D0614 09:15:34.020537   26535 config.go:545] Config.AlsoLogToStderr (--alsologtostderr): false
-D0614 09:15:34.020546   26535 config.go:545] Config.ReferenceLeak (--ref-leak-mode): disabled
-D0614 09:15:34.020559   26535 config.go:545] Config.CPUNumFromQuota (--cpu-num-from-quota): true
-D0614 09:15:34.020568   26535 config.go:545] Config.AllowFlagOverride (--allow-flag-override): false
-D0614 09:15:34.020575   26535 config.go:545] Config.OCISeccomp (--oci-seccomp): false
-D0614 09:15:34.020583   26535 config.go:545] Config.IgnoreCgroups (--ignore-cgroups): true
-D0614 09:15:34.020591   26535 config.go:545] Config.SystemdCgroup (--systemd-cgroup): false
-D0614 09:15:34.020599   26535 config.go:545] Config.PodInitConfig (--pod-init-config): (empty)
-D0614 09:15:34.020608   26535 config.go:545] Config.XDP (--EXPERIMENTAL-xdp): {0 }
-D0614 09:15:34.020627   26535 config.go:545] Config.AFXDPUseNeedWakeup (--EXPERIMENTAL-xdp-need-wakeup): true
-D0614 09:15:34.020636   26535 config.go:545] Config.FDLimit (--fdlimit): -1
-D0614 09:15:34.020655   26535 config.go:545] Config.DCache (--dcache): -1
-D0614 09:15:34.020666   26535 config.go:545] Config.IOUring (--iouring): false
-D0614 09:15:34.020675   26535 config.go:545] Config.DirectFS (--directfs): false
-D0614 09:15:34.020683   26535 config.go:545] Config.AppHugePages (--app-huge-pages): true
-D0614 09:15:34.020692   26535 config.go:545] Config.NVProxy (--nvproxy): false
-D0614 09:15:34.020700   26535 config.go:545] Config.NVProxyDocker (--nvproxy-docker): false
-D0614 09:15:34.020708   26535 config.go:545] Config.NVProxyDriverVersion (--nvproxy-driver-version): (empty)
-D0614 09:15:34.020716   26535 config.go:545] Config.NVProxyAllowedDriverCapabilities (--nvproxy-allowed-driver-capabilities): utility,compute
-D0614 09:15:34.020725   26535 config.go:545] Config.NVProxyAllowUnsupportedDriver (--nvproxy-allow-unsupported-driver): false
-D0614 09:15:34.020742   26535 config.go:545] Config.TPUProxy (--tpuproxy): false
-D0614 09:15:34.020754   26535 config.go:545] Config.TestOnlyAllowRunAsCurrentUserWithoutChroot (--TESTONLY-unsafe-nonroot): false
-D0614 09:15:34.020772   26535 config.go:545] Config.TestOnlyTestNameEnv (--TESTONLY-test-name-env): (empty)
-D0614 09:15:34.020780   26535 config.go:545] Config.TestOnlyAFSSyscallPanic (--TESTONLY-afs-syscall-panic): false
-D0614 09:15:34.020789   26535 config.go:547] Config.explicitlySet: <map[string]struct {} Value> (unexported)
-D0614 09:15:34.020799   26535 config.go:545] Config.ReproduceNAT (--reproduce-nat): false
-D0614 09:15:34.020808   26535 config.go:545] Config.ReproduceNftables (--reproduce-nftables): false
-D0614 09:15:34.020817   26535 config.go:545] Config.NetDisconnectOk (--net-disconnect-ok): true
-D0614 09:15:34.020826   26535 config.go:545] Config.TestOnlyAutosaveImagePath (--TESTONLY-autosave-image-path): (empty)
-D0614 09:15:34.020834   26535 config.go:545] Config.TestOnlyAutosaveResume (--TESTONLY-autosave-resume): false
-D0614 09:15:34.020843   26535 config.go:545] Config.RestoreSpecValidation (--restore-spec-validation): enforce
-D0614 09:15:34.020857   26535 config.go:545] Config.GVisorMarkerFile (--gvisor-marker-file): false
-D0614 09:15:34.020865   26535 config.go:545] Config.OverrideProcs (--override-procs): (empty)
-D0614 09:15:34.020872   26535 config.go:545] Config.SystrapDisableSyscallPatching (--systrap-disable-syscall-patching): false
-D0614 09:15:34.020880   26535 config.go:545] Config.Nftables (--TESTONLY-nftables): false
-D0614 09:15:34.020887   26535 config.go:545] Config.AllowSUID (--allow-suid): false
-D0614 09:15:34.020895   26535 config.go:545] Config.UseCPUNums (--kvm-use-cpu-nums): false
-D0614 09:15:34.020903   26535 config.go:545] Config.PauseExternalNetworking (--pause-external-networking): false
-D0614 09:15:34.020911   26535 config.go:545] Config.AllowConnectedOnSave (--allow-connected-on-save): false
-D0614 09:15:34.020919   26535 config.go:545] Config.AllowRootfsTarAnnotation (--allow-rootfs-tar-annotation): false
-D0614 09:15:34.020928   26535 config.go:545] Config.ControlRPCStopTimeout (--control-rpc-stop-timeout): 15s
-D0614 09:15:34.020946   26535 cli.go:280] runsc process spawned at 09:15:34.010549, Go started execution at 09:15:34.017282. Startup overhead: 6.732553ms
-I0614 09:15:34.020971   26535 cli.go:283] **************** gVisor ****************
-I0614 09:15:34.021183   26535 namespace.go:254] User namespaces not supported by the kernel, continuing as current user
-D0614 09:15:34.021360   26535 specutils.go:139] Spec:
+I0615 05:27:38.632152    9916 cli.go:271] **************** gVisor ****************
+I0615 05:27:38.632257    9916 cli.go:272] Version release-20260608.0-35-g7b253dc6808a-dirty, go1.26.3, arm64, 8 CPUs, linux, PID 9916, PPID 9911, UID 10270, GID 10270
+D0615 05:27:38.632283    9916 cli.go:273] Page size: 0x1000 (4096 bytes)
+I0615 05:27:38.632303    9916 cli.go:274] Args: [./runsc --debug --debug-log=debugLogs.txt --ignore-cgroups --directfs=false --network=host --rootless --root=/data/data/com.termux/files/home run my-kernel]
+I0615 05:27:38.632356    9916 config.go:518] Platform: systrap
+I0615 05:27:38.632378    9916 config.go:519] RootDir: /data/data/com.termux/files/home
+I0615 05:27:38.632388    9916 config.go:520] FileAccess: exclusive / Directfs: false / Overlay: root:self
+I0615 05:27:38.632409    9916 config.go:521] Network: host
+I0615 05:27:38.632422    9916 config.go:522] UseCPUNums: false
+I0615 05:27:38.632432    9916 config.go:524] Debug: true. Strace: false, max size: 1024, syscalls: 
+W0615 05:27:38.632442    9916 config.go:527] --allow-suid is disabled, SUID/SGID bits on executables will be ignored.
+D0615 05:27:38.632458    9916 config.go:545] Config.RootDir (--root): /data/data/com.termux/files/home
+D0615 05:27:38.632470    9916 config.go:545] Config.Traceback (--traceback): system
+D0615 05:27:38.632482    9916 config.go:545] Config.Debug (--debug): true
+D0615 05:27:38.632492    9916 config.go:545] Config.LogFilename (--log): (empty)
+D0615 05:27:38.632501    9916 config.go:545] Config.LogFormat (--log-format): text
+D0615 05:27:38.632509    9916 config.go:545] Config.DebugLog (--debug-log): debugLogs.txt
+D0615 05:27:38.632517    9916 config.go:545] Config.DebugToUserLog (--debug-to-user-log): false
+D0615 05:27:38.632525    9916 config.go:545] Config.DebugCommand (--debug-command): (empty)
+D0615 05:27:38.632532    9916 config.go:545] Config.PanicLog (--panic-log): (empty)
+D0615 05:27:38.632540    9916 config.go:545] Config.CoverageReport (--coverage-report): (empty)
+D0615 05:27:38.632547    9916 config.go:545] Config.DebugLogFormat (--debug-log-format): text
+D0615 05:27:38.632555    9916 config.go:545] Config.FileAccess (--file-access): exclusive
+D0615 05:27:38.632565    9916 config.go:545] Config.FileAccessMounts (--file-access-mounts): shared
+D0615 05:27:38.632574    9916 config.go:545] Config.Overlay (--overlay): false
+D0615 05:27:38.632582    9916 config.go:545] Config.Overlay2 (--overlay2): root:self
+D0615 05:27:38.632591    9916 config.go:545] Config.FSGoferHostUDS (--fsgofer-host-uds): false
+D0615 05:27:38.632600    9916 config.go:545] Config.HostUDS (--host-uds): none
+D0615 05:27:38.632612    9916 config.go:545] Config.HostFifo (--host-fifo): none
+D0615 05:27:38.632622    9916 config.go:545] Config.HostSettings (--host-settings): check
+D0615 05:27:38.632633    9916 config.go:545] Config.Network (--network): host
+D0615 05:27:38.632642    9916 config.go:545] Config.EnableRaw (--net-raw): false
+D0615 05:27:38.632671    9916 config.go:545] Config.AllowPacketEndpointWrite (--allow-packet-socket-write): false
+D0615 05:27:38.632680    9916 config.go:545] Config.AllowLiveTCPMigration (--allow-live-tcp-migration): true
+D0615 05:27:38.632688    9916 config.go:545] Config.HostGSO (--gso): true
+D0615 05:27:38.632696    9916 config.go:545] Config.GVisorGSO (--software-gso): true
+D0615 05:27:38.632704    9916 config.go:545] Config.GVisorGRO (--gvisor-gro): false
+D0615 05:27:38.632711    9916 config.go:545] Config.TXChecksumOffload (--tx-checksum-offload): false
+D0615 05:27:38.632719    9916 config.go:545] Config.RXChecksumOffload (--rx-checksum-offload): true
+D0615 05:27:38.632727    9916 config.go:545] Config.QDisc (--qdisc): fifo
+D0615 05:27:38.632743    9916 config.go:545] Config.TBFRate (--qdisc-tbf-rate): 0
+D0615 05:27:38.632752    9916 config.go:545] Config.TBFBurst (--qdisc-tbf-burst): 0
+D0615 05:27:38.632760    9916 config.go:545] Config.LogPackets (--log-packets): false
+D0615 05:27:38.632768    9916 config.go:545] Config.PCAP (--pcap-log): (empty)
+D0615 05:27:38.632775    9916 config.go:545] Config.Platform (--platform): systrap
+D0615 05:27:38.632793    9916 config.go:545] Config.PlatformDevicePath (--platform_device_path): (empty)
+D0615 05:27:38.632802    9916 config.go:545] Config.MetricServer (--metric-server): (empty)
+D0615 05:27:38.632810    9916 config.go:545] Config.FinalMetricsLog (--final-metrics-log): (empty)
+D0615 05:27:38.632824    9916 config.go:545] Config.ProfilingMetrics (--profiling-metrics): (empty)
+D0615 05:27:38.632834    9916 config.go:545] Config.ProfilingMetricsLog (--profiling-metrics-log): (empty)
+D0615 05:27:38.632842    9916 config.go:545] Config.ProfilingMetricsRate (--profiling-metrics-rate-us): 1000
+D0615 05:27:38.632850    9916 config.go:545] Config.Strace (--strace): false
+D0615 05:27:38.632857    9916 config.go:545] Config.StraceSyscalls (--strace-syscalls): (empty)
+D0615 05:27:38.632865    9916 config.go:545] Config.StraceLogSize (--strace-log-size): 1024
+D0615 05:27:38.632873    9916 config.go:545] Config.StraceEvent (--strace-event): false
+D0615 05:27:38.632881    9916 config.go:547] Config.DisableSeccomp: false
+D0615 05:27:38.632892    9916 config.go:545] Config.EnableCoreTags (--enable-core-tags): false
+D0615 05:27:38.632901    9916 config.go:545] Config.WatchdogAction (--watchdog-action): log
+D0615 05:27:38.632910    9916 config.go:545] Config.PanicSignal (--panic-signal): -1
+D0615 05:27:38.632918    9916 config.go:545] Config.ProfileEnable (--profile): false
+D0615 05:27:38.632925    9916 config.go:545] Config.ProfileBlock (--profile-block): (empty)
+D0615 05:27:38.632933    9916 config.go:545] Config.ProfileCPU (--profile-cpu): (empty)
+D0615 05:27:38.632941    9916 config.go:545] Config.ProfileGCInterval (--profile-gc-interval): 0s
+D0615 05:27:38.632953    9916 config.go:545] Config.ProfileHeap (--profile-heap): (empty)
+D0615 05:27:38.632961    9916 config.go:545] Config.ProfileMutex (--profile-mutex): (empty)
+D0615 05:27:38.632975    9916 config.go:545] Config.TraceFile (--trace): (empty)
+D0615 05:27:38.632983    9916 config.go:545] Config.NumNetworkChannels (--num-network-channels): 1
+D0615 05:27:38.632991    9916 config.go:545] Config.NetworkProcessorsPerChannel (--network-processors-per-channel): 0
+D0615 05:27:38.632999    9916 config.go:545] Config.Rootless (--rootless): true
+D0615 05:27:38.633006    9916 config.go:545] Config.AlsoLogToStderr (--alsologtostderr): false
+D0615 05:27:38.633014    9916 config.go:545] Config.ReferenceLeak (--ref-leak-mode): disabled
+D0615 05:27:38.633025    9916 config.go:545] Config.CPUNumFromQuota (--cpu-num-from-quota): true
+D0615 05:27:38.633033    9916 config.go:545] Config.AllowFlagOverride (--allow-flag-override): false
+D0615 05:27:38.633041    9916 config.go:545] Config.OCISeccomp (--oci-seccomp): false
+D0615 05:27:38.633049    9916 config.go:545] Config.IgnoreCgroups (--ignore-cgroups): true
+D0615 05:27:38.633057    9916 config.go:545] Config.SystemdCgroup (--systemd-cgroup): false
+D0615 05:27:38.633064    9916 config.go:545] Config.PodInitConfig (--pod-init-config): (empty)
+D0615 05:27:38.633072    9916 config.go:545] Config.XDP (--EXPERIMENTAL-xdp): {0 }
+D0615 05:27:38.633089    9916 config.go:545] Config.AFXDPUseNeedWakeup (--EXPERIMENTAL-xdp-need-wakeup): true
+D0615 05:27:38.633098    9916 config.go:545] Config.FDLimit (--fdlimit): -1
+D0615 05:27:38.633106    9916 config.go:545] Config.DCache (--dcache): -1
+D0615 05:27:38.633113    9916 config.go:545] Config.IOUring (--iouring): false
+D0615 05:27:38.633121    9916 config.go:545] Config.DirectFS (--directfs): false
+D0615 05:27:38.633129    9916 config.go:545] Config.AppHugePages (--app-huge-pages): true
+D0615 05:27:38.633136    9916 config.go:545] Config.NVProxy (--nvproxy): false
+D0615 05:27:38.633143    9916 config.go:545] Config.NVProxyDocker (--nvproxy-docker): false
+D0615 05:27:38.633151    9916 config.go:545] Config.NVProxyDriverVersion (--nvproxy-driver-version): (empty)
+D0615 05:27:38.633159    9916 config.go:545] Config.NVProxyAllowedDriverCapabilities (--nvproxy-allowed-driver-capabilities): utility,compute
+D0615 05:27:38.633174    9916 config.go:545] Config.NVProxyAllowUnsupportedDriver (--nvproxy-allow-unsupported-driver): false
+D0615 05:27:38.633190    9916 config.go:545] Config.TPUProxy (--tpuproxy): false
+D0615 05:27:38.633199    9916 config.go:545] Config.TestOnlyAllowRunAsCurrentUserWithoutChroot (--TESTONLY-unsafe-nonroot): false
+D0615 05:27:38.633207    9916 config.go:545] Config.TestOnlyTestNameEnv (--TESTONLY-test-name-env): (empty)
+D0615 05:27:38.633215    9916 config.go:545] Config.TestOnlyAFSSyscallPanic (--TESTONLY-afs-syscall-panic): false
+D0615 05:27:38.633252    9916 config.go:547] Config.explicitlySet: <map[string]struct {} Value> (unexported)
+D0615 05:27:38.633269    9916 config.go:545] Config.ReproduceNAT (--reproduce-nat): false
+D0615 05:27:38.633279    9916 config.go:545] Config.ReproduceNftables (--reproduce-nftables): false
+D0615 05:27:38.633287    9916 config.go:545] Config.NetDisconnectOk (--net-disconnect-ok): true
+D0615 05:27:38.633295    9916 config.go:545] Config.TestOnlyAutosaveImagePath (--TESTONLY-autosave-image-path): (empty)
+D0615 05:27:38.633314    9916 config.go:545] Config.TestOnlyAutosaveResume (--TESTONLY-autosave-resume): false
+D0615 05:27:38.633324    9916 config.go:545] Config.RestoreSpecValidation (--restore-spec-validation): enforce
+D0615 05:27:38.633344    9916 config.go:545] Config.GVisorMarkerFile (--gvisor-marker-file): false
+D0615 05:27:38.633353    9916 config.go:545] Config.OverrideProcs (--override-procs): (empty)
+D0615 05:27:38.633361    9916 config.go:545] Config.SystrapDisableSyscallPatching (--systrap-disable-syscall-patching): false
+D0615 05:27:38.633369    9916 config.go:545] Config.Nftables (--TESTONLY-nftables): false
+D0615 05:27:38.633376    9916 config.go:545] Config.AllowSUID (--allow-suid): false
+D0615 05:27:38.633384    9916 config.go:545] Config.UseCPUNums (--kvm-use-cpu-nums): false
+D0615 05:27:38.633392    9916 config.go:545] Config.PauseExternalNetworking (--pause-external-networking): false
+D0615 05:27:38.633402    9916 config.go:545] Config.AllowConnectedOnSave (--allow-connected-on-save): false
+D0615 05:27:38.633412    9916 config.go:545] Config.AllowRootfsTarAnnotation (--allow-rootfs-tar-annotation): false
+D0615 05:27:38.633420    9916 config.go:545] Config.ControlRPCStopTimeout (--control-rpc-stop-timeout): 15s
+D0615 05:27:38.633436    9916 cli.go:280] runsc process spawned at 05:27:38.625854, Go started execution at 05:27:38.629173. Startup overhead: 3.319063ms
+I0615 05:27:38.633464    9916 cli.go:283] **************** gVisor ****************
+I0615 05:27:38.633686    9916 namespace.go:254] User namespaces not supported by the kernel, continuing as current user
+D0615 05:27:38.633961    9916 specutils.go:139] Spec:
 {
   "ociVersion": "1.0.0",
   "process": {
+    "terminal": true,
     "user": {
       "uid": 0,
       "gid": 0
     },
     "args": [
-      "/bin/sh"
+      "sh"
     ],
     "env": [
-      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "TERM=xterm-256color",
+      "HOME=/root",
+      "USER=root",
+      "LOGNAME=root",
+      "SHELL=/bin/sh",
+      "PWD=/root",
+      "LANG=C.UTF-8",
+      "TMPDIR=/tmp",
+      "HOSTNAME=runsc"
     ],
-    "cwd": "/"
+    "cwd": "/",
+    "capabilities": {
+      "bounding": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_DAC_READ_SEARCH",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_SETGID",
+        "CAP_SETUID",
+        "CAP_SETPCAP",
+        "CAP_LINUX_IMMUTABLE",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_NET_BROADCAST",
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_IPC_LOCK",
+        "CAP_IPC_OWNER",
+        "CAP_SYS_MODULE",
+        "CAP_SYS_RAWIO",
+        "CAP_SYS_CHROOT",
+        "CAP_SYS_PTRACE",
+        "CAP_SYS_PACCT",
+        "CAP_SYS_ADMIN",
+        "CAP_SYS_BOOT",
+        "CAP_SYS_NICE",
+        "CAP_SYS_RESOURCE",
+        "CAP_SYS_TIME",
+        "CAP_SYS_TTY_CONFIG",
+        "CAP_MKNOD",
+        "CAP_LEASE",
+        "CAP_AUDIT_WRITE",
+        "CAP_AUDIT_CONTROL",
+        "CAP_SETFCAP",
+        "CAP_MAC_OVERRIDE",
+        "CAP_MAC_ADMIN",
+        "CAP_SYSLOG",
+        "CAP_WAKE_ALARM",
+        "CAP_BLOCK_SUSPEND",
+        "CAP_AUDIT_READ"
+      ],
+      "effective": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_DAC_READ_SEARCH",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_SETGID",
+        "CAP_SETUID",
+        "CAP_SETPCAP",
+        "CAP_LINUX_IMMUTABLE",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_NET_BROADCAST",
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_IPC_LOCK",
+        "CAP_IPC_OWNER",
+        "CAP_SYS_MODULE",
+        "CAP_SYS_RAWIO",
+        "CAP_SYS_CHROOT",
+        "CAP_SYS_PTRACE",
+        "CAP_SYS_PACCT",
+        "CAP_SYS_ADMIN",
+        "CAP_SYS_BOOT",
+        "CAP_SYS_NICE",
+        "CAP_SYS_RESOURCE",
+        "CAP_SYS_TIME",
+        "CAP_SYS_TTY_CONFIG",
+        "CAP_MKNOD",
+        "CAP_LEASE",
+        "CAP_AUDIT_WRITE",
+        "CAP_AUDIT_CONTROL",
+        "CAP_SETFCAP",
+        "CAP_MAC_OVERRIDE",
+        "CAP_MAC_ADMIN",
+        "CAP_SYSLOG",
+        "CAP_WAKE_ALARM",
+        "CAP_BLOCK_SUSPEND",
+        "CAP_AUDIT_READ"
+      ],
+      "permitted": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_DAC_READ_SEARCH",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_SETGID",
+        "CAP_SETUID",
+        "CAP_SETPCAP",
+        "CAP_LINUX_IMMUTABLE",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_NET_BROADCAST",
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_IPC_LOCK",
+        "CAP_IPC_OWNER",
+        "CAP_SYS_MODULE",
+        "CAP_SYS_RAWIO",
+        "CAP_SYS_CHROOT",
+        "CAP_SYS_PTRACE",
+        "CAP_SYS_PACCT",
+        "CAP_SYS_ADMIN",
+        "CAP_SYS_BOOT",
+        "CAP_SYS_NICE",
+        "CAP_SYS_RESOURCE",
+        "CAP_SYS_TIME",
+        "CAP_SYS_TTY_CONFIG",
+        "CAP_MKNOD",
+        "CAP_LEASE",
+        "CAP_AUDIT_WRITE",
+        "CAP_AUDIT_CONTROL",
+        "CAP_SETFCAP",
+        "CAP_MAC_OVERRIDE",
+        "CAP_MAC_ADMIN",
+        "CAP_SYSLOG",
+        "CAP_WAKE_ALARM",
+        "CAP_BLOCK_SUSPEND",
+        "CAP_AUDIT_READ"
+      ]
+    }
   },
   "root": {
     "path": "/data/data/com.termux/files/home/rootfs"
   },
-  "linux": {}
+  "hostname": "runsc",
+  "mounts": [
+    {
+      "destination": "/proc",
+      "type": "proc",
+      "source": "/data/data/com.termux/files/home/proc"
+    },
+    {
+      "destination": "/dev",
+      "type": "tmpfs",
+      "source": "/data/data/com.termux/files/home/tmpfs"
+    },
+    {
+      "destination": "/sys",
+      "type": "sysfs",
+      "source": "/data/data/com.termux/files/home/sysfs"
+    },
+    {
+      "destination": "/termux",
+      "type": "bind",
+      "source": "/data/data/com.termux/files/usr",
+      "options": [
+        "rbind",
+        "rw"
+      ]
+    }
+  ],
+  "linux": {
+    "uidMappings": [
+      {
+        "containerID": 0,
+        "hostID": 10270,
+        "size": 1
+      }
+    ],
+    "gidMappings": [
+      {
+        "containerID": 0,
+        "hostID": 10270,
+        "size": 1
+      }
+    ]
+  }
 }
-D0614 09:15:34.021401   26535 container.go:547] Run container, cid: my-kernel, rootDir: "/data/data/com.termux/files/home"
-D0614 09:15:34.021432   26535 container.go:207] Create container, cid: my-kernel, rootDir: "/data/data/com.termux/files/home"
-D0614 09:15:34.021748   26535 container.go:335] Creating new sandbox for container, cid: my-kernel
-W0614 09:15:34.024204   26535 container.go:1588] User namespaces not supported by the kernel, running gofer in the current user namespace
-I0614 09:15:34.024318   26535 container.go:1628] Starting gofer with command: [runsc-gofer --network=none --rootless=true --ignore-cgroups=true --directfs=false --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --overlay2=root:memory --debug-log-fd=3 gofer --bundle /data/data/com.termux/files/home --setup-root=false --chroot=false --gofer-mount-confs=lisafs:memory --spec-fd=4 --mounts-fd=5 --rpc-fd=6 --io-fds=7 --sync-chroot-fd=8 my-kernel]
-D0614 09:15:34.024374   26535 donation.go:31] Donating FD 3: "debugLogs.txt"
-D0614 09:15:34.024405   26535 donation.go:31] Donating FD 4: "/data/data/com.termux/files/home/config.json"
-D0614 09:15:34.024429   26535 donation.go:31] Donating FD 5: "|1"
-D0614 09:15:34.024499   26535 donation.go:31] Donating FD 6: "gofer-rpc"
-D0614 09:15:34.024507   26535 donation.go:31] Donating FD 7: "gofer IO FD"
-D0614 09:15:34.024514   26535 donation.go:31] Donating FD 8: "chroot sync gofer FD"
-D0614 09:15:34.024522   26535 container.go:1633] Starting gofer: /data/data/com.termux/files/home/runsc [runsc-gofer --network=none --rootless=true --ignore-cgroups=true --directfs=false --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --overlay2=root:memory --debug-log-fd=3 gofer --bundle /data/data/com.termux/files/home --setup-root=false --chroot=false --gofer-mount-confs=lisafs:memory --spec-fd=4 --mounts-fd=5 --rpc-fd=6 --io-fds=7 --sync-chroot-fd=8 my-kernel]
-I0614 09:15:34.025251   26535 container.go:1637] Gofer started, PID: 26542
-I0614 09:15:34.025418   26535 sandbox.go:902] Failed to set RLIMIT_MEMLOCK: operation not permitted
-D0614 09:15:34.025731   26535 sandbox.go:104] Attempting to create socket file "/data/data/com.termux/files/home/runsc-my-kernel.sock"
-D0614 09:15:34.025756   26535 urpc.go:422] urpc: registering client with FD 13
-D0614 09:15:34.025983   26535 sandbox.go:107] Using socket file "/data/data/com.termux/files/home/runsc-my-kernel.sock"
-I0614 09:15:34.026008   26535 sandbox.go:1003] Control socket path: "/data/data/com.termux/files/home/runsc-my-kernel.sock"
-W0614 09:15:34.026548   26535 sandbox.go:1158] Running sandbox as current user (uid=10270 gid=10270) without chroot.
-D0614 09:15:34.026759   26535 donation.go:31] Donating FD 3: "debugLogs.txt"
-D0614 09:15:34.026789   26535 donation.go:31] Donating FD 4: "sandbox IO FD"
-D0614 09:15:34.026800   26535 donation.go:31] Donating FD 5: "|0"
-D0614 09:15:34.026809   26535 donation.go:31] Donating FD 6: "|1"
-D0614 09:15:34.026817   26535 donation.go:31] Donating FD 7: "control_server_socket"
-D0614 09:15:34.026825   26535 donation.go:31] Donating FD 8: "/data/data/com.termux/files/home/config.json"
-D0614 09:15:34.026833   26535 donation.go:31] Donating FD 9: "/dev/stdin"
-D0614 09:15:34.026841   26535 donation.go:31] Donating FD 10: "/dev/stdout"
-D0614 09:15:34.026848   26535 donation.go:31] Donating FD 11: "/dev/stderr"
-D0614 09:15:34.026856   26535 sandbox.go:1358] Starting sandbox: /data/data/com.termux/files/home/runsc [runsc-sandbox --ignore-cgroups=true --directfs=false --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --overlay2=root:memory --network=none --rootless=true --debug-log-fd=3 boot --bundle=/data/data/com.termux/files/home --gofer-mount-confs=lisafs:memory --total-host-memory 7800090624 --total-memory 7800090624 --attached --io-fds=4 --dev-io-fd=-1 --mounts-fd=5 --start-sync-fd=6 --controller-fd=7 --spec-fd=8 --stdio-fds=9 --stdio-fds=10 --stdio-fds=11 my-kernel]
-D0614 09:15:34.027020   26535 sandbox.go:1359] SysProcAttr: &{Chroot: Credential:<nil> Ptrace:false Setsid:true Setpgid:false Setctty:false Noctty:false Ctty:0 Foreground:false Pgid:0 Pdeathsig:killed Cloneflags:0 Unshareflags:0 UidMappings:[] GidMappings:[] GidMappingsEnableSetgroups:false AmbientCaps:[] UseCgroupFD:false CgroupFD:0 PidFD:<nil>}
-I0614 09:15:34.029110   26535 sandbox.go:1387] Sandbox started, PID: 26543
-I0614 09:15:34.037536   26542 cli.go:271] **************** gVisor ****************
-I0614 09:15:34.037682   26542 cli.go:272] Version release-20260608.0-35-g7b253dc6808a-dirty, go1.26.3, arm64, 8 CPUs, linux, PID 26542, PPID 26535, UID 10270, GID 10270
-D0614 09:15:34.037707   26542 cli.go:273] Page size: 0x1000 (4096 bytes)
-I0614 09:15:34.037727   26542 cli.go:274] Args: [runsc-gofer --network=none --rootless=true --ignore-cgroups=true --directfs=false --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --overlay2=root:memory --debug-log-fd=3 gofer --bundle /data/data/com.termux/files/home --setup-root=false --chroot=false --gofer-mount-confs=lisafs:memory --spec-fd=4 --mounts-fd=5 --rpc-fd=6 --io-fds=7 --sync-chroot-fd=8 my-kernel]
-I0614 09:15:34.037798   26542 config.go:518] Platform: systrap
-I0614 09:15:34.037821   26542 config.go:519] RootDir: /data/data/com.termux/files/home
-I0614 09:15:34.037831   26542 config.go:520] FileAccess: exclusive / Directfs: false / Overlay: root:memory
-I0614 09:15:34.037851   26542 config.go:521] Network: none
-I0614 09:15:34.037864   26542 config.go:522] UseCPUNums: false
-I0614 09:15:34.037873   26542 config.go:524] Debug: true. Strace: false, max size: 1024, syscalls: 
-W0614 09:15:34.037883   26542 config.go:527] --allow-suid is disabled, SUID/SGID bits on executables will be ignored.
-D0614 09:15:34.037898   26542 config.go:545] Config.RootDir (--root): /data/data/com.termux/files/home
-D0614 09:15:34.037911   26542 config.go:545] Config.Traceback (--traceback): system
-D0614 09:15:34.037923   26542 config.go:545] Config.Debug (--debug): true
-D0614 09:15:34.037933   26542 config.go:545] Config.LogFilename (--log): (empty)
-D0614 09:15:34.037941   26542 config.go:545] Config.LogFormat (--log-format): text
-D0614 09:15:34.037949   26542 config.go:545] Config.DebugLog (--debug-log): debugLogs.txt
-D0614 09:15:34.037957   26542 config.go:545] Config.DebugToUserLog (--debug-to-user-log): false
-D0614 09:15:34.037964   26542 config.go:545] Config.DebugCommand (--debug-command): (empty)
-D0614 09:15:34.037971   26542 config.go:545] Config.PanicLog (--panic-log): (empty)
-D0614 09:15:34.037989   26542 config.go:545] Config.CoverageReport (--coverage-report): (empty)
-D0614 09:15:34.037998   26542 config.go:545] Config.DebugLogFormat (--debug-log-format): text
-D0614 09:15:34.038006   26542 config.go:545] Config.FileAccess (--file-access): exclusive
-D0614 09:15:34.038016   26542 config.go:545] Config.FileAccessMounts (--file-access-mounts): shared
-D0614 09:15:34.038024   26542 config.go:545] Config.Overlay (--overlay): false
-D0614 09:15:34.038034   26542 config.go:545] Config.Overlay2 (--overlay2): root:memory
-D0614 09:15:34.038052   26542 config.go:545] Config.FSGoferHostUDS (--fsgofer-host-uds): false
-D0614 09:15:34.038062   26542 config.go:545] Config.HostUDS (--host-uds): none
-D0614 09:15:34.038080   26542 config.go:545] Config.HostFifo (--host-fifo): none
-D0614 09:15:34.038090   26542 config.go:545] Config.HostSettings (--host-settings): check
-D0614 09:15:34.038101   26542 config.go:545] Config.Network (--network): none
-D0614 09:15:34.038110   26542 config.go:545] Config.EnableRaw (--net-raw): false
-D0614 09:15:34.038118   26542 config.go:545] Config.AllowPacketEndpointWrite (--allow-packet-socket-write): false
-D0614 09:15:34.038126   26542 config.go:545] Config.AllowLiveTCPMigration (--allow-live-tcp-migration): true
-D0614 09:15:34.038134   26542 config.go:545] Config.HostGSO (--gso): true
-D0614 09:15:34.038141   26542 config.go:545] Config.GVisorGSO (--software-gso): true
-D0614 09:15:34.038156   26542 config.go:545] Config.GVisorGRO (--gvisor-gro): false
-D0614 09:15:34.038165   26542 config.go:545] Config.TXChecksumOffload (--tx-checksum-offload): false
-D0614 09:15:34.038172   26542 config.go:545] Config.RXChecksumOffload (--rx-checksum-offload): true
-D0614 09:15:34.038180   26542 config.go:545] Config.QDisc (--qdisc): fifo
-D0614 09:15:34.038190   26542 config.go:545] Config.TBFRate (--qdisc-tbf-rate): 0
-D0614 09:15:34.038198   26542 config.go:545] Config.TBFBurst (--qdisc-tbf-burst): 0
-D0614 09:15:34.038206   26542 config.go:545] Config.LogPackets (--log-packets): false
-D0614 09:15:34.038280   26542 config.go:545] Config.PCAP (--pcap-log): (empty)
-D0614 09:15:34.038299   26542 config.go:545] Config.Platform (--platform): systrap
-D0614 09:15:34.038308   26542 config.go:545] Config.PlatformDevicePath (--platform_device_path): (empty)
-D0614 09:15:34.038316   26542 config.go:545] Config.MetricServer (--metric-server): (empty)
-D0614 09:15:34.038323   26542 config.go:545] Config.FinalMetricsLog (--final-metrics-log): (empty)
-D0614 09:15:34.038331   26542 config.go:545] Config.ProfilingMetrics (--profiling-metrics): (empty)
-D0614 09:15:34.038338   26542 config.go:545] Config.ProfilingMetricsLog (--profiling-metrics-log): (empty)
-D0614 09:15:34.038359   26542 config.go:545] Config.ProfilingMetricsRate (--profiling-metrics-rate-us): 1000
-D0614 09:15:34.038367   26542 config.go:545] Config.Strace (--strace): false
-D0614 09:15:34.038376   26542 config.go:545] Config.StraceSyscalls (--strace-syscalls): (empty)
-D0614 09:15:34.038384   26542 config.go:545] Config.StraceLogSize (--strace-log-size): 1024
-D0614 09:15:34.038391   26542 config.go:545] Config.StraceEvent (--strace-event): false
-D0614 09:15:34.038402   26542 config.go:547] Config.DisableSeccomp: false
-D0614 09:15:34.038416   26542 config.go:545] Config.EnableCoreTags (--enable-core-tags): false
-D0614 09:15:34.038425   26542 config.go:545] Config.WatchdogAction (--watchdog-action): log
-D0614 09:15:34.038434   26542 config.go:545] Config.PanicSignal (--panic-signal): -1
-D0614 09:15:34.038454   26542 config.go:545] Config.ProfileEnable (--profile): false
-D0614 09:15:34.038462   26542 config.go:545] Config.ProfileBlock (--profile-block): (empty)
-D0614 09:15:34.038476   26542 config.go:545] Config.ProfileCPU (--profile-cpu): (empty)
-D0614 09:15:34.038485   26542 config.go:545] Config.ProfileGCInterval (--profile-gc-interval): 0s
-D0614 09:15:34.038498   26542 config.go:545] Config.ProfileHeap (--profile-heap): (empty)
-D0614 09:15:34.038506   26542 config.go:545] Config.ProfileMutex (--profile-mutex): (empty)
-D0614 09:15:34.038512   26542 config.go:545] Config.TraceFile (--trace): (empty)
-D0614 09:15:34.038531   26542 config.go:545] Config.NumNetworkChannels (--num-network-channels): 1
-D0614 09:15:34.038540   26542 config.go:545] Config.NetworkProcessorsPerChannel (--network-processors-per-channel): 0
-D0614 09:15:34.038547   26542 config.go:545] Config.Rootless (--rootless): true
-D0614 09:15:34.038555   26542 config.go:545] Config.AlsoLogToStderr (--alsologtostderr): false
-D0614 09:15:34.038562   26542 config.go:545] Config.ReferenceLeak (--ref-leak-mode): disabled
-D0614 09:15:34.038580   26542 config.go:545] Config.CPUNumFromQuota (--cpu-num-from-quota): true
-D0614 09:15:34.038588   26542 config.go:545] Config.AllowFlagOverride (--allow-flag-override): false
-D0614 09:15:34.038595   26542 config.go:545] Config.OCISeccomp (--oci-seccomp): false
-D0614 09:15:34.038602   26542 config.go:545] Config.IgnoreCgroups (--ignore-cgroups): true
-D0614 09:15:34.038609   26542 config.go:545] Config.SystemdCgroup (--systemd-cgroup): false
-D0614 09:15:34.038616   26542 config.go:545] Config.PodInitConfig (--pod-init-config): (empty)
-D0614 09:15:34.038625   26542 config.go:545] Config.XDP (--EXPERIMENTAL-xdp): {0 }
-D0614 09:15:34.038643   26542 config.go:545] Config.AFXDPUseNeedWakeup (--EXPERIMENTAL-xdp-need-wakeup): true
-D0614 09:15:34.038650   26542 config.go:545] Config.FDLimit (--fdlimit): -1
-D0614 09:15:34.038658   26542 config.go:545] Config.DCache (--dcache): -1
-D0614 09:15:34.038665   26542 config.go:545] Config.IOUring (--iouring): false
-D0614 09:15:34.038671   26542 config.go:545] Config.DirectFS (--directfs): false
-D0614 09:15:34.038678   26542 config.go:545] Config.AppHugePages (--app-huge-pages): true
-D0614 09:15:34.038685   26542 config.go:545] Config.NVProxy (--nvproxy): false
-D0614 09:15:34.038692   26542 config.go:545] Config.NVProxyDocker (--nvproxy-docker): false
-D0614 09:15:34.038699   26542 config.go:545] Config.NVProxyDriverVersion (--nvproxy-driver-version): (empty)
-D0614 09:15:34.038706   26542 config.go:545] Config.NVProxyAllowedDriverCapabilities (--nvproxy-allowed-driver-capabilities): utility,compute
-D0614 09:15:34.038716   26542 config.go:545] Config.NVProxyAllowUnsupportedDriver (--nvproxy-allow-unsupported-driver): false
-D0614 09:15:34.038724   26542 config.go:545] Config.TPUProxy (--tpuproxy): false
-D0614 09:15:34.038733   26542 config.go:545] Config.TestOnlyAllowRunAsCurrentUserWithoutChroot (--TESTONLY-unsafe-nonroot): false
-D0614 09:15:34.038740   26542 config.go:545] Config.TestOnlyTestNameEnv (--TESTONLY-test-name-env): (empty)
-D0614 09:15:34.038756   26542 config.go:545] Config.TestOnlyAFSSyscallPanic (--TESTONLY-afs-syscall-panic): false
-D0614 09:15:34.038767   26542 config.go:547] Config.explicitlySet: <map[string]struct {} Value> (unexported)
-D0614 09:15:34.038788   26542 config.go:545] Config.ReproduceNAT (--reproduce-nat): false
-D0614 09:15:34.038799   26542 config.go:545] Config.ReproduceNftables (--reproduce-nftables): false
-D0614 09:15:34.038808   26542 config.go:545] Config.NetDisconnectOk (--net-disconnect-ok): true
-D0614 09:15:34.038816   26542 config.go:545] Config.TestOnlyAutosaveImagePath (--TESTONLY-autosave-image-path): (empty)
-D0614 09:15:34.038824   26542 config.go:545] Config.TestOnlyAutosaveResume (--TESTONLY-autosave-resume): false
-D0614 09:15:34.038833   26542 config.go:545] Config.RestoreSpecValidation (--restore-spec-validation): enforce
-D0614 09:15:34.038849   26542 config.go:545] Config.GVisorMarkerFile (--gvisor-marker-file): false
-D0614 09:15:34.038858   26542 config.go:545] Config.OverrideProcs (--override-procs): (empty)
-D0614 09:15:34.038866   26542 config.go:545] Config.SystrapDisableSyscallPatching (--systrap-disable-syscall-patching): false
-D0614 09:15:34.038875   26542 config.go:545] Config.Nftables (--TESTONLY-nftables): false
-D0614 09:15:34.038882   26542 config.go:545] Config.AllowSUID (--allow-suid): false
-D0614 09:15:34.038890   26542 config.go:545] Config.UseCPUNums (--kvm-use-cpu-nums): false
-D0614 09:15:34.038899   26542 config.go:545] Config.PauseExternalNetworking (--pause-external-networking): false
-D0614 09:15:34.038907   26542 config.go:545] Config.AllowConnectedOnSave (--allow-connected-on-save): false
-D0614 09:15:34.038916   26542 config.go:545] Config.AllowRootfsTarAnnotation (--allow-rootfs-tar-annotation): false
-D0614 09:15:34.038925   26542 config.go:545] Config.ControlRPCStopTimeout (--control-rpc-stop-timeout): 15s
-D0614 09:15:34.038945   26542 cli.go:280] runsc process spawned at 09:15:34.030549, Go started execution at 09:15:34.036312. Startup overhead: 5.762761ms
-I0614 09:15:34.038971   26542 cli.go:283] **************** gVisor ****************
-D0614 09:15:34.040168   26542 fs.go:156] Waiting on chroot sync FD 8...
-D0614 09:15:34.040266   26542 fs.go:163] Synced on chroot sync FD 8.
-W0614 09:15:34.041068   26542 caps.go:118] Capability "chown" is not permitted, dropping it.
-W0614 09:15:34.041142   26542 caps.go:118] Capability "dac_override" is not permitted, dropping it.
-W0614 09:15:34.041156   26542 caps.go:118] Capability "dac_read_search" is not permitted, dropping it.
-W0614 09:15:34.041165   26542 caps.go:118] Capability "fowner" is not permitted, dropping it.
-W0614 09:15:34.041174   26542 caps.go:118] Capability "fsetid" is not permitted, dropping it.
-W0614 09:15:34.041182   26542 caps.go:118] Capability "sys_chroot" is not permitted, dropping it.
-W0614 09:15:34.041192   26542 caps.go:118] Capability "chown" is not permitted, dropping it.
-W0614 09:15:34.041200   26542 caps.go:118] Capability "dac_override" is not permitted, dropping it.
-W0614 09:15:34.041207   26542 caps.go:118] Capability "dac_read_search" is not permitted, dropping it.
-W0614 09:15:34.041215   26542 caps.go:118] Capability "fowner" is not permitted, dropping it.
-W0614 09:15:34.041238   26542 caps.go:118] Capability "fsetid" is not permitted, dropping it.
-W0614 09:15:34.041253   26542 caps.go:118] Capability "sys_chroot" is not permitted, dropping it.
-W0614 09:15:34.041263   26542 caps.go:118] Capability "chown" is not permitted, dropping it.
-W0614 09:15:34.041272   26542 caps.go:118] Capability "dac_override" is not permitted, dropping it.
-W0614 09:15:34.041279   26542 caps.go:118] Capability "dac_read_search" is not permitted, dropping it.
-W0614 09:15:34.041287   26542 caps.go:118] Capability "fowner" is not permitted, dropping it.
-W0614 09:15:34.041294   26542 caps.go:118] Capability "fsetid" is not permitted, dropping it.
-W0614 09:15:34.041302   26542 caps.go:118] Capability "sys_chroot" is not permitted, dropping it.
-W0614 09:15:34.041309   26542 caps.go:118] Capability "chown" is not permitted, dropping it.
-W0614 09:15:34.041317   26542 caps.go:118] Capability "dac_override" is not permitted, dropping it.
-W0614 09:15:34.041324   26542 caps.go:118] Capability "dac_read_search" is not permitted, dropping it.
-W0614 09:15:34.041348   26542 caps.go:118] Capability "fowner" is not permitted, dropping it.
-W0614 09:15:34.041357   26542 caps.go:118] Capability "fsetid" is not permitted, dropping it.
-W0614 09:15:34.041365   26542 caps.go:118] Capability "sys_chroot" is not permitted, dropping it.
-W0614 09:15:34.041373   26542 caps.go:118] Capability "chown" is not permitted, dropping it.
-W0614 09:15:34.041392   26542 caps.go:118] Capability "dac_override" is not permitted, dropping it.
-W0614 09:15:34.041400   26542 caps.go:118] Capability "dac_read_search" is not permitted, dropping it.
-W0614 09:15:34.041415   26542 caps.go:118] Capability "fowner" is not permitted, dropping it.
-W0614 09:15:34.041422   26542 caps.go:118] Capability "fsetid" is not permitted, dropping it.
-W0614 09:15:34.041430   26542 caps.go:118] Capability "sys_chroot" is not permitted, dropping it.
-W0614 09:15:34.041546   26542 caps.go:74] Failed to apply capabilities due to permission error: open /proc/sys/kernel/cap_last_cap: permission denied. Skipping capability configuration.
-I0614 09:15:34.041599   26542 process.go:45] Execve "/proc/self/exe" again, bye!
-I0614 09:15:34.045711   26543 cli.go:271] **************** gVisor ****************
-I0614 09:15:34.045820   26543 cli.go:272] Version release-20260608.0-35-g7b253dc6808a-dirty, go1.26.3, arm64, 8 CPUs, linux, PID 26543, PPID 26535, UID 10270, GID 10270
-D0614 09:15:34.045844   26543 cli.go:273] Page size: 0x1000 (4096 bytes)
-I0614 09:15:34.045862   26543 cli.go:274] Args: [runsc-sandbox --ignore-cgroups=true --directfs=false --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --overlay2=root:memory --network=none --rootless=true --debug-log-fd=3 boot --bundle=/data/data/com.termux/files/home --gofer-mount-confs=lisafs:memory --total-host-memory 7800090624 --total-memory 7800090624 --attached --io-fds=4 --dev-io-fd=-1 --mounts-fd=5 --start-sync-fd=6 --controller-fd=7 --spec-fd=8 --stdio-fds=9 --stdio-fds=10 --stdio-fds=11 my-kernel]
-I0614 09:15:34.045903   26543 config.go:518] Platform: systrap
-I0614 09:15:34.045926   26543 config.go:519] RootDir: /data/data/com.termux/files/home
-I0614 09:15:34.045936   26543 config.go:520] FileAccess: exclusive / Directfs: false / Overlay: root:memory
-I0614 09:15:34.045954   26543 config.go:521] Network: none
-I0614 09:15:34.045968   26543 config.go:522] UseCPUNums: false
-I0614 09:15:34.045978   26543 config.go:524] Debug: true. Strace: false, max size: 1024, syscalls: 
-W0614 09:15:34.045988   26543 config.go:527] --allow-suid is disabled, SUID/SGID bits on executables will be ignored.
-D0614 09:15:34.046005   26543 config.go:545] Config.RootDir (--root): /data/data/com.termux/files/home
-D0614 09:15:34.046018   26543 config.go:545] Config.Traceback (--traceback): system
-D0614 09:15:34.046031   26543 config.go:545] Config.Debug (--debug): true
-D0614 09:15:34.046081   26543 config.go:545] Config.LogFilename (--log): (empty)
-D0614 09:15:34.046094   26543 config.go:545] Config.LogFormat (--log-format): text
-D0614 09:15:34.046102   26543 config.go:545] Config.DebugLog (--debug-log): debugLogs.txt
-D0614 09:15:34.046110   26543 config.go:545] Config.DebugToUserLog (--debug-to-user-log): false
-D0614 09:15:34.046118   26543 config.go:545] Config.DebugCommand (--debug-command): (empty)
-D0614 09:15:34.046126   26543 config.go:545] Config.PanicLog (--panic-log): (empty)
-D0614 09:15:34.046133   26543 config.go:545] Config.CoverageReport (--coverage-report): (empty)
-D0614 09:15:34.046141   26543 config.go:545] Config.DebugLogFormat (--debug-log-format): text
-D0614 09:15:34.046161   26543 config.go:545] Config.FileAccess (--file-access): exclusive
-D0614 09:15:34.046175   26543 config.go:545] Config.FileAccessMounts (--file-access-mounts): shared
-D0614 09:15:34.046185   26543 config.go:545] Config.Overlay (--overlay): false
-D0614 09:15:34.046196   26543 config.go:545] Config.Overlay2 (--overlay2): root:memory
-D0614 09:15:34.046323   26543 config.go:545] Config.FSGoferHostUDS (--fsgofer-host-uds): false
-D0614 09:15:34.046340   26543 config.go:545] Config.HostUDS (--host-uds): none
-D0614 09:15:34.046378   26543 config.go:545] Config.HostFifo (--host-fifo): none
-D0614 09:15:34.046392   26543 config.go:545] Config.HostSettings (--host-settings): check
-D0614 09:15:34.046405   26543 config.go:545] Config.Network (--network): none
-D0614 09:15:34.046416   26543 config.go:545] Config.EnableRaw (--net-raw): false
-D0614 09:15:34.046424   26543 config.go:545] Config.AllowPacketEndpointWrite (--allow-packet-socket-write): false
-D0614 09:15:34.046433   26543 config.go:545] Config.AllowLiveTCPMigration (--allow-live-tcp-migration): true
-D0614 09:15:34.046441   26543 config.go:545] Config.HostGSO (--gso): true
-D0614 09:15:34.046449   26543 config.go:545] Config.GVisorGSO (--software-gso): true
-D0614 09:15:34.046456   26543 config.go:545] Config.GVisorGRO (--gvisor-gro): false
-D0614 09:15:34.046464   26543 config.go:545] Config.TXChecksumOffload (--tx-checksum-offload): false
-D0614 09:15:34.046471   26543 config.go:545] Config.RXChecksumOffload (--rx-checksum-offload): true
-D0614 09:15:34.046479   26543 config.go:545] Config.QDisc (--qdisc): fifo
-D0614 09:15:34.046683   26543 config.go:545] Config.TBFRate (--qdisc-tbf-rate): 0
-D0614 09:15:34.046713   26543 config.go:545] Config.TBFBurst (--qdisc-tbf-burst): 0
-D0614 09:15:34.046818   26543 config.go:545] Config.LogPackets (--log-packets): false
-D0614 09:15:34.046834   26543 config.go:545] Config.PCAP (--pcap-log): (empty)
-D0614 09:15:34.046846   26543 config.go:545] Config.Platform (--platform): systrap
-D0614 09:15:34.046855   26543 config.go:545] Config.PlatformDevicePath (--platform_device_path): (empty)
-D0614 09:15:34.046863   26543 config.go:545] Config.MetricServer (--metric-server): (empty)
-D0614 09:15:34.046872   26543 config.go:545] Config.FinalMetricsLog (--final-metrics-log): (empty)
-D0614 09:15:34.046881   26543 config.go:545] Config.ProfilingMetrics (--profiling-metrics): (empty)
-D0614 09:15:34.046889   26543 config.go:545] Config.ProfilingMetricsLog (--profiling-metrics-log): (empty)
-D0614 09:15:34.046899   26543 config.go:545] Config.ProfilingMetricsRate (--profiling-metrics-rate-us): 1000
-D0614 09:15:34.046907   26543 config.go:545] Config.Strace (--strace): false
-D0614 09:15:34.046916   26543 config.go:545] Config.StraceSyscalls (--strace-syscalls): (empty)
-D0614 09:15:34.046925   26543 config.go:545] Config.StraceLogSize (--strace-log-size): 1024
-D0614 09:15:34.046933   26543 config.go:545] Config.StraceEvent (--strace-event): false
-D0614 09:15:34.046943   26543 config.go:547] Config.DisableSeccomp: false
-D0614 09:15:34.046957   26543 config.go:545] Config.EnableCoreTags (--enable-core-tags): false
-D0614 09:15:34.046968   26543 config.go:545] Config.WatchdogAction (--watchdog-action): log
-D0614 09:15:34.046977   26543 config.go:545] Config.PanicSignal (--panic-signal): -1
-D0614 09:15:34.047012   26543 config.go:545] Config.ProfileEnable (--profile): false
-D0614 09:15:34.047021   26543 config.go:545] Config.ProfileBlock (--profile-block): (empty)
-D0614 09:15:34.047029   26543 config.go:545] Config.ProfileCPU (--profile-cpu): (empty)
-D0614 09:15:34.047039   26543 config.go:545] Config.ProfileGCInterval (--profile-gc-interval): 0s
-D0614 09:15:34.047065   26543 config.go:545] Config.ProfileHeap (--profile-heap): (empty)
-D0614 09:15:34.047075   26543 config.go:545] Config.ProfileMutex (--profile-mutex): (empty)
-D0614 09:15:34.047083   26543 config.go:545] Config.TraceFile (--trace): (empty)
-D0614 09:15:34.047101   26543 config.go:545] Config.NumNetworkChannels (--num-network-channels): 1
-D0614 09:15:34.047111   26543 config.go:545] Config.NetworkProcessorsPerChannel (--network-processors-per-channel): 0
-D0614 09:15:34.047121   26543 config.go:545] Config.Rootless (--rootless): true
-D0614 09:15:34.047129   26543 config.go:545] Config.AlsoLogToStderr (--alsologtostderr): false
-D0614 09:15:34.047138   26543 config.go:545] Config.ReferenceLeak (--ref-leak-mode): disabled
-D0614 09:15:34.047153   26543 config.go:545] Config.CPUNumFromQuota (--cpu-num-from-quota): true
-D0614 09:15:34.047163   26543 config.go:545] Config.AllowFlagOverride (--allow-flag-override): false
-D0614 09:15:34.047186   26543 config.go:545] Config.OCISeccomp (--oci-seccomp): false
-D0614 09:15:34.047198   26543 config.go:545] Config.IgnoreCgroups (--ignore-cgroups): true
-D0614 09:15:34.047206   26543 config.go:545] Config.SystemdCgroup (--systemd-cgroup): false
-D0614 09:15:34.047214   26543 config.go:545] Config.PodInitConfig (--pod-init-config): (empty)
-D0614 09:15:34.047232   26543 config.go:545] Config.XDP (--EXPERIMENTAL-xdp): {0 }
-D0614 09:15:34.047259   26543 config.go:545] Config.AFXDPUseNeedWakeup (--EXPERIMENTAL-xdp-need-wakeup): true
-D0614 09:15:34.047268   26543 config.go:545] Config.FDLimit (--fdlimit): -1
-D0614 09:15:34.047276   26543 config.go:545] Config.DCache (--dcache): -1
-D0614 09:15:34.047284   26543 config.go:545] Config.IOUring (--iouring): false
-D0614 09:15:34.047291   26543 config.go:545] Config.DirectFS (--directfs): false
-D0614 09:15:34.047299   26543 config.go:545] Config.AppHugePages (--app-huge-pages): true
-D0614 09:15:34.047307   26543 config.go:545] Config.NVProxy (--nvproxy): false
-D0614 09:15:34.047314   26543 config.go:545] Config.NVProxyDocker (--nvproxy-docker): false
-D0614 09:15:34.047322   26543 config.go:545] Config.NVProxyDriverVersion (--nvproxy-driver-version): (empty)
-D0614 09:15:34.047331   26543 config.go:545] Config.NVProxyAllowedDriverCapabilities (--nvproxy-allowed-driver-capabilities): utility,compute
-D0614 09:15:34.047341   26543 config.go:545] Config.NVProxyAllowUnsupportedDriver (--nvproxy-allow-unsupported-driver): false
-D0614 09:15:34.047349   26543 config.go:545] Config.TPUProxy (--tpuproxy): false
-D0614 09:15:34.047356   26543 config.go:545] Config.TestOnlyAllowRunAsCurrentUserWithoutChroot (--TESTONLY-unsafe-nonroot): false
-D0614 09:15:34.047365   26543 config.go:545] Config.TestOnlyTestNameEnv (--TESTONLY-test-name-env): (empty)
-D0614 09:15:34.047382   26543 config.go:545] Config.TestOnlyAFSSyscallPanic (--TESTONLY-afs-syscall-panic): false
-D0614 09:15:34.047394   26543 config.go:547] Config.explicitlySet: <map[string]struct {} Value> (unexported)
-D0614 09:15:34.047405   26543 config.go:545] Config.ReproduceNAT (--reproduce-nat): false
-D0614 09:15:34.047417   26543 config.go:545] Config.ReproduceNftables (--reproduce-nftables): false
-D0614 09:15:34.047428   26543 config.go:545] Config.NetDisconnectOk (--net-disconnect-ok): true
-D0614 09:15:34.047436   26543 config.go:545] Config.TestOnlyAutosaveImagePath (--TESTONLY-autosave-image-path): (empty)
-D0614 09:15:34.047448   26543 config.go:545] Config.TestOnlyAutosaveResume (--TESTONLY-autosave-resume): false
-D0614 09:15:34.047456   26543 config.go:545] Config.RestoreSpecValidation (--restore-spec-validation): enforce
-D0614 09:15:34.047469   26543 config.go:545] Config.GVisorMarkerFile (--gvisor-marker-file): false
-D0614 09:15:34.047479   26543 config.go:545] Config.OverrideProcs (--override-procs): (empty)
-D0614 09:15:34.047486   26543 config.go:545] Config.SystrapDisableSyscallPatching (--systrap-disable-syscall-patching): false
-D0614 09:15:34.047494   26543 config.go:545] Config.Nftables (--TESTONLY-nftables): false
-D0614 09:15:34.047501   26543 config.go:545] Config.AllowSUID (--allow-suid): false
-D0614 09:15:34.047509   26543 config.go:545] Config.UseCPUNums (--kvm-use-cpu-nums): false
-D0614 09:15:34.047517   26543 config.go:545] Config.PauseExternalNetworking (--pause-external-networking): false
-D0614 09:15:34.047525   26543 config.go:545] Config.AllowConnectedOnSave (--allow-connected-on-save): false
-D0614 09:15:34.047533   26543 config.go:545] Config.AllowRootfsTarAnnotation (--allow-rootfs-tar-annotation): false
-D0614 09:15:34.047542   26543 config.go:545] Config.ControlRPCStopTimeout (--control-rpc-stop-timeout): 15s
-D0614 09:15:34.047566   26543 cli.go:280] runsc process spawned at 09:15:34.038549, Go started execution at 09:15:34.044809. Startup overhead: 6.259948ms
-I0614 09:15:34.047596   26543 cli.go:283] **************** gVisor ****************
-W0614 09:15:34.047887   26543 boot.go:322] Not setting product_name: open /sys/devices/virtual/dmi/id/product_name: no such file or directory
-W0614 09:15:34.047988   26543 boot.go:333] Failed to infer --host-thp-shmem-enabled: open /sys/kernel/mm/transparent_hugepage/shmem_enabled: no such file or directory
-W0614 09:15:34.048020   26543 boot.go:343] Failed to infer --host-thp-defrag: open /sys/kernel/mm/transparent_hugepage/defrag: no such file or directory
-D0614 09:15:34.049254   26543 specutils.go:139] Spec:
+D0615 05:27:38.634029    9916 container.go:547] Run container, cid: my-kernel, rootDir: "/data/data/com.termux/files/home"
+D0615 05:27:38.634060    9916 container.go:207] Create container, cid: my-kernel, rootDir: "/data/data/com.termux/files/home"
+D0615 05:27:38.634402    9916 container.go:335] Creating new sandbox for container, cid: my-kernel
+W0615 05:27:38.635904    9916 container.go:1588] User namespaces not supported by the kernel, running gofer in the current user namespace
+I0615 05:27:38.636017    9916 container.go:1628] Starting gofer with command: [runsc-gofer --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --network=host --rootless=true --ignore-cgroups=true --directfs=false --debug-log-fd=3 gofer --bundle /data/data/com.termux/files/home --setup-root=false --chroot=false --gofer-mount-confs=lisafs:self,lisafs:none --spec-fd=4 --mounts-fd=5 --rpc-fd=6 --io-fds=7 --io-fds=8 --sync-chroot-fd=9 my-kernel]
+D0615 05:27:38.636072    9916 donation.go:31] Donating FD 3: "debugLogs.txt"
+D0615 05:27:38.636103    9916 donation.go:31] Donating FD 4: "/data/data/com.termux/files/home/config.json"
+D0615 05:27:38.636114    9916 donation.go:31] Donating FD 5: "|1"
+D0615 05:27:38.636139    9916 donation.go:31] Donating FD 6: "gofer-rpc"
+D0615 05:27:38.636148    9916 donation.go:31] Donating FD 7: "gofer IO FD"
+D0615 05:27:38.636156    9916 donation.go:31] Donating FD 8: "gofer IO FD"
+D0615 05:27:38.636163    9916 donation.go:31] Donating FD 9: "chroot sync gofer FD"
+D0615 05:27:38.636172    9916 container.go:1633] Starting gofer: /data/data/com.termux/files/home/runsc [runsc-gofer --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --network=host --rootless=true --ignore-cgroups=true --directfs=false --debug-log-fd=3 gofer --bundle /data/data/com.termux/files/home --setup-root=false --chroot=false --gofer-mount-confs=lisafs:self,lisafs:none --spec-fd=4 --mounts-fd=5 --rpc-fd=6 --io-fds=7 --io-fds=8 --sync-chroot-fd=9 my-kernel]
+I0615 05:27:38.637050    9916 container.go:1637] Gofer started, PID: 9923
+D0615 05:27:38.637383    9916 container.go:1204] Created filestore file at "/proc/9923/root/data/data/com.termux/files/home/rootfs/.gvisor.filestore.my-kernel" for mount source "/data/data/com.termux/files/home/rootfs"
+I0615 05:27:38.637638    9916 sandbox.go:902] Failed to set RLIMIT_MEMLOCK: operation not permitted
+D0615 05:27:38.637656    9916 urpc.go:422] urpc: registering client with FD 13
+D0615 05:27:38.638152    9916 sandbox.go:104] Attempting to create socket file "/data/data/com.termux/files/home/runsc-my-kernel.sock"
+D0615 05:27:38.638487    9916 sandbox.go:107] Using socket file "/data/data/com.termux/files/home/runsc-my-kernel.sock"
+I0615 05:27:38.638516    9916 sandbox.go:1003] Control socket path: "/data/data/com.termux/files/home/runsc-my-kernel.sock"
+I0615 05:27:38.638811    9916 sandbox.go:1088] Sandbox will be started in the host network namespace
+I0615 05:27:38.638891    9916 sandbox.go:1137] Sandbox will be started in the current user namespace
+W0615 05:27:38.639070    9916 sandbox.go:1147] Running sandbox without chroot.
+D0615 05:27:38.639290    9916 donation.go:31] Donating FD 3: "debugLogs.txt"
+D0615 05:27:38.639315    9916 donation.go:31] Donating FD 4: "sandbox IO FD"
+D0615 05:27:38.639326    9916 donation.go:31] Donating FD 5: "sandbox IO FD"
+D0615 05:27:38.639335    9916 donation.go:31] Donating FD 6: "/proc/9923/root/data/data/com.termux/files/home/rootfs/.gvisor.filestore.my-kernel"
+D0615 05:27:38.639345    9916 donation.go:31] Donating FD 7: "|0"
+D0615 05:27:38.639352    9916 donation.go:31] Donating FD 8: "|1"
+D0615 05:27:38.639360    9916 donation.go:31] Donating FD 9: "control_server_socket"
+D0615 05:27:38.639367    9916 donation.go:31] Donating FD 10: "/data/data/com.termux/files/home/config.json"
+D0615 05:27:38.639375    9916 donation.go:31] Donating FD 11: "/dev/stdin"
+D0615 05:27:38.639382    9916 donation.go:31] Donating FD 12: "/dev/stdout"
+D0615 05:27:38.639390    9916 donation.go:31] Donating FD 13: "/dev/stderr"
+D0615 05:27:38.639398    9916 sandbox.go:1358] Starting sandbox: /data/data/com.termux/files/home/runsc [runsc-sandbox --network=host --rootless=true --ignore-cgroups=true --directfs=false --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --debug-log-fd=3 boot --bundle=/data/data/com.termux/files/home --gofer-mount-confs=lisafs:self,lisafs:none --apply-caps=true --total-host-memory 7800090624 --total-memory 7800090624 --attached --io-fds=4 --io-fds=5 --dev-io-fd=-1 --gofer-filestore-fds=6 --mounts-fd=7 --start-sync-fd=8 --controller-fd=9 --spec-fd=10 --stdio-fds=11 --stdio-fds=12 --stdio-fds=13 my-kernel]
+D0615 05:27:38.639460    9916 sandbox.go:1359] SysProcAttr: &{Chroot: Credential:<nil> Ptrace:false Setsid:true Setpgid:false Setctty:false Noctty:false Ctty:0 Foreground:false Pgid:0 Pdeathsig:killed Cloneflags:0 Unshareflags:0 UidMappings:[] GidMappings:[] GidMappingsEnableSetgroups:false AmbientCaps:[] UseCgroupFD:false CgroupFD:0 PidFD:<nil>}
+I0615 05:27:38.642774    9916 sandbox.go:1387] Sandbox started, PID: 9924
+I0615 05:27:38.655419    9923 cli.go:271] **************** gVisor ****************
+I0615 05:27:38.655515    9923 cli.go:272] Version release-20260608.0-35-g7b253dc6808a-dirty, go1.26.3, arm64, 8 CPUs, linux, PID 9923, PPID 9916, UID 10270, GID 10270
+D0615 05:27:38.655553    9923 cli.go:273] Page size: 0x1000 (4096 bytes)
+I0615 05:27:38.655574    9923 cli.go:274] Args: [runsc-gofer --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --network=host --rootless=true --ignore-cgroups=true --directfs=false --debug-log-fd=3 gofer --bundle /data/data/com.termux/files/home --setup-root=false --chroot=false --gofer-mount-confs=lisafs:self,lisafs:none --spec-fd=4 --mounts-fd=5 --rpc-fd=6 --io-fds=7 --io-fds=8 --sync-chroot-fd=9 my-kernel]
+I0615 05:27:38.655622    9923 config.go:518] Platform: systrap
+I0615 05:27:38.655642    9923 config.go:519] RootDir: /data/data/com.termux/files/home
+I0615 05:27:38.655652    9923 config.go:520] FileAccess: exclusive / Directfs: false / Overlay: root:self
+I0615 05:27:38.655669    9923 config.go:521] Network: host
+I0615 05:27:38.655682    9923 config.go:522] UseCPUNums: false
+I0615 05:27:38.655691    9923 config.go:524] Debug: true. Strace: false, max size: 1024, syscalls: 
+W0615 05:27:38.655701    9923 config.go:527] --allow-suid is disabled, SUID/SGID bits on executables will be ignored.
+D0615 05:27:38.655716    9923 config.go:545] Config.RootDir (--root): /data/data/com.termux/files/home
+D0615 05:27:38.655728    9923 config.go:545] Config.Traceback (--traceback): system
+D0615 05:27:38.655740    9923 config.go:545] Config.Debug (--debug): true
+D0615 05:27:38.655748    9923 config.go:545] Config.LogFilename (--log): (empty)
+D0615 05:27:38.655756    9923 config.go:545] Config.LogFormat (--log-format): text
+D0615 05:27:38.655764    9923 config.go:545] Config.DebugLog (--debug-log): debugLogs.txt
+D0615 05:27:38.655771    9923 config.go:545] Config.DebugToUserLog (--debug-to-user-log): false
+D0615 05:27:38.655778    9923 config.go:545] Config.DebugCommand (--debug-command): (empty)
+D0615 05:27:38.655795    9923 config.go:545] Config.PanicLog (--panic-log): (empty)
+D0615 05:27:38.655804    9923 config.go:545] Config.CoverageReport (--coverage-report): (empty)
+D0615 05:27:38.655817    9923 config.go:545] Config.DebugLogFormat (--debug-log-format): text
+D0615 05:27:38.655827    9923 config.go:545] Config.FileAccess (--file-access): exclusive
+D0615 05:27:38.655837    9923 config.go:545] Config.FileAccessMounts (--file-access-mounts): shared
+D0615 05:27:38.655845    9923 config.go:545] Config.Overlay (--overlay): false
+D0615 05:27:38.655856    9923 config.go:545] Config.Overlay2 (--overlay2): root:self
+D0615 05:27:38.655880    9923 config.go:545] Config.FSGoferHostUDS (--fsgofer-host-uds): false
+D0615 05:27:38.655890    9923 config.go:545] Config.HostUDS (--host-uds): none
+D0615 05:27:38.655907    9923 config.go:545] Config.HostFifo (--host-fifo): none
+D0615 05:27:38.655918    9923 config.go:545] Config.HostSettings (--host-settings): check
+D0615 05:27:38.655929    9923 config.go:545] Config.Network (--network): host
+D0615 05:27:38.655937    9923 config.go:545] Config.EnableRaw (--net-raw): false
+D0615 05:27:38.655945    9923 config.go:545] Config.AllowPacketEndpointWrite (--allow-packet-socket-write): false
+D0615 05:27:38.655953    9923 config.go:545] Config.AllowLiveTCPMigration (--allow-live-tcp-migration): true
+D0615 05:27:38.655960    9923 config.go:545] Config.HostGSO (--gso): true
+D0615 05:27:38.655967    9923 config.go:545] Config.GVisorGSO (--software-gso): true
+D0615 05:27:38.655974    9923 config.go:545] Config.GVisorGRO (--gvisor-gro): false
+D0615 05:27:38.655982    9923 config.go:545] Config.TXChecksumOffload (--tx-checksum-offload): false
+D0615 05:27:38.655989    9923 config.go:545] Config.RXChecksumOffload (--rx-checksum-offload): true
+D0615 05:27:38.655996    9923 config.go:545] Config.QDisc (--qdisc): fifo
+D0615 05:27:38.656006    9923 config.go:545] Config.TBFRate (--qdisc-tbf-rate): 0
+D0615 05:27:38.656014    9923 config.go:545] Config.TBFBurst (--qdisc-tbf-burst): 0
+D0615 05:27:38.656021    9923 config.go:545] Config.LogPackets (--log-packets): false
+D0615 05:27:38.656028    9923 config.go:545] Config.PCAP (--pcap-log): (empty)
+D0615 05:27:38.656046    9923 config.go:545] Config.Platform (--platform): systrap
+D0615 05:27:38.656055    9923 config.go:545] Config.PlatformDevicePath (--platform_device_path): (empty)
+D0615 05:27:38.656062    9923 config.go:545] Config.MetricServer (--metric-server): (empty)
+D0615 05:27:38.656069    9923 config.go:545] Config.FinalMetricsLog (--final-metrics-log): (empty)
+D0615 05:27:38.656075    9923 config.go:545] Config.ProfilingMetrics (--profiling-metrics): (empty)
+D0615 05:27:38.656082    9923 config.go:545] Config.ProfilingMetricsLog (--profiling-metrics-log): (empty)
+D0615 05:27:38.656090    9923 config.go:545] Config.ProfilingMetricsRate (--profiling-metrics-rate-us): 1000
+D0615 05:27:38.656097    9923 config.go:545] Config.Strace (--strace): false
+D0615 05:27:38.656104    9923 config.go:545] Config.StraceSyscalls (--strace-syscalls): (empty)
+D0615 05:27:38.656111    9923 config.go:545] Config.StraceLogSize (--strace-log-size): 1024
+D0615 05:27:38.656118    9923 config.go:545] Config.StraceEvent (--strace-event): false
+D0615 05:27:38.656125    9923 config.go:547] Config.DisableSeccomp: false
+D0615 05:27:38.656136    9923 config.go:545] Config.EnableCoreTags (--enable-core-tags): false
+D0615 05:27:38.656145    9923 config.go:545] Config.WatchdogAction (--watchdog-action): log
+D0615 05:27:38.656153    9923 config.go:545] Config.PanicSignal (--panic-signal): -1
+D0615 05:27:38.656170    9923 config.go:545] Config.ProfileEnable (--profile): false
+D0615 05:27:38.656187    9923 config.go:545] Config.ProfileBlock (--profile-block): (empty)
+D0615 05:27:38.656197    9923 config.go:545] Config.ProfileCPU (--profile-cpu): (empty)
+D0615 05:27:38.656206    9923 config.go:545] Config.ProfileGCInterval (--profile-gc-interval): 0s
+D0615 05:27:38.656219    9923 config.go:545] Config.ProfileHeap (--profile-heap): (empty)
+D0615 05:27:38.656226    9923 config.go:545] Config.ProfileMutex (--profile-mutex): (empty)
+D0615 05:27:38.656242    9923 config.go:545] Config.TraceFile (--trace): (empty)
+D0615 05:27:38.656249    9923 config.go:545] Config.NumNetworkChannels (--num-network-channels): 1
+D0615 05:27:38.656258    9923 config.go:545] Config.NetworkProcessorsPerChannel (--network-processors-per-channel): 0
+D0615 05:27:38.656265    9923 config.go:545] Config.Rootless (--rootless): true
+D0615 05:27:38.656272    9923 config.go:545] Config.AlsoLogToStderr (--alsologtostderr): false
+D0615 05:27:38.656280    9923 config.go:545] Config.ReferenceLeak (--ref-leak-mode): disabled
+D0615 05:27:38.656291    9923 config.go:545] Config.CPUNumFromQuota (--cpu-num-from-quota): true
+D0615 05:27:38.656299    9923 config.go:545] Config.AllowFlagOverride (--allow-flag-override): false
+D0615 05:27:38.656306    9923 config.go:545] Config.OCISeccomp (--oci-seccomp): false
+D0615 05:27:38.656313    9923 config.go:545] Config.IgnoreCgroups (--ignore-cgroups): true
+D0615 05:27:38.656320    9923 config.go:545] Config.SystemdCgroup (--systemd-cgroup): false
+D0615 05:27:38.656327    9923 config.go:545] Config.PodInitConfig (--pod-init-config): (empty)
+D0615 05:27:38.656334    9923 config.go:545] Config.XDP (--EXPERIMENTAL-xdp): {0 }
+D0615 05:27:38.656352    9923 config.go:545] Config.AFXDPUseNeedWakeup (--EXPERIMENTAL-xdp-need-wakeup): true
+D0615 05:27:38.656360    9923 config.go:545] Config.FDLimit (--fdlimit): -1
+D0615 05:27:38.656367    9923 config.go:545] Config.DCache (--dcache): -1
+D0615 05:27:38.656374    9923 config.go:545] Config.IOUring (--iouring): false
+D0615 05:27:38.656381    9923 config.go:545] Config.DirectFS (--directfs): false
+D0615 05:27:38.656388    9923 config.go:545] Config.AppHugePages (--app-huge-pages): true
+D0615 05:27:38.656395    9923 config.go:545] Config.NVProxy (--nvproxy): false
+D0615 05:27:38.656402    9923 config.go:545] Config.NVProxyDocker (--nvproxy-docker): false
+D0615 05:27:38.656410    9923 config.go:545] Config.NVProxyDriverVersion (--nvproxy-driver-version): (empty)
+D0615 05:27:38.656417    9923 config.go:545] Config.NVProxyAllowedDriverCapabilities (--nvproxy-allowed-driver-capabilities): utility,compute
+D0615 05:27:38.656434    9923 config.go:545] Config.NVProxyAllowUnsupportedDriver (--nvproxy-allow-unsupported-driver): false
+D0615 05:27:38.656442    9923 config.go:545] Config.TPUProxy (--tpuproxy): false
+D0615 05:27:38.656449    9923 config.go:545] Config.TestOnlyAllowRunAsCurrentUserWithoutChroot (--TESTONLY-unsafe-nonroot): false
+D0615 05:27:38.656456    9923 config.go:545] Config.TestOnlyTestNameEnv (--TESTONLY-test-name-env): (empty)
+D0615 05:27:38.656472    9923 config.go:545] Config.TestOnlyAFSSyscallPanic (--TESTONLY-afs-syscall-panic): false
+D0615 05:27:38.656484    9923 config.go:547] Config.explicitlySet: <map[string]struct {} Value> (unexported)
+D0615 05:27:38.656494    9923 config.go:545] Config.ReproduceNAT (--reproduce-nat): false
+D0615 05:27:38.656502    9923 config.go:545] Config.ReproduceNftables (--reproduce-nftables): false
+D0615 05:27:38.656510    9923 config.go:545] Config.NetDisconnectOk (--net-disconnect-ok): true
+D0615 05:27:38.656518    9923 config.go:545] Config.TestOnlyAutosaveImagePath (--TESTONLY-autosave-image-path): (empty)
+D0615 05:27:38.656525    9923 config.go:545] Config.TestOnlyAutosaveResume (--TESTONLY-autosave-resume): false
+D0615 05:27:38.656532    9923 config.go:545] Config.RestoreSpecValidation (--restore-spec-validation): enforce
+D0615 05:27:38.656544    9923 config.go:545] Config.GVisorMarkerFile (--gvisor-marker-file): false
+D0615 05:27:38.656551    9923 config.go:545] Config.OverrideProcs (--override-procs): (empty)
+D0615 05:27:38.656559    9923 config.go:545] Config.SystrapDisableSyscallPatching (--systrap-disable-syscall-patching): false
+D0615 05:27:38.656567    9923 config.go:545] Config.Nftables (--TESTONLY-nftables): false
+D0615 05:27:38.656574    9923 config.go:545] Config.AllowSUID (--allow-suid): false
+D0615 05:27:38.656581    9923 config.go:545] Config.UseCPUNums (--kvm-use-cpu-nums): false
+D0615 05:27:38.656589    9923 config.go:545] Config.PauseExternalNetworking (--pause-external-networking): false
+D0615 05:27:38.656597    9923 config.go:545] Config.AllowConnectedOnSave (--allow-connected-on-save): false
+D0615 05:27:38.656604    9923 config.go:545] Config.AllowRootfsTarAnnotation (--allow-rootfs-tar-annotation): false
+D0615 05:27:38.656612    9923 config.go:545] Config.ControlRPCStopTimeout (--control-rpc-stop-timeout): 15s
+D0615 05:27:38.656630    9923 cli.go:280] runsc process spawned at 05:27:38.649854, Go started execution at 05:27:38.654871. Startup overhead: 5.01724ms
+I0615 05:27:38.656653    9923 cli.go:283] **************** gVisor ****************
+D0615 05:27:38.658260    9923 fs.go:156] Waiting on chroot sync FD 9...
+D0615 05:27:38.658373    9923 fs.go:163] Synced on chroot sync FD 9.
+W0615 05:27:38.658934    9923 caps.go:118] Capability "chown" is not permitted, dropping it.
+W0615 05:27:38.658990    9923 caps.go:118] Capability "dac_override" is not permitted, dropping it.
+W0615 05:27:38.659003    9923 caps.go:118] Capability "dac_read_search" is not permitted, dropping it.
+W0615 05:27:38.659012    9923 caps.go:118] Capability "fowner" is not permitted, dropping it.
+W0615 05:27:38.659020    9923 caps.go:118] Capability "fsetid" is not permitted, dropping it.
+W0615 05:27:38.659029    9923 caps.go:118] Capability "sys_chroot" is not permitted, dropping it.
+W0615 05:27:38.659038    9923 caps.go:118] Capability "chown" is not permitted, dropping it.
+W0615 05:27:38.659046    9923 caps.go:118] Capability "dac_override" is not permitted, dropping it.
+W0615 05:27:38.659054    9923 caps.go:118] Capability "dac_read_search" is not permitted, dropping it.
+W0615 05:27:38.659103    9923 caps.go:118] Capability "fowner" is not permitted, dropping it.
+W0615 05:27:38.659113    9923 caps.go:118] Capability "fsetid" is not permitted, dropping it.
+W0615 05:27:38.659121    9923 caps.go:118] Capability "sys_chroot" is not permitted, dropping it.
+W0615 05:27:38.659130    9923 caps.go:118] Capability "chown" is not permitted, dropping it.
+W0615 05:27:38.659137    9923 caps.go:118] Capability "dac_override" is not permitted, dropping it.
+W0615 05:27:38.659144    9923 caps.go:118] Capability "dac_read_search" is not permitted, dropping it.
+W0615 05:27:38.659168    9923 caps.go:118] Capability "fowner" is not permitted, dropping it.
+W0615 05:27:38.659177    9923 caps.go:118] Capability "fsetid" is not permitted, dropping it.
+W0615 05:27:38.659186    9923 caps.go:118] Capability "sys_chroot" is not permitted, dropping it.
+W0615 05:27:38.659194    9923 caps.go:118] Capability "chown" is not permitted, dropping it.
+W0615 05:27:38.659201    9923 caps.go:118] Capability "dac_override" is not permitted, dropping it.
+W0615 05:27:38.659209    9923 caps.go:118] Capability "dac_read_search" is not permitted, dropping it.
+W0615 05:27:38.659216    9923 caps.go:118] Capability "fowner" is not permitted, dropping it.
+W0615 05:27:38.659223    9923 caps.go:118] Capability "fsetid" is not permitted, dropping it.
+W0615 05:27:38.659231    9923 caps.go:118] Capability "sys_chroot" is not permitted, dropping it.
+W0615 05:27:38.659239    9923 caps.go:118] Capability "chown" is not permitted, dropping it.
+W0615 05:27:38.659258    9923 caps.go:118] Capability "dac_override" is not permitted, dropping it.
+W0615 05:27:38.659266    9923 caps.go:118] Capability "dac_read_search" is not permitted, dropping it.
+W0615 05:27:38.659274    9923 caps.go:118] Capability "fowner" is not permitted, dropping it.
+W0615 05:27:38.659281    9923 caps.go:118] Capability "fsetid" is not permitted, dropping it.
+W0615 05:27:38.659288    9923 caps.go:118] Capability "sys_chroot" is not permitted, dropping it.
+W0615 05:27:38.659477    9923 caps.go:74] Failed to apply capabilities due to permission error: open /proc/sys/kernel/cap_last_cap: permission denied. Skipping capability configuration.
+I0615 05:27:38.659526    9923 process.go:45] Execve "/proc/self/exe" again, bye!
+I0615 05:27:38.666312    9924 cli.go:271] **************** gVisor ****************
+I0615 05:27:38.666415    9924 cli.go:272] Version release-20260608.0-35-g7b253dc6808a-dirty, go1.26.3, arm64, 8 CPUs, linux, PID 9924, PPID 9916, UID 10270, GID 10270
+D0615 05:27:38.666441    9924 cli.go:273] Page size: 0x1000 (4096 bytes)
+I0615 05:27:38.666462    9924 cli.go:274] Args: [runsc-sandbox --network=host --rootless=true --ignore-cgroups=true --directfs=false --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --debug-log-fd=3 boot --bundle=/data/data/com.termux/files/home --gofer-mount-confs=lisafs:self,lisafs:none --apply-caps=true --total-host-memory 7800090624 --total-memory 7800090624 --attached --io-fds=4 --io-fds=5 --dev-io-fd=-1 --gofer-filestore-fds=6 --mounts-fd=7 --start-sync-fd=8 --controller-fd=9 --spec-fd=10 --stdio-fds=11 --stdio-fds=12 --stdio-fds=13 my-kernel]
+I0615 05:27:38.666503    9924 config.go:518] Platform: systrap
+I0615 05:27:38.666524    9924 config.go:519] RootDir: /data/data/com.termux/files/home
+I0615 05:27:38.666534    9924 config.go:520] FileAccess: exclusive / Directfs: false / Overlay: root:self
+I0615 05:27:38.666555    9924 config.go:521] Network: host
+I0615 05:27:38.666570    9924 config.go:522] UseCPUNums: false
+I0615 05:27:38.666580    9924 config.go:524] Debug: true. Strace: false, max size: 1024, syscalls: 
+W0615 05:27:38.666591    9924 config.go:527] --allow-suid is disabled, SUID/SGID bits on executables will be ignored.
+D0615 05:27:38.666608    9924 config.go:545] Config.RootDir (--root): /data/data/com.termux/files/home
+D0615 05:27:38.666620    9924 config.go:545] Config.Traceback (--traceback): system
+D0615 05:27:38.666633    9924 config.go:545] Config.Debug (--debug): true
+D0615 05:27:38.666642    9924 config.go:545] Config.LogFilename (--log): (empty)
+D0615 05:27:38.666651    9924 config.go:545] Config.LogFormat (--log-format): text
+D0615 05:27:38.666660    9924 config.go:545] Config.DebugLog (--debug-log): debugLogs.txt
+D0615 05:27:38.666669    9924 config.go:545] Config.DebugToUserLog (--debug-to-user-log): false
+D0615 05:27:38.666676    9924 config.go:545] Config.DebugCommand (--debug-command): (empty)
+D0615 05:27:38.666684    9924 config.go:545] Config.PanicLog (--panic-log): (empty)
+D0615 05:27:38.666706    9924 config.go:545] Config.CoverageReport (--coverage-report): (empty)
+D0615 05:27:38.666733    9924 config.go:545] Config.DebugLogFormat (--debug-log-format): text
+D0615 05:27:38.666746    9924 config.go:545] Config.FileAccess (--file-access): exclusive
+D0615 05:27:38.666758    9924 config.go:545] Config.FileAccessMounts (--file-access-mounts): shared
+D0615 05:27:38.666769    9924 config.go:545] Config.Overlay (--overlay): false
+D0615 05:27:38.666780    9924 config.go:545] Config.Overlay2 (--overlay2): root:self
+D0615 05:27:38.666801    9924 config.go:545] Config.FSGoferHostUDS (--fsgofer-host-uds): false
+D0615 05:27:38.666812    9924 config.go:545] Config.HostUDS (--host-uds): none
+D0615 05:27:38.666836    9924 config.go:545] Config.HostFifo (--host-fifo): none
+D0615 05:27:38.666849    9924 config.go:545] Config.HostSettings (--host-settings): check
+D0615 05:27:38.666861    9924 config.go:545] Config.Network (--network): host
+D0615 05:27:38.666871    9924 config.go:545] Config.EnableRaw (--net-raw): false
+D0615 05:27:38.666880    9924 config.go:545] Config.AllowPacketEndpointWrite (--allow-packet-socket-write): false
+D0615 05:27:38.666889    9924 config.go:545] Config.AllowLiveTCPMigration (--allow-live-tcp-migration): true
+D0615 05:27:38.666897    9924 config.go:545] Config.HostGSO (--gso): true
+D0615 05:27:38.666905    9924 config.go:545] Config.GVisorGSO (--software-gso): true
+D0615 05:27:38.666914    9924 config.go:545] Config.GVisorGRO (--gvisor-gro): false
+D0615 05:27:38.666922    9924 config.go:545] Config.TXChecksumOffload (--tx-checksum-offload): false
+D0615 05:27:38.666930    9924 config.go:545] Config.RXChecksumOffload (--rx-checksum-offload): true
+D0615 05:27:38.666939    9924 config.go:545] Config.QDisc (--qdisc): fifo
+D0615 05:27:38.666950    9924 config.go:545] Config.TBFRate (--qdisc-tbf-rate): 0
+D0615 05:27:38.666959    9924 config.go:545] Config.TBFBurst (--qdisc-tbf-burst): 0
+D0615 05:27:38.666977    9924 config.go:545] Config.LogPackets (--log-packets): false
+D0615 05:27:38.666986    9924 config.go:545] Config.PCAP (--pcap-log): (empty)
+D0615 05:27:38.666994    9924 config.go:545] Config.Platform (--platform): systrap
+D0615 05:27:38.667003    9924 config.go:545] Config.PlatformDevicePath (--platform_device_path): (empty)
+D0615 05:27:38.667011    9924 config.go:545] Config.MetricServer (--metric-server): (empty)
+D0615 05:27:38.667018    9924 config.go:545] Config.FinalMetricsLog (--final-metrics-log): (empty)
+D0615 05:27:38.667026    9924 config.go:545] Config.ProfilingMetrics (--profiling-metrics): (empty)
+D0615 05:27:38.667034    9924 config.go:545] Config.ProfilingMetricsLog (--profiling-metrics-log): (empty)
+D0615 05:27:38.667042    9924 config.go:545] Config.ProfilingMetricsRate (--profiling-metrics-rate-us): 1000
+D0615 05:27:38.667050    9924 config.go:545] Config.Strace (--strace): false
+D0615 05:27:38.667058    9924 config.go:545] Config.StraceSyscalls (--strace-syscalls): (empty)
+D0615 05:27:38.667066    9924 config.go:545] Config.StraceLogSize (--strace-log-size): 1024
+D0615 05:27:38.667074    9924 config.go:545] Config.StraceEvent (--strace-event): false
+D0615 05:27:38.667082    9924 config.go:547] Config.DisableSeccomp: false
+D0615 05:27:38.667094    9924 config.go:545] Config.EnableCoreTags (--enable-core-tags): false
+D0615 05:27:38.667110    9924 config.go:545] Config.WatchdogAction (--watchdog-action): log
+D0615 05:27:38.667120    9924 config.go:545] Config.PanicSignal (--panic-signal): -1
+D0615 05:27:38.667142    9924 config.go:545] Config.ProfileEnable (--profile): false
+D0615 05:27:38.667150    9924 config.go:545] Config.ProfileBlock (--profile-block): (empty)
+D0615 05:27:38.667157    9924 config.go:545] Config.ProfileCPU (--profile-cpu): (empty)
+D0615 05:27:38.667166    9924 config.go:545] Config.ProfileGCInterval (--profile-gc-interval): 0s
+D0615 05:27:38.667177    9924 config.go:545] Config.ProfileHeap (--profile-heap): (empty)
+D0615 05:27:38.667192    9924 config.go:545] Config.ProfileMutex (--profile-mutex): (empty)
+D0615 05:27:38.667279    9924 config.go:545] Config.TraceFile (--trace): (empty)
+D0615 05:27:38.667303    9924 config.go:545] Config.NumNetworkChannels (--num-network-channels): 1
+D0615 05:27:38.667314    9924 config.go:545] Config.NetworkProcessorsPerChannel (--network-processors-per-channel): 0
+D0615 05:27:38.667322    9924 config.go:545] Config.Rootless (--rootless): true
+D0615 05:27:38.667330    9924 config.go:545] Config.AlsoLogToStderr (--alsologtostderr): false
+D0615 05:27:38.667339    9924 config.go:545] Config.ReferenceLeak (--ref-leak-mode): disabled
+D0615 05:27:38.667365    9924 config.go:545] Config.CPUNumFromQuota (--cpu-num-from-quota): true
+D0615 05:27:38.667373    9924 config.go:545] Config.AllowFlagOverride (--allow-flag-override): false
+D0615 05:27:38.667381    9924 config.go:545] Config.OCISeccomp (--oci-seccomp): false
+D0615 05:27:38.667389    9924 config.go:545] Config.IgnoreCgroups (--ignore-cgroups): true
+D0615 05:27:38.667396    9924 config.go:545] Config.SystemdCgroup (--systemd-cgroup): false
+D0615 05:27:38.667404    9924 config.go:545] Config.PodInitConfig (--pod-init-config): (empty)
+D0615 05:27:38.667412    9924 config.go:545] Config.XDP (--EXPERIMENTAL-xdp): {0 }
+D0615 05:27:38.667431    9924 config.go:545] Config.AFXDPUseNeedWakeup (--EXPERIMENTAL-xdp-need-wakeup): true
+D0615 05:27:38.667441    9924 config.go:545] Config.FDLimit (--fdlimit): -1
+D0615 05:27:38.667449    9924 config.go:545] Config.DCache (--dcache): -1
+D0615 05:27:38.667456    9924 config.go:545] Config.IOUring (--iouring): false
+D0615 05:27:38.667464    9924 config.go:545] Config.DirectFS (--directfs): false
+D0615 05:27:38.667471    9924 config.go:545] Config.AppHugePages (--app-huge-pages): true
+D0615 05:27:38.667478    9924 config.go:545] Config.NVProxy (--nvproxy): false
+D0615 05:27:38.667485    9924 config.go:545] Config.NVProxyDocker (--nvproxy-docker): false
+D0615 05:27:38.667493    9924 config.go:545] Config.NVProxyDriverVersion (--nvproxy-driver-version): (empty)
+D0615 05:27:38.667501    9924 config.go:545] Config.NVProxyAllowedDriverCapabilities (--nvproxy-allowed-driver-capabilities): utility,compute
+D0615 05:27:38.667509    9924 config.go:545] Config.NVProxyAllowUnsupportedDriver (--nvproxy-allow-unsupported-driver): false
+D0615 05:27:38.667517    9924 config.go:545] Config.TPUProxy (--tpuproxy): false
+D0615 05:27:38.667524    9924 config.go:545] Config.TestOnlyAllowRunAsCurrentUserWithoutChroot (--TESTONLY-unsafe-nonroot): false
+D0615 05:27:38.667531    9924 config.go:545] Config.TestOnlyTestNameEnv (--TESTONLY-test-name-env): (empty)
+D0615 05:27:38.667549    9924 config.go:545] Config.TestOnlyAFSSyscallPanic (--TESTONLY-afs-syscall-panic): false
+D0615 05:27:38.667560    9924 config.go:547] Config.explicitlySet: <map[string]struct {} Value> (unexported)
+D0615 05:27:38.667570    9924 config.go:545] Config.ReproduceNAT (--reproduce-nat): false
+D0615 05:27:38.667578    9924 config.go:545] Config.ReproduceNftables (--reproduce-nftables): false
+D0615 05:27:38.667586    9924 config.go:545] Config.NetDisconnectOk (--net-disconnect-ok): true
+D0615 05:27:38.667593    9924 config.go:545] Config.TestOnlyAutosaveImagePath (--TESTONLY-autosave-image-path): (empty)
+D0615 05:27:38.667601    9924 config.go:545] Config.TestOnlyAutosaveResume (--TESTONLY-autosave-resume): false
+D0615 05:27:38.667609    9924 config.go:545] Config.RestoreSpecValidation (--restore-spec-validation): enforce
+D0615 05:27:38.667621    9924 config.go:545] Config.GVisorMarkerFile (--gvisor-marker-file): false
+D0615 05:27:38.667629    9924 config.go:545] Config.OverrideProcs (--override-procs): (empty)
+D0615 05:27:38.667637    9924 config.go:545] Config.SystrapDisableSyscallPatching (--systrap-disable-syscall-patching): false
+D0615 05:27:38.667644    9924 config.go:545] Config.Nftables (--TESTONLY-nftables): false
+D0615 05:27:38.667651    9924 config.go:545] Config.AllowSUID (--allow-suid): false
+D0615 05:27:38.667658    9924 config.go:545] Config.UseCPUNums (--kvm-use-cpu-nums): false
+D0615 05:27:38.667666    9924 config.go:545] Config.PauseExternalNetworking (--pause-external-networking): false
+D0615 05:27:38.667683    9924 config.go:545] Config.AllowConnectedOnSave (--allow-connected-on-save): false
+D0615 05:27:38.667691    9924 config.go:545] Config.AllowRootfsTarAnnotation (--allow-rootfs-tar-annotation): false
+D0615 05:27:38.667700    9924 config.go:545] Config.ControlRPCStopTimeout (--control-rpc-stop-timeout): 15s
+D0615 05:27:38.667719    9924 cli.go:280] runsc process spawned at 05:27:38.657854, Go started execution at 05:27:38.664117. Startup overhead: 6.262709ms
+I0615 05:27:38.667742    9924 cli.go:283] **************** gVisor ****************
+W0615 05:27:38.668028    9924 boot.go:322] Not setting product_name: open /sys/devices/virtual/dmi/id/product_name: no such file or directory
+W0615 05:27:38.668100    9924 boot.go:333] Failed to infer --host-thp-shmem-enabled: open /sys/kernel/mm/transparent_hugepage/shmem_enabled: no such file or directory
+W0615 05:27:38.668125    9924 boot.go:343] Failed to infer --host-thp-defrag: open /sys/kernel/mm/transparent_hugepage/defrag: no such file or directory
+D0615 05:27:38.669539    9924 specutils.go:139] Spec:
 {
   "ociVersion": "1.0.0",
   "process": {
+    "terminal": true,
     "user": {
       "uid": 0,
       "gid": 0
     },
     "args": [
-      "/bin/sh"
+      "sh"
     ],
     "env": [
-      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "TERM=xterm-256color",
+      "HOME=/root",
+      "USER=root",
+      "LOGNAME=root",
+      "SHELL=/bin/sh",
+      "PWD=/root",
+      "LANG=C.UTF-8",
+      "TMPDIR=/tmp",
+      "HOSTNAME=runsc"
     ],
-    "cwd": "/"
+    "cwd": "/",
+    "capabilities": {
+      "bounding": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_DAC_READ_SEARCH",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_SETGID",
+        "CAP_SETUID",
+        "CAP_SETPCAP",
+        "CAP_LINUX_IMMUTABLE",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_NET_BROADCAST",
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_IPC_LOCK",
+        "CAP_IPC_OWNER",
+        "CAP_SYS_MODULE",
+        "CAP_SYS_RAWIO",
+        "CAP_SYS_CHROOT",
+        "CAP_SYS_PTRACE",
+        "CAP_SYS_PACCT",
+        "CAP_SYS_ADMIN",
+        "CAP_SYS_BOOT",
+        "CAP_SYS_NICE",
+        "CAP_SYS_RESOURCE",
+        "CAP_SYS_TIME",
+        "CAP_SYS_TTY_CONFIG",
+        "CAP_MKNOD",
+        "CAP_LEASE",
+        "CAP_AUDIT_WRITE",
+        "CAP_AUDIT_CONTROL",
+        "CAP_SETFCAP",
+        "CAP_MAC_OVERRIDE",
+        "CAP_MAC_ADMIN",
+        "CAP_SYSLOG",
+        "CAP_WAKE_ALARM",
+        "CAP_BLOCK_SUSPEND",
+        "CAP_AUDIT_READ"
+      ],
+      "effective": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_DAC_READ_SEARCH",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_SETGID",
+        "CAP_SETUID",
+        "CAP_SETPCAP",
+        "CAP_LINUX_IMMUTABLE",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_NET_BROADCAST",
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_IPC_LOCK",
+        "CAP_IPC_OWNER",
+        "CAP_SYS_MODULE",
+        "CAP_SYS_RAWIO",
+        "CAP_SYS_CHROOT",
+        "CAP_SYS_PTRACE",
+        "CAP_SYS_PACCT",
+        "CAP_SYS_ADMIN",
+        "CAP_SYS_BOOT",
+        "CAP_SYS_NICE",
+        "CAP_SYS_RESOURCE",
+        "CAP_SYS_TIME",
+        "CAP_SYS_TTY_CONFIG",
+        "CAP_MKNOD",
+        "CAP_LEASE",
+        "CAP_AUDIT_WRITE",
+        "CAP_AUDIT_CONTROL",
+        "CAP_SETFCAP",
+        "CAP_MAC_OVERRIDE",
+        "CAP_MAC_ADMIN",
+        "CAP_SYSLOG",
+        "CAP_WAKE_ALARM",
+        "CAP_BLOCK_SUSPEND",
+        "CAP_AUDIT_READ"
+      ],
+      "permitted": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_DAC_READ_SEARCH",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_SETGID",
+        "CAP_SETUID",
+        "CAP_SETPCAP",
+        "CAP_LINUX_IMMUTABLE",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_NET_BROADCAST",
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_IPC_LOCK",
+        "CAP_IPC_OWNER",
+        "CAP_SYS_MODULE",
+        "CAP_SYS_RAWIO",
+        "CAP_SYS_CHROOT",
+        "CAP_SYS_PTRACE",
+        "CAP_SYS_PACCT",
+        "CAP_SYS_ADMIN",
+        "CAP_SYS_BOOT",
+        "CAP_SYS_NICE",
+        "CAP_SYS_RESOURCE",
+        "CAP_SYS_TIME",
+        "CAP_SYS_TTY_CONFIG",
+        "CAP_MKNOD",
+        "CAP_LEASE",
+        "CAP_AUDIT_WRITE",
+        "CAP_AUDIT_CONTROL",
+        "CAP_SETFCAP",
+        "CAP_MAC_OVERRIDE",
+        "CAP_MAC_ADMIN",
+        "CAP_SYSLOG",
+        "CAP_WAKE_ALARM",
+        "CAP_BLOCK_SUSPEND",
+        "CAP_AUDIT_READ"
+      ]
+    }
   },
   "root": {
     "path": "/data/data/com.termux/files/home/rootfs"
   },
-  "linux": {}
+  "hostname": "runsc",
+  "mounts": [
+    {
+      "destination": "/proc",
+      "type": "proc",
+      "source": "/data/data/com.termux/files/home/proc"
+    },
+    {
+      "destination": "/dev",
+      "type": "tmpfs",
+      "source": "/data/data/com.termux/files/home/tmpfs"
+    },
+    {
+      "destination": "/sys",
+      "type": "sysfs",
+      "source": "/data/data/com.termux/files/home/sysfs"
+    },
+    {
+      "destination": "/termux",
+      "type": "bind",
+      "source": "/data/data/com.termux/files/usr",
+      "options": [
+        "rbind",
+        "rw"
+      ]
+    }
+  ],
+  "linux": {
+    "uidMappings": [
+      {
+        "containerID": 0,
+        "hostID": 10270,
+        "size": 1
+      }
+    ],
+    "gidMappings": [
+      {
+        "containerID": 0,
+        "hostID": 10270,
+        "size": 1
+      }
+    ]
+  }
 }
-I0614 09:15:34.054717   26542 cli.go:271] **************** gVisor ****************
-I0614 09:15:34.054817   26542 cli.go:272] Version release-20260608.0-35-g7b253dc6808a-dirty, go1.26.3, arm64, 8 CPUs, linux, PID 26542, PPID 26535, UID 10270, GID 10270
-D0614 09:15:34.054839   26542 cli.go:273] Page size: 0x1000 (4096 bytes)
-I0614 09:15:34.054858   26542 cli.go:274] Args: [runsc-gofer --network=none --rootless=true --ignore-cgroups=true --directfs=false --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --overlay2=root:memory --debug-log-fd=3 gofer --bundle=/data/data/com.termux/files/home --chroot=false --gofer-mount-confs=lisafs:memory --io-fds=7 --mounts-fd=5 --rpc-fd=6 --setup-root=false --spec-fd=4 --sync-chroot-fd=-1 --proc-mount-sync-fd=-1 --apply-caps=false --sync-userns-fd=-1 my-kernel]
-I0614 09:15:34.054908   26542 config.go:518] Platform: systrap
-I0614 09:15:34.054929   26542 config.go:519] RootDir: /data/data/com.termux/files/home
-I0614 09:15:34.054939   26542 config.go:520] FileAccess: exclusive / Directfs: false / Overlay: root:memory
-I0614 09:15:34.054955   26542 config.go:521] Network: none
-I0614 09:15:34.054969   26542 config.go:522] UseCPUNums: false
-I0614 09:15:34.054978   26542 config.go:524] Debug: true. Strace: false, max size: 1024, syscalls: 
-W0614 09:15:34.054989   26542 config.go:527] --allow-suid is disabled, SUID/SGID bits on executables will be ignored.
-D0614 09:15:34.055006   26542 config.go:545] Config.RootDir (--root): /data/data/com.termux/files/home
-D0614 09:15:34.055020   26542 config.go:545] Config.Traceback (--traceback): system
-D0614 09:15:34.055033   26542 config.go:545] Config.Debug (--debug): true
-D0614 09:15:34.055043   26542 config.go:545] Config.LogFilename (--log): (empty)
-D0614 09:15:34.055051   26542 config.go:545] Config.LogFormat (--log-format): text
-D0614 09:15:34.055060   26542 config.go:545] Config.DebugLog (--debug-log): debugLogs.txt
-D0614 09:15:34.055068   26542 config.go:545] Config.DebugToUserLog (--debug-to-user-log): false
-D0614 09:15:34.055077   26542 config.go:545] Config.DebugCommand (--debug-command): (empty)
-D0614 09:15:34.055084   26542 config.go:545] Config.PanicLog (--panic-log): (empty)
-D0614 09:15:34.055091   26542 config.go:545] Config.CoverageReport (--coverage-report): (empty)
-D0614 09:15:34.055098   26542 config.go:545] Config.DebugLogFormat (--debug-log-format): text
-D0614 09:15:34.055106   26542 config.go:545] Config.FileAccess (--file-access): exclusive
-D0614 09:15:34.055115   26542 config.go:545] Config.FileAccessMounts (--file-access-mounts): shared
-D0614 09:15:34.055124   26542 config.go:545] Config.Overlay (--overlay): false
-D0614 09:15:34.055134   26542 config.go:545] Config.Overlay2 (--overlay2): root:memory
-D0614 09:15:34.055174   26542 config.go:545] Config.FSGoferHostUDS (--fsgofer-host-uds): false
-D0614 09:15:34.055186   26542 config.go:545] Config.HostUDS (--host-uds): none
-D0614 09:15:34.055203   26542 config.go:545] Config.HostFifo (--host-fifo): none
-D0614 09:15:34.055213   26542 config.go:545] Config.HostSettings (--host-settings): check
-D0614 09:15:34.055224   26542 config.go:545] Config.Network (--network): none
-D0614 09:15:34.055233   26542 config.go:545] Config.EnableRaw (--net-raw): false
-D0614 09:15:34.055241   26542 config.go:545] Config.AllowPacketEndpointWrite (--allow-packet-socket-write): false
-D0614 09:15:34.055267   26542 config.go:545] Config.AllowLiveTCPMigration (--allow-live-tcp-migration): true
-D0614 09:15:34.055277   26542 config.go:545] Config.HostGSO (--gso): true
-D0614 09:15:34.055285   26542 config.go:545] Config.GVisorGSO (--software-gso): true
-D0614 09:15:34.055300   26542 config.go:545] Config.GVisorGRO (--gvisor-gro): false
-D0614 09:15:34.055310   26542 config.go:545] Config.TXChecksumOffload (--tx-checksum-offload): false
-D0614 09:15:34.055318   26542 config.go:545] Config.RXChecksumOffload (--rx-checksum-offload): true
-D0614 09:15:34.055326   26542 config.go:545] Config.QDisc (--qdisc): fifo
-D0614 09:15:34.055339   26542 config.go:545] Config.TBFRate (--qdisc-tbf-rate): 0
-D0614 09:15:34.055347   26542 config.go:545] Config.TBFBurst (--qdisc-tbf-burst): 0
-D0614 09:15:34.055355   26542 config.go:545] Config.LogPackets (--log-packets): false
-D0614 09:15:34.055371   26542 config.go:545] Config.PCAP (--pcap-log): (empty)
-D0614 09:15:34.055380   26542 config.go:545] Config.Platform (--platform): systrap
-D0614 09:15:34.055387   26542 config.go:545] Config.PlatformDevicePath (--platform_device_path): (empty)
-D0614 09:15:34.055395   26542 config.go:545] Config.MetricServer (--metric-server): (empty)
-D0614 09:15:34.055403   26542 config.go:545] Config.FinalMetricsLog (--final-metrics-log): (empty)
-D0614 09:15:34.055410   26542 config.go:545] Config.ProfilingMetrics (--profiling-metrics): (empty)
-D0614 09:15:34.055418   26542 config.go:545] Config.ProfilingMetricsLog (--profiling-metrics-log): (empty)
-D0614 09:15:34.055426   26542 config.go:545] Config.ProfilingMetricsRate (--profiling-metrics-rate-us): 1000
-D0614 09:15:34.055433   26542 config.go:545] Config.Strace (--strace): false
-D0614 09:15:34.055441   26542 config.go:545] Config.StraceSyscalls (--strace-syscalls): (empty)
-D0614 09:15:34.055448   26542 config.go:545] Config.StraceLogSize (--strace-log-size): 1024
-D0614 09:15:34.055456   26542 config.go:545] Config.StraceEvent (--strace-event): false
-D0614 09:15:34.055464   26542 config.go:547] Config.DisableSeccomp: false
-D0614 09:15:34.055475   26542 config.go:545] Config.EnableCoreTags (--enable-core-tags): false
-D0614 09:15:34.055483   26542 config.go:545] Config.WatchdogAction (--watchdog-action): log
-D0614 09:15:34.055491   26542 config.go:545] Config.PanicSignal (--panic-signal): -1
-D0614 09:15:34.055506   26542 config.go:545] Config.ProfileEnable (--profile): false
-D0614 09:15:34.055515   26542 config.go:545] Config.ProfileBlock (--profile-block): (empty)
-D0614 09:15:34.055533   26542 config.go:545] Config.ProfileCPU (--profile-cpu): (empty)
-D0614 09:15:34.055542   26542 config.go:545] Config.ProfileGCInterval (--profile-gc-interval): 0s
-D0614 09:15:34.055555   26542 config.go:545] Config.ProfileHeap (--profile-heap): (empty)
-D0614 09:15:34.055562   26542 config.go:545] Config.ProfileMutex (--profile-mutex): (empty)
-D0614 09:15:34.055570   26542 config.go:545] Config.TraceFile (--trace): (empty)
-D0614 09:15:34.055578   26542 config.go:545] Config.NumNetworkChannels (--num-network-channels): 1
-D0614 09:15:34.055592   26542 config.go:545] Config.NetworkProcessorsPerChannel (--network-processors-per-channel): 0
-D0614 09:15:34.055601   26542 config.go:545] Config.Rootless (--rootless): true
-D0614 09:15:34.055609   26542 config.go:545] Config.AlsoLogToStderr (--alsologtostderr): false
-D0614 09:15:34.055617   26542 config.go:545] Config.ReferenceLeak (--ref-leak-mode): disabled
-D0614 09:15:34.055628   26542 config.go:545] Config.CPUNumFromQuota (--cpu-num-from-quota): true
-D0614 09:15:34.055636   26542 config.go:545] Config.AllowFlagOverride (--allow-flag-override): false
-D0614 09:15:34.055644   26542 config.go:545] Config.OCISeccomp (--oci-seccomp): false
-D0614 09:15:34.055651   26542 config.go:545] Config.IgnoreCgroups (--ignore-cgroups): true
-D0614 09:15:34.055659   26542 config.go:545] Config.SystemdCgroup (--systemd-cgroup): false
-D0614 09:15:34.055666   26542 config.go:545] Config.PodInitConfig (--pod-init-config): (empty)
-D0614 09:15:34.055674   26542 config.go:545] Config.XDP (--EXPERIMENTAL-xdp): {0 }
-D0614 09:15:34.055704   26542 config.go:545] Config.AFXDPUseNeedWakeup (--EXPERIMENTAL-xdp-need-wakeup): true
-D0614 09:15:34.055714   26542 config.go:545] Config.FDLimit (--fdlimit): -1
-D0614 09:15:34.055722   26542 config.go:545] Config.DCache (--dcache): -1
-D0614 09:15:34.055729   26542 config.go:545] Config.IOUring (--iouring): false
-D0614 09:15:34.055736   26542 config.go:545] Config.DirectFS (--directfs): false
-D0614 09:15:34.055744   26542 config.go:545] Config.AppHugePages (--app-huge-pages): true
-D0614 09:15:34.055751   26542 config.go:545] Config.NVProxy (--nvproxy): false
-D0614 09:15:34.055759   26542 config.go:545] Config.NVProxyDocker (--nvproxy-docker): false
-D0614 09:15:34.055766   26542 config.go:545] Config.NVProxyDriverVersion (--nvproxy-driver-version): (empty)
-D0614 09:15:34.055774   26542 config.go:545] Config.NVProxyAllowedDriverCapabilities (--nvproxy-allowed-driver-capabilities): utility,compute
-D0614 09:15:34.055782   26542 config.go:545] Config.NVProxyAllowUnsupportedDriver (--nvproxy-allow-unsupported-driver): false
-D0614 09:15:34.055790   26542 config.go:545] Config.TPUProxy (--tpuproxy): false
-D0614 09:15:34.055798   26542 config.go:545] Config.TestOnlyAllowRunAsCurrentUserWithoutChroot (--TESTONLY-unsafe-nonroot): false
-D0614 09:15:34.055805   26542 config.go:545] Config.TestOnlyTestNameEnv (--TESTONLY-test-name-env): (empty)
-D0614 09:15:34.055822   26542 config.go:545] Config.TestOnlyAFSSyscallPanic (--TESTONLY-afs-syscall-panic): false
-D0614 09:15:34.055833   26542 config.go:547] Config.explicitlySet: <map[string]struct {} Value> (unexported)
-D0614 09:15:34.055845   26542 config.go:545] Config.ReproduceNAT (--reproduce-nat): false
-D0614 09:15:34.055854   26542 config.go:545] Config.ReproduceNftables (--reproduce-nftables): false
-D0614 09:15:34.055863   26542 config.go:545] Config.NetDisconnectOk (--net-disconnect-ok): true
-D0614 09:15:34.055872   26542 config.go:545] Config.TestOnlyAutosaveImagePath (--TESTONLY-autosave-image-path): (empty)
-D0614 09:15:34.055880   26542 config.go:545] Config.TestOnlyAutosaveResume (--TESTONLY-autosave-resume): false
-D0614 09:15:34.055888   26542 config.go:545] Config.RestoreSpecValidation (--restore-spec-validation): enforce
-D0614 09:15:34.055899   26542 config.go:545] Config.GVisorMarkerFile (--gvisor-marker-file): false
-D0614 09:15:34.055907   26542 config.go:545] Config.OverrideProcs (--override-procs): (empty)
-D0614 09:15:34.055915   26542 config.go:545] Config.SystrapDisableSyscallPatching (--systrap-disable-syscall-patching): false
-D0614 09:15:34.055922   26542 config.go:545] Config.Nftables (--TESTONLY-nftables): false
-D0614 09:15:34.055929   26542 config.go:545] Config.AllowSUID (--allow-suid): false
-D0614 09:15:34.055936   26542 config.go:545] Config.UseCPUNums (--kvm-use-cpu-nums): false
-D0614 09:15:34.055945   26542 config.go:545] Config.PauseExternalNetworking (--pause-external-networking): false
-D0614 09:15:34.055952   26542 config.go:545] Config.AllowConnectedOnSave (--allow-connected-on-save): false
-D0614 09:15:34.055960   26542 config.go:545] Config.AllowRootfsTarAnnotation (--allow-rootfs-tar-annotation): false
-D0614 09:15:34.055967   26542 config.go:545] Config.ControlRPCStopTimeout (--control-rpc-stop-timeout): 15s
-D0614 09:15:34.055986   26542 cli.go:280] runsc process spawned at 09:15:34.030549, Go started execution at 09:15:34.054095. Startup overhead: 23.546303ms
-I0614 09:15:34.056011   26542 cli.go:283] **************** gVisor ****************
-D0614 09:15:34.057266   26542 specutils.go:139] Spec:
+W0615 05:27:38.671219    9924 caps.go:118] Capability "sys_ptrace" is not permitted, dropping it.
+W0615 05:27:38.671366    9924 caps.go:118] Capability "sys_ptrace" is not permitted, dropping it.
+W0615 05:27:38.671401    9924 caps.go:118] Capability "sys_ptrace" is not permitted, dropping it.
+W0615 05:27:38.671580    9924 caps.go:74] Failed to apply capabilities due to permission error: open /proc/sys/kernel/cap_last_cap: permission denied. Skipping capability configuration.
+I0615 05:27:38.672088    9924 process.go:45] Execve "/proc/self/exe" again, bye!
+I0615 05:27:38.674515    9923 cli.go:271] **************** gVisor ****************
+I0615 05:27:38.674604    9923 cli.go:272] Version release-20260608.0-35-g7b253dc6808a-dirty, go1.26.3, arm64, 8 CPUs, linux, PID 9923, PPID 9916, UID 10270, GID 10270
+D0615 05:27:38.674627    9923 cli.go:273] Page size: 0x1000 (4096 bytes)
+I0615 05:27:38.674644    9923 cli.go:274] Args: [runsc-gofer --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --network=host --rootless=true --ignore-cgroups=true --directfs=false --debug-log-fd=3 gofer --bundle=/data/data/com.termux/files/home --chroot=false --gofer-mount-confs=lisafs:self,lisafs:none --io-fds=7,8 --mounts-fd=5 --rpc-fd=6 --setup-root=false --spec-fd=4 --sync-chroot-fd=-1 --sync-userns-fd=-1 --proc-mount-sync-fd=-1 --apply-caps=false my-kernel]
+I0615 05:27:38.674691    9923 config.go:518] Platform: systrap
+I0615 05:27:38.674711    9923 config.go:519] RootDir: /data/data/com.termux/files/home
+I0615 05:27:38.674721    9923 config.go:520] FileAccess: exclusive / Directfs: false / Overlay: root:self
+I0615 05:27:38.674739    9923 config.go:521] Network: host
+I0615 05:27:38.674752    9923 config.go:522] UseCPUNums: false
+I0615 05:27:38.674761    9923 config.go:524] Debug: true. Strace: false, max size: 1024, syscalls: 
+W0615 05:27:38.674771    9923 config.go:527] --allow-suid is disabled, SUID/SGID bits on executables will be ignored.
+D0615 05:27:38.674787    9923 config.go:545] Config.RootDir (--root): /data/data/com.termux/files/home
+D0615 05:27:38.674798    9923 config.go:545] Config.Traceback (--traceback): system
+D0615 05:27:38.674812    9923 config.go:545] Config.Debug (--debug): true
+D0615 05:27:38.674821    9923 config.go:545] Config.LogFilename (--log): (empty)
+D0615 05:27:38.674829    9923 config.go:545] Config.LogFormat (--log-format): text
+D0615 05:27:38.674837    9923 config.go:545] Config.DebugLog (--debug-log): debugLogs.txt
+D0615 05:27:38.674845    9923 config.go:545] Config.DebugToUserLog (--debug-to-user-log): false
+D0615 05:27:38.674852    9923 config.go:545] Config.DebugCommand (--debug-command): (empty)
+D0615 05:27:38.674859    9923 config.go:545] Config.PanicLog (--panic-log): (empty)
+D0615 05:27:38.674883    9923 config.go:545] Config.CoverageReport (--coverage-report): (empty)
+D0615 05:27:38.674893    9923 config.go:545] Config.DebugLogFormat (--debug-log-format): text
+D0615 05:27:38.674901    9923 config.go:545] Config.FileAccess (--file-access): exclusive
+D0615 05:27:38.674911    9923 config.go:545] Config.FileAccessMounts (--file-access-mounts): shared
+D0615 05:27:38.674920    9923 config.go:545] Config.Overlay (--overlay): false
+D0615 05:27:38.674930    9923 config.go:545] Config.Overlay2 (--overlay2): root:self
+D0615 05:27:38.674963    9923 config.go:545] Config.FSGoferHostUDS (--fsgofer-host-uds): false
+D0615 05:27:38.674973    9923 config.go:545] Config.HostUDS (--host-uds): none
+D0615 05:27:38.674989    9923 config.go:545] Config.HostFifo (--host-fifo): none
+D0615 05:27:38.675000    9923 config.go:545] Config.HostSettings (--host-settings): check
+D0615 05:27:38.675011    9923 config.go:545] Config.Network (--network): host
+D0615 05:27:38.675020    9923 config.go:545] Config.EnableRaw (--net-raw): false
+D0615 05:27:38.675028    9923 config.go:545] Config.AllowPacketEndpointWrite (--allow-packet-socket-write): false
+D0615 05:27:38.675036    9923 config.go:545] Config.AllowLiveTCPMigration (--allow-live-tcp-migration): true
+D0615 05:27:38.675043    9923 config.go:545] Config.HostGSO (--gso): true
+D0615 05:27:38.675057    9923 config.go:545] Config.GVisorGSO (--software-gso): true
+D0615 05:27:38.675066    9923 config.go:545] Config.GVisorGRO (--gvisor-gro): false
+D0615 05:27:38.675074    9923 config.go:545] Config.TXChecksumOffload (--tx-checksum-offload): false
+D0615 05:27:38.675081    9923 config.go:545] Config.RXChecksumOffload (--rx-checksum-offload): true
+D0615 05:27:38.675088    9923 config.go:545] Config.QDisc (--qdisc): fifo
+D0615 05:27:38.675099    9923 config.go:545] Config.TBFRate (--qdisc-tbf-rate): 0
+D0615 05:27:38.675106    9923 config.go:545] Config.TBFBurst (--qdisc-tbf-burst): 0
+D0615 05:27:38.675120    9923 config.go:545] Config.LogPackets (--log-packets): false
+D0615 05:27:38.675127    9923 config.go:545] Config.PCAP (--pcap-log): (empty)
+D0615 05:27:38.675135    9923 config.go:545] Config.Platform (--platform): systrap
+D0615 05:27:38.675142    9923 config.go:545] Config.PlatformDevicePath (--platform_device_path): (empty)
+D0615 05:27:38.675149    9923 config.go:545] Config.MetricServer (--metric-server): (empty)
+D0615 05:27:38.675155    9923 config.go:545] Config.FinalMetricsLog (--final-metrics-log): (empty)
+D0615 05:27:38.675162    9923 config.go:545] Config.ProfilingMetrics (--profiling-metrics): (empty)
+D0615 05:27:38.675169    9923 config.go:545] Config.ProfilingMetricsLog (--profiling-metrics-log): (empty)
+D0615 05:27:38.675177    9923 config.go:545] Config.ProfilingMetricsRate (--profiling-metrics-rate-us): 1000
+D0615 05:27:38.675184    9923 config.go:545] Config.Strace (--strace): false
+D0615 05:27:38.675191    9923 config.go:545] Config.StraceSyscalls (--strace-syscalls): (empty)
+D0615 05:27:38.675198    9923 config.go:545] Config.StraceLogSize (--strace-log-size): 1024
+D0615 05:27:38.675289    9923 config.go:545] Config.StraceEvent (--strace-event): false
+D0615 05:27:38.675322    9923 config.go:547] Config.DisableSeccomp: false
+D0615 05:27:38.675345    9923 config.go:545] Config.EnableCoreTags (--enable-core-tags): false
+D0615 05:27:38.675357    9923 config.go:545] Config.WatchdogAction (--watchdog-action): log
+D0615 05:27:38.675368    9923 config.go:545] Config.PanicSignal (--panic-signal): -1
+D0615 05:27:38.675389    9923 config.go:545] Config.ProfileEnable (--profile): false
+D0615 05:27:38.675398    9923 config.go:545] Config.ProfileBlock (--profile-block): (empty)
+D0615 05:27:38.675405    9923 config.go:545] Config.ProfileCPU (--profile-cpu): (empty)
+D0615 05:27:38.675423    9923 config.go:545] Config.ProfileGCInterval (--profile-gc-interval): 0s
+D0615 05:27:38.675439    9923 config.go:545] Config.ProfileHeap (--profile-heap): (empty)
+D0615 05:27:38.675447    9923 config.go:545] Config.ProfileMutex (--profile-mutex): (empty)
+D0615 05:27:38.675454    9923 config.go:545] Config.TraceFile (--trace): (empty)
+D0615 05:27:38.675475    9923 config.go:545] Config.NumNetworkChannels (--num-network-channels): 1
+D0615 05:27:38.675492    9923 config.go:545] Config.NetworkProcessorsPerChannel (--network-processors-per-channel): 0
+D0615 05:27:38.675501    9923 config.go:545] Config.Rootless (--rootless): true
+D0615 05:27:38.675509    9923 config.go:545] Config.AlsoLogToStderr (--alsologtostderr): false
+D0615 05:27:38.675517    9923 config.go:545] Config.ReferenceLeak (--ref-leak-mode): disabled
+D0615 05:27:38.675529    9923 config.go:545] Config.CPUNumFromQuota (--cpu-num-from-quota): true
+D0615 05:27:38.675537    9923 config.go:545] Config.AllowFlagOverride (--allow-flag-override): false
+D0615 05:27:38.675544    9923 config.go:545] Config.OCISeccomp (--oci-seccomp): false
+D0615 05:27:38.675551    9923 config.go:545] Config.IgnoreCgroups (--ignore-cgroups): true
+D0615 05:27:38.675558    9923 config.go:545] Config.SystemdCgroup (--systemd-cgroup): false
+D0615 05:27:38.675565    9923 config.go:545] Config.PodInitConfig (--pod-init-config): (empty)
+D0615 05:27:38.675572    9923 config.go:545] Config.XDP (--EXPERIMENTAL-xdp): {0 }
+D0615 05:27:38.675592    9923 config.go:545] Config.AFXDPUseNeedWakeup (--EXPERIMENTAL-xdp-need-wakeup): true
+D0615 05:27:38.675600    9923 config.go:545] Config.FDLimit (--fdlimit): -1
+D0615 05:27:38.675608    9923 config.go:545] Config.DCache (--dcache): -1
+D0615 05:27:38.675614    9923 config.go:545] Config.IOUring (--iouring): false
+D0615 05:27:38.675622    9923 config.go:545] Config.DirectFS (--directfs): false
+D0615 05:27:38.675629    9923 config.go:545] Config.AppHugePages (--app-huge-pages): true
+D0615 05:27:38.675635    9923 config.go:545] Config.NVProxy (--nvproxy): false
+D0615 05:27:38.675642    9923 config.go:545] Config.NVProxyDocker (--nvproxy-docker): false
+D0615 05:27:38.675649    9923 config.go:545] Config.NVProxyDriverVersion (--nvproxy-driver-version): (empty)
+D0615 05:27:38.675656    9923 config.go:545] Config.NVProxyAllowedDriverCapabilities (--nvproxy-allowed-driver-capabilities): utility,compute
+D0615 05:27:38.675664    9923 config.go:545] Config.NVProxyAllowUnsupportedDriver (--nvproxy-allow-unsupported-driver): false
+D0615 05:27:38.675672    9923 config.go:545] Config.TPUProxy (--tpuproxy): false
+D0615 05:27:38.675679    9923 config.go:545] Config.TestOnlyAllowRunAsCurrentUserWithoutChroot (--TESTONLY-unsafe-nonroot): false
+D0615 05:27:38.675686    9923 config.go:545] Config.TestOnlyTestNameEnv (--TESTONLY-test-name-env): (empty)
+D0615 05:27:38.675701    9923 config.go:545] Config.TestOnlyAFSSyscallPanic (--TESTONLY-afs-syscall-panic): false
+D0615 05:27:38.675712    9923 config.go:547] Config.explicitlySet: <map[string]struct {} Value> (unexported)
+D0615 05:27:38.675722    9923 config.go:545] Config.ReproduceNAT (--reproduce-nat): false
+D0615 05:27:38.675731    9923 config.go:545] Config.ReproduceNftables (--reproduce-nftables): false
+D0615 05:27:38.675740    9923 config.go:545] Config.NetDisconnectOk (--net-disconnect-ok): true
+D0615 05:27:38.675748    9923 config.go:545] Config.TestOnlyAutosaveImagePath (--TESTONLY-autosave-image-path): (empty)
+D0615 05:27:38.675756    9923 config.go:545] Config.TestOnlyAutosaveResume (--TESTONLY-autosave-resume): false
+D0615 05:27:38.675764    9923 config.go:545] Config.RestoreSpecValidation (--restore-spec-validation): enforce
+D0615 05:27:38.675778    9923 config.go:545] Config.GVisorMarkerFile (--gvisor-marker-file): false
+D0615 05:27:38.675786    9923 config.go:545] Config.OverrideProcs (--override-procs): (empty)
+D0615 05:27:38.675793    9923 config.go:545] Config.SystrapDisableSyscallPatching (--systrap-disable-syscall-patching): false
+D0615 05:27:38.675800    9923 config.go:545] Config.Nftables (--TESTONLY-nftables): false
+D0615 05:27:38.675808    9923 config.go:545] Config.AllowSUID (--allow-suid): false
+D0615 05:27:38.675816    9923 config.go:545] Config.UseCPUNums (--kvm-use-cpu-nums): false
+D0615 05:27:38.675824    9923 config.go:545] Config.PauseExternalNetworking (--pause-external-networking): false
+D0615 05:27:38.675842    9923 config.go:545] Config.AllowConnectedOnSave (--allow-connected-on-save): false
+D0615 05:27:38.675851    9923 config.go:545] Config.AllowRootfsTarAnnotation (--allow-rootfs-tar-annotation): false
+D0615 05:27:38.675860    9923 config.go:545] Config.ControlRPCStopTimeout (--control-rpc-stop-timeout): 15s
+D0615 05:27:38.675880    9923 cli.go:280] runsc process spawned at 05:27:38.649854, Go started execution at 05:27:38.674013. Startup overhead: 24.158959ms
+I0615 05:27:38.675904    9923 cli.go:283] **************** gVisor ****************
+W0615 05:27:38.677581    9923 util.go:107] FATAL ERROR: Failure to resolve mounts: no such file or directory
+Failure to resolve mounts: no such file or directory
+D0615 05:27:38.677595    9916 urpc.go:433] urpc: unregistering client with FD 13
+I0615 05:27:38.687078    9924 cli.go:271] **************** gVisor ****************
+I0615 05:27:38.687169    9924 cli.go:272] Version release-20260608.0-35-g7b253dc6808a-dirty, go1.26.3, arm64, 8 CPUs, linux, PID 9924, PPID 9916, UID 10270, GID 10270
+D0615 05:27:38.687192    9924 cli.go:273] Page size: 0x1000 (4096 bytes)
+I0615 05:27:38.687210    9924 cli.go:274] Args: [runsc-sandbox --network=host --rootless=true --ignore-cgroups=true --directfs=false --root=/data/data/com.termux/files/home --debug=true --debug-log=debugLogs.txt --debug-log-fd=3 boot --apply-caps=false --attached=true --bundle=/data/data/com.termux/files/home --controller-fd=9 --dev-io-fd=-1 --gofer-filestore-fds=6 --gofer-mount-confs=lisafs:self,lisafs:none --io-fds=4,5 --mounts-fd=7 --spec-fd=10 --start-sync-fd=8 --stdio-fds=11,12,13 --total-host-memory=7800090624 --total-memory=7800090624 my-kernel]
+I0615 05:27:38.687247    9924 config.go:518] Platform: systrap
+I0615 05:27:38.687266    9924 config.go:519] RootDir: /data/data/com.termux/files/home
+I0615 05:27:38.687275    9924 config.go:520] FileAccess: exclusive / Directfs: false / Overlay: root:self
+I0615 05:27:38.687292    9924 config.go:521] Network: host
+I0615 05:27:38.687304    9924 config.go:522] UseCPUNums: false
+I0615 05:27:38.687314    9924 config.go:524] Debug: true. Strace: false, max size: 1024, syscalls: 
+W0615 05:27:38.687324    9924 config.go:527] --allow-suid is disabled, SUID/SGID bits on executables will be ignored.
+D0615 05:27:38.687340    9924 config.go:545] Config.RootDir (--root): /data/data/com.termux/files/home
+D0615 05:27:38.687352    9924 config.go:545] Config.Traceback (--traceback): system
+D0615 05:27:38.687366    9924 config.go:545] Config.Debug (--debug): true
+D0615 05:27:38.687374    9924 config.go:545] Config.LogFilename (--log): (empty)
+D0615 05:27:38.687383    9924 config.go:545] Config.LogFormat (--log-format): text
+D0615 05:27:38.687392    9924 config.go:545] Config.DebugLog (--debug-log): debugLogs.txt
+D0615 05:27:38.687399    9924 config.go:545] Config.DebugToUserLog (--debug-to-user-log): false
+D0615 05:27:38.687406    9924 config.go:545] Config.DebugCommand (--debug-command): (empty)
+D0615 05:27:38.687414    9924 config.go:545] Config.PanicLog (--panic-log): (empty)
+D0615 05:27:38.687434    9924 config.go:545] Config.CoverageReport (--coverage-report): (empty)
+D0615 05:27:38.687443    9924 config.go:545] Config.DebugLogFormat (--debug-log-format): text
+D0615 05:27:38.687452    9924 config.go:545] Config.FileAccess (--file-access): exclusive
+D0615 05:27:38.687462    9924 config.go:545] Config.FileAccessMounts (--file-access-mounts): shared
+D0615 05:27:38.687470    9924 config.go:545] Config.Overlay (--overlay): false
+D0615 05:27:38.687480    9924 config.go:545] Config.Overlay2 (--overlay2): root:self
+D0615 05:27:38.687497    9924 config.go:545] Config.FSGoferHostUDS (--fsgofer-host-uds): false
+D0615 05:27:38.687507    9924 config.go:545] Config.HostUDS (--host-uds): none
+D0615 05:27:38.687524    9924 config.go:545] Config.HostFifo (--host-fifo): none
+D0615 05:27:38.687534    9924 config.go:545] Config.HostSettings (--host-settings): check
+D0615 05:27:38.687545    9924 config.go:545] Config.Network (--network): host
+D0615 05:27:38.687554    9924 config.go:545] Config.EnableRaw (--net-raw): false
+D0615 05:27:38.687581    9924 config.go:545] Config.AllowPacketEndpointWrite (--allow-packet-socket-write): false
+D0615 05:27:38.687591    9924 config.go:545] Config.AllowLiveTCPMigration (--allow-live-tcp-migration): true
+D0615 05:27:38.687598    9924 config.go:545] Config.HostGSO (--gso): true
+D0615 05:27:38.687606    9924 config.go:545] Config.GVisorGSO (--software-gso): true
+D0615 05:27:38.687614    9924 config.go:545] Config.GVisorGRO (--gvisor-gro): false
+D0615 05:27:38.687621    9924 config.go:545] Config.TXChecksumOffload (--tx-checksum-offload): false
+D0615 05:27:38.687629    9924 config.go:545] Config.RXChecksumOffload (--rx-checksum-offload): true
+D0615 05:27:38.687645    9924 config.go:545] Config.QDisc (--qdisc): fifo
+D0615 05:27:38.687660    9924 config.go:545] Config.TBFRate (--qdisc-tbf-rate): 0
+D0615 05:27:38.687671    9924 config.go:545] Config.TBFBurst (--qdisc-tbf-burst): 0
+D0615 05:27:38.687678    9924 config.go:545] Config.LogPackets (--log-packets): false
+D0615 05:27:38.687685    9924 config.go:545] Config.PCAP (--pcap-log): (empty)
+D0615 05:27:38.687693    9924 config.go:545] Config.Platform (--platform): systrap
+D0615 05:27:38.687700    9924 config.go:545] Config.PlatformDevicePath (--platform_device_path): (empty)
+D0615 05:27:38.687708    9924 config.go:545] Config.MetricServer (--metric-server): (empty)
+D0615 05:27:38.687715    9924 config.go:545] Config.FinalMetricsLog (--final-metrics-log): (empty)
+D0615 05:27:38.687722    9924 config.go:545] Config.ProfilingMetrics (--profiling-metrics): (empty)
+D0615 05:27:38.687729    9924 config.go:545] Config.ProfilingMetricsLog (--profiling-metrics-log): (empty)
+D0615 05:27:38.687736    9924 config.go:545] Config.ProfilingMetricsRate (--profiling-metrics-rate-us): 1000
+D0615 05:27:38.687744    9924 config.go:545] Config.Strace (--strace): false
+D0615 05:27:38.687751    9924 config.go:545] Config.StraceSyscalls (--strace-syscalls): (empty)
+D0615 05:27:38.687759    9924 config.go:545] Config.StraceLogSize (--strace-log-size): 1024
+D0615 05:27:38.687766    9924 config.go:545] Config.StraceEvent (--strace-event): false
+D0615 05:27:38.687774    9924 config.go:547] Config.DisableSeccomp: false
+D0615 05:27:38.687786    9924 config.go:545] Config.EnableCoreTags (--enable-core-tags): false
+D0615 05:27:38.687794    9924 config.go:545] Config.WatchdogAction (--watchdog-action): log
+D0615 05:27:38.687802    9924 config.go:545] Config.PanicSignal (--panic-signal): -1
+D0615 05:27:38.687817    9924 config.go:545] Config.ProfileEnable (--profile): false
+D0615 05:27:38.687831    9924 config.go:545] Config.ProfileBlock (--profile-block): (empty)
+D0615 05:27:38.687839    9924 config.go:545] Config.ProfileCPU (--profile-cpu): (empty)
+D0615 05:27:38.687847    9924 config.go:545] Config.ProfileGCInterval (--profile-gc-interval): 0s
+D0615 05:27:38.687859    9924 config.go:545] Config.ProfileHeap (--profile-heap): (empty)
+D0615 05:27:38.687872    9924 config.go:545] Config.ProfileMutex (--profile-mutex): (empty)
+D0615 05:27:38.687880    9924 config.go:545] Config.TraceFile (--trace): (empty)
+D0615 05:27:38.687887    9924 config.go:545] Config.NumNetworkChannels (--num-network-channels): 1
+D0615 05:27:38.687895    9924 config.go:545] Config.NetworkProcessorsPerChannel (--network-processors-per-channel): 0
+D0615 05:27:38.687903    9924 config.go:545] Config.Rootless (--rootless): true
+D0615 05:27:38.687910    9924 config.go:545] Config.AlsoLogToStderr (--alsologtostderr): false
+D0615 05:27:38.687917    9924 config.go:545] Config.ReferenceLeak (--ref-leak-mode): disabled
+D0615 05:27:38.687933    9924 config.go:545] Config.CPUNumFromQuota (--cpu-num-from-quota): true
+D0615 05:27:38.687941    9924 config.go:545] Config.AllowFlagOverride (--allow-flag-override): false
+D0615 05:27:38.687948    9924 config.go:545] Config.OCISeccomp (--oci-seccomp): false
+D0615 05:27:38.687957    9924 config.go:545] Config.IgnoreCgroups (--ignore-cgroups): true
+D0615 05:27:38.687964    9924 config.go:545] Config.SystemdCgroup (--systemd-cgroup): false
+D0615 05:27:38.687971    9924 config.go:545] Config.PodInitConfig (--pod-init-config): (empty)
+D0615 05:27:38.687987    9924 config.go:545] Config.XDP (--EXPERIMENTAL-xdp): {0 }
+D0615 05:27:38.688005    9924 config.go:545] Config.AFXDPUseNeedWakeup (--EXPERIMENTAL-xdp-need-wakeup): true
+D0615 05:27:38.688014    9924 config.go:545] Config.FDLimit (--fdlimit): -1
+D0615 05:27:38.688021    9924 config.go:545] Config.DCache (--dcache): -1
+D0615 05:27:38.688029    9924 config.go:545] Config.IOUring (--iouring): false
+D0615 05:27:38.688036    9924 config.go:545] Config.DirectFS (--directfs): false
+D0615 05:27:38.688043    9924 config.go:545] Config.AppHugePages (--app-huge-pages): true
+D0615 05:27:38.688050    9924 config.go:545] Config.NVProxy (--nvproxy): false
+D0615 05:27:38.688057    9924 config.go:545] Config.NVProxyDocker (--nvproxy-docker): false
+D0615 05:27:38.688064    9924 config.go:545] Config.NVProxyDriverVersion (--nvproxy-driver-version): (empty)
+D0615 05:27:38.688072    9924 config.go:545] Config.NVProxyAllowedDriverCapabilities (--nvproxy-allowed-driver-capabilities): utility,compute
+D0615 05:27:38.688080    9924 config.go:545] Config.NVProxyAllowUnsupportedDriver (--nvproxy-allow-unsupported-driver): false
+D0615 05:27:38.688087    9924 config.go:545] Config.TPUProxy (--tpuproxy): false
+D0615 05:27:38.688095    9924 config.go:545] Config.TestOnlyAllowRunAsCurrentUserWithoutChroot (--TESTONLY-unsafe-nonroot): false
+D0615 05:27:38.688102    9924 config.go:545] Config.TestOnlyTestNameEnv (--TESTONLY-test-name-env): (empty)
+D0615 05:27:38.688122    9924 config.go:545] Config.TestOnlyAFSSyscallPanic (--TESTONLY-afs-syscall-panic): false
+D0615 05:27:38.688132    9924 config.go:547] Config.explicitlySet: <map[string]struct {} Value> (unexported)
+D0615 05:27:38.688143    9924 config.go:545] Config.ReproduceNAT (--reproduce-nat): false
+D0615 05:27:38.688153    9924 config.go:545] Config.ReproduceNftables (--reproduce-nftables): false
+D0615 05:27:38.688162    9924 config.go:545] Config.NetDisconnectOk (--net-disconnect-ok): true
+D0615 05:27:38.688169    9924 config.go:545] Config.TestOnlyAutosaveImagePath (--TESTONLY-autosave-image-path): (empty)
+D0615 05:27:38.688178    9924 config.go:545] Config.TestOnlyAutosaveResume (--TESTONLY-autosave-resume): false
+D0615 05:27:38.688186    9924 config.go:545] Config.RestoreSpecValidation (--restore-spec-validation): enforce
+D0615 05:27:38.688198    9924 config.go:545] Config.GVisorMarkerFile (--gvisor-marker-file): false
+D0615 05:27:38.688207    9924 config.go:545] Config.OverrideProcs (--override-procs): (empty)
+D0615 05:27:38.688215    9924 config.go:545] Config.SystrapDisableSyscallPatching (--systrap-disable-syscall-patching): false
+D0615 05:27:38.688222    9924 config.go:545] Config.Nftables (--TESTONLY-nftables): false
+D0615 05:27:38.688229    9924 config.go:545] Config.AllowSUID (--allow-suid): false
+D0615 05:27:38.688237    9924 config.go:545] Config.UseCPUNums (--kvm-use-cpu-nums): false
+D0615 05:27:38.688245    9924 config.go:545] Config.PauseExternalNetworking (--pause-external-networking): false
+D0615 05:27:38.688253    9924 config.go:545] Config.AllowConnectedOnSave (--allow-connected-on-save): false
+D0615 05:27:38.688261    9924 config.go:545] Config.AllowRootfsTarAnnotation (--allow-rootfs-tar-annotation): false
+D0615 05:27:38.688269    9924 config.go:545] Config.ControlRPCStopTimeout (--control-rpc-stop-timeout): 15s
+D0615 05:27:38.688286    9924 cli.go:280] runsc process spawned at 05:27:38.657854, Go started execution at 05:27:38.686589. Startup overhead: 28.735313ms
+I0615 05:27:38.688310    9924 cli.go:283] **************** gVisor ****************
+W0615 05:27:38.688545    9924 boot.go:322] Not setting product_name: open /sys/devices/virtual/dmi/id/product_name: no such file or directory
+W0615 05:27:38.688612    9924 boot.go:333] Failed to infer --host-thp-shmem-enabled: open /sys/kernel/mm/transparent_hugepage/shmem_enabled: no such file or directory
+W0615 05:27:38.688636    9924 boot.go:343] Failed to infer --host-thp-defrag: open /sys/kernel/mm/transparent_hugepage/defrag: no such file or directory
+D0615 05:27:38.690014    9924 specutils.go:139] Spec:
 {
   "ociVersion": "1.0.0",
   "process": {
+    "terminal": true,
     "user": {
       "uid": 0,
       "gid": 0
     },
     "args": [
-      "/bin/sh"
+      "sh"
     ],
     "env": [
-      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "TERM=xterm-256color",
+      "HOME=/root",
+      "USER=root",
+      "LOGNAME=root",
+      "SHELL=/bin/sh",
+      "PWD=/root",
+      "LANG=C.UTF-8",
+      "TMPDIR=/tmp",
+      "HOSTNAME=runsc"
     ],
-    "cwd": "/"
+    "cwd": "/",
+    "capabilities": {
+      "bounding": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_DAC_READ_SEARCH",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_SETGID",
+        "CAP_SETUID",
+        "CAP_SETPCAP",
+        "CAP_LINUX_IMMUTABLE",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_NET_BROADCAST",
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_IPC_LOCK",
+        "CAP_IPC_OWNER",
+        "CAP_SYS_MODULE",
+        "CAP_SYS_RAWIO",
+        "CAP_SYS_CHROOT",
+        "CAP_SYS_PTRACE",
+        "CAP_SYS_PACCT",
+        "CAP_SYS_ADMIN",
+        "CAP_SYS_BOOT",
+        "CAP_SYS_NICE",
+        "CAP_SYS_RESOURCE",
+        "CAP_SYS_TIME",
+        "CAP_SYS_TTY_CONFIG",
+        "CAP_MKNOD",
+        "CAP_LEASE",
+        "CAP_AUDIT_WRITE",
+        "CAP_AUDIT_CONTROL",
+        "CAP_SETFCAP",
+        "CAP_MAC_OVERRIDE",
+        "CAP_MAC_ADMIN",
+        "CAP_SYSLOG",
+        "CAP_WAKE_ALARM",
+        "CAP_BLOCK_SUSPEND",
+        "CAP_AUDIT_READ"
+      ],
+      "effective": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_DAC_READ_SEARCH",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_SETGID",
+        "CAP_SETUID",
+        "CAP_SETPCAP",
+        "CAP_LINUX_IMMUTABLE",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_NET_BROADCAST",
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_IPC_LOCK",
+        "CAP_IPC_OWNER",
+        "CAP_SYS_MODULE",
+        "CAP_SYS_RAWIO",
+        "CAP_SYS_CHROOT",
+        "CAP_SYS_PTRACE",
+        "CAP_SYS_PACCT",
+        "CAP_SYS_ADMIN",
+        "CAP_SYS_BOOT",
+        "CAP_SYS_NICE",
+        "CAP_SYS_RESOURCE",
+        "CAP_SYS_TIME",
+        "CAP_SYS_TTY_CONFIG",
+        "CAP_MKNOD",
+        "CAP_LEASE",
+        "CAP_AUDIT_WRITE",
+        "CAP_AUDIT_CONTROL",
+        "CAP_SETFCAP",
+        "CAP_MAC_OVERRIDE",
+        "CAP_MAC_ADMIN",
+        "CAP_SYSLOG",
+        "CAP_WAKE_ALARM",
+        "CAP_BLOCK_SUSPEND",
+        "CAP_AUDIT_READ"
+      ],
+      "permitted": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_DAC_READ_SEARCH",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_SETGID",
+        "CAP_SETUID",
+        "CAP_SETPCAP",
+        "CAP_LINUX_IMMUTABLE",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_NET_BROADCAST",
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_IPC_LOCK",
+        "CAP_IPC_OWNER",
+        "CAP_SYS_MODULE",
+        "CAP_SYS_RAWIO",
+        "CAP_SYS_CHROOT",
+        "CAP_SYS_PTRACE",
+        "CAP_SYS_PACCT",
+        "CAP_SYS_ADMIN",
+        "CAP_SYS_BOOT",
+        "CAP_SYS_NICE",
+        "CAP_SYS_RESOURCE",
+        "CAP_SYS_TIME",
+        "CAP_SYS_TTY_CONFIG",
+        "CAP_MKNOD",
+        "CAP_LEASE",
+        "CAP_AUDIT_WRITE",
+        "CAP_AUDIT_CONTROL",
+        "CAP_SETFCAP",
+        "CAP_MAC_OVERRIDE",
+        "CAP_MAC_ADMIN",
+        "CAP_SYSLOG",
+        "CAP_WAKE_ALARM",
+        "CAP_BLOCK_SUSPEND",
+        "CAP_AUDIT_READ"
+      ]
+    }
   },
   "root": {
     "path": "/data/data/com.termux/files/home/rootfs"
   },
-  "linux": {}
+  "hostname": "runsc",
+  "mounts": [
+    {
+      "destination": "/proc",
+      "type": "proc",
+      "source": "/data/data/com.termux/files/home/proc"
+    },
+    {
+      "destination": "/dev",
+      "type": "tmpfs",
+      "source": "/data/data/com.termux/files/home/tmpfs"
+    },
+    {
+      "destination": "/sys",
+      "type": "sysfs",
+      "source": "/data/data/com.termux/files/home/sysfs"
+    },
+    {
+      "destination": "/termux",
+      "type": "bind",
+      "source": "/data/data/com.termux/files/usr",
+      "options": [
+        "rbind",
+        "rw"
+      ]
+    }
+  ],
+  "linux": {
+    "uidMappings": [
+      {
+        "containerID": 0,
+        "hostID": 10270,
+        "size": 1
+      }
+    ],
+    "gidMappings": [
+      {
+        "containerID": 0,
+        "hostID": 10270,
+        "size": 1
+      }
+    ]
+  }
 }
-I0614 09:15:34.057389   26542 gofer.go:316] Process chroot skipped
-D0614 09:15:34.057425   26542 gofer.go:323] Process running as uid=10270 euid=10270 gid=10270 egid=10270
-I0614 09:15:34.057496   26542 seccomp.go:67] Installing seccomp filters for 71 syscalls (action=[default])
-D0614 09:15:34.057815   26535 urpc.go:433] urpc: unregistering client with FD 13
-D0614 09:15:34.059167   26542 seccomp.go:799] Ordered seccomp rules:
-D0614 09:15:34.059239   26542 seccomp.go:809]   Hot non-trivial syscalls: None.
-D0614 09:15:34.059253   26542 seccomp.go:812]   Cold non-trivial syscalls:
-D0614 09:15:34.059316   26542 seccomp.go:819]     - Syscall    7: (arg[0] NonNegativeFD) => allow
-D0614 09:15:34.059335   26542 seccomp.go:819]     - Syscall   10: (arg[0] NonNegativeFD) => allow
-D0614 09:15:34.059346   26542 seccomp.go:819]     - Syscall   13: (arg[0] NonNegativeFD) => allow
-D0614 09:15:34.059442   26542 seccomp.go:819]     - Syscall   16: (arg[0] NonNegativeFD) => allow
-D0614 09:15:34.059456   26542 seccomp.go:819]     - Syscall   19: ((arg[0] == 0 && arg[1] == 0)) => allow
-D0614 09:15:34.059465   26542 seccomp.go:819]     - Syscall   22: (arg[4] == 0) => allow
-D0614 09:15:34.059501   26542 seccomp.go:819]     - Syscall   25: ((arg[1].high == 0 && (arg[1].low == 0x3 || arg[1].low == 0x4 || arg[1].low == 0x1 || arg[1].low == 0x409))) => allow
-D0614 09:15:34.059518   26542 seccomp.go:819]     - Syscall   37: ((arg[0] NonNegativeFD && arg[2] NonNegativeFD && arg[4] == 0)) => allow
-D0614 09:15:34.059529   26542 seccomp.go:819]     - Syscall   47: (arg[1] == 0) => allow
-D0614 09:15:34.059546   26542 seccomp.go:819]     - Syscall   98: ((arg[1].high == 0 && ((arg[1].low == 0x80 && arg[4] == 0) || (arg[1].low == 0x81 && arg[4] == 0) || arg[1].low == 0 || arg[1].low == 0x1))) => allow
-D0614 09:15:34.059556   26542 seccomp.go:819]     - Syscall  123: (arg[0] == 0) => allow
-D0614 09:15:34.059567   26542 seccomp.go:819]     - Syscall  131: (arg[0] == 0x67ae) => allow
-D0614 09:15:34.059578   26542 seccomp.go:819]     - Syscall  167: ((arg[0] == 0x53564d41 && arg[1] == 0)) => allow
-D0614 09:15:34.059588   26542 seccomp.go:819]     - Syscall  168: ((arg[1] == 0 && arg[2] == 0)) => allow
-D0614 09:15:34.059599   26542 seccomp.go:819]     - Syscall  199: ((arg[0] == 0x1 && arg[1] == 0x80005 && arg[2] == 0)) => allow
-D0614 09:15:34.059609   26542 seccomp.go:819]     - Syscall  210: (arg[1] == 0x2) => allow
-D0614 09:15:34.059622   26542 seccomp.go:819]     - Syscall  211: ((arg[2].high == 0 && (arg[2].low == 0 || arg[2].low == 0x4040))) => allow
-D0614 09:15:34.059636   26542 seccomp.go:819]     - Syscall  212: ((arg[2].high == 0 && (arg[2].low == 0x60 || arg[2].low == 0x62))) => allow
-D0614 09:15:34.059646   26542 seccomp.go:819]     - Syscall  220: (arg[0] == 0x50f00) => allow
-D0614 09:15:34.059671   26542 seccomp.go:819]     - Syscall  222: {(arg[2] & 0x4 == 0x4) => kill process; ((arg[3].high == 0 && (arg[3].low == 0x1 || arg[3].low == 0x22 || arg[3].low == 0x32 || (arg[2] == 0x3 && arg[3].low == 0x28)))) => allow}
-D0614 09:15:34.059688   26542 seccomp.go:819]     - Syscall  226: {(arg[2] & 0x4 == 0x4) => kill process; allow}
-D0614 09:15:34.059701   26542 seccomp.go:819]     - Syscall  291: ((arg[0] NonNegativeFD && arg[2] & 0x1000 == 0x1000)) => allow
-D0614 09:15:34.059709   26542 seccomp.go:812]   Trivial syscalls:
-D0614 09:15:34.059723   26542 seccomp.go:819]     - Syscall    6: allow
-D0614 09:15:34.059732   26542 seccomp.go:819]     - Syscall    9: allow
-D0614 09:15:34.059740   26542 seccomp.go:819]     - Syscall   12: allow
-D0614 09:15:34.059747   26542 seccomp.go:819]     - Syscall   15: allow
-D0614 09:15:34.059755   26542 seccomp.go:819]     - Syscall   21: allow
-D0614 09:15:34.059762   26542 seccomp.go:819]     - Syscall   23: allow
-D0614 09:15:34.059769   26542 seccomp.go:819]     - Syscall   33: allow
-D0614 09:15:34.059776   26542 seccomp.go:819]     - Syscall   34: allow
-D0614 09:15:34.059783   26542 seccomp.go:819]     - Syscall   35: allow
-D0614 09:15:34.059790   26542 seccomp.go:819]     - Syscall   36: allow
-D0614 09:15:34.059797   26542 seccomp.go:819]     - Syscall   44: allow
-D0614 09:15:34.059804   26542 seccomp.go:819]     - Syscall   46: allow
-D0614 09:15:34.059811   26542 seccomp.go:819]     - Syscall   52: allow
-D0614 09:15:34.059842   26542 seccomp.go:819]     - Syscall   53: allow
-D0614 09:15:34.059852   26542 seccomp.go:819]     - Syscall   54: allow
-D0614 09:15:34.059859   26542 seccomp.go:819]     - Syscall   56: allow
-D0614 09:15:34.059867   26542 seccomp.go:819]     - Syscall   57: allow
-D0614 09:15:34.059874   26542 seccomp.go:819]     - Syscall   61: allow
-D0614 09:15:34.059888   26542 seccomp.go:819]     - Syscall   62: allow
-D0614 09:15:34.059896   26542 seccomp.go:819]     - Syscall   63: allow
-D0614 09:15:34.059903   26542 seccomp.go:819]     - Syscall   64: allow
-D0614 09:15:34.059910   26542 seccomp.go:819]     - Syscall   67: allow
-D0614 09:15:34.059917   26542 seccomp.go:819]     - Syscall   68: allow
-D0614 09:15:34.059924   26542 seccomp.go:819]     - Syscall   73: allow
-D0614 09:15:34.059931   26542 seccomp.go:819]     - Syscall   78: allow
-D0614 09:15:34.059938   26542 seccomp.go:819]     - Syscall   79: allow
-D0614 09:15:34.059945   26542 seccomp.go:819]     - Syscall   82: allow
-D0614 09:15:34.059952   26542 seccomp.go:819]     - Syscall   88: allow
-D0614 09:15:34.059959   26542 seccomp.go:819]     - Syscall   93: allow
-D0614 09:15:34.059965   26542 seccomp.go:819]     - Syscall   94: allow
-D0614 09:15:34.059972   26542 seccomp.go:819]     - Syscall  101: allow
-D0614 09:15:34.059979   26542 seccomp.go:819]     - Syscall  113: allow
-D0614 09:15:34.059986   26542 seccomp.go:819]     - Syscall  124: allow
-D0614 09:15:34.059993   26542 seccomp.go:819]     - Syscall  128: allow
-D0614 09:15:34.060000   26542 seccomp.go:819]     - Syscall  132: allow
-D0614 09:15:34.060007   26542 seccomp.go:819]     - Syscall  134: allow
-D0614 09:15:34.060013   26542 seccomp.go:819]     - Syscall  135: allow
-D0614 09:15:34.060020   26542 seccomp.go:819]     - Syscall  139: allow
-D0614 09:15:34.060027   26542 seccomp.go:819]     - Syscall  169: allow
-D0614 09:15:34.060034   26542 seccomp.go:819]     - Syscall  172: allow
-D0614 09:15:34.060041   26542 seccomp.go:819]     - Syscall  178: allow
-D0614 09:15:34.060047   26542 seccomp.go:819]     - Syscall  202: allow
-D0614 09:15:34.060054   26542 seccomp.go:819]     - Syscall  215: allow
-D0614 09:15:34.060061   26542 seccomp.go:819]     - Syscall  233: allow
-D0614 09:15:34.060068   26542 seccomp.go:819]     - Syscall  276: allow
-D0614 09:15:34.060075   26542 seccomp.go:819]     - Syscall  278: allow
-D0614 09:15:34.060094   26542 seccomp.go:819]     - Syscall  279: allow
-D0614 09:15:34.060101   26542 seccomp.go:822] End of ordered seccomp rules.
-I0614 09:15:34.066967   26543 loader.go:532] CPUs: 8
-D0614 09:15:34.067041   26543 gomaxprocs.go:76] Setting GOMAXPROCS to 8
-D0614 09:15:34.070254   26542 seccomp.go:526] Seccomp program optimized from 1057 to 259 instructions; took 3.739636ms to build and 7.456093ms to optimize
-I0614 09:15:34.070749   26543 loader.go:914] Platform: systrap
-D0614 09:15:34.070835   26542 seccomp.go:76] Seccomp program dump:
-0: A <- P[4:4]
-1: pc += (A == 3221225655) ? 0 [2] : 129 [131]
-2: A <- P[0:4]
-3: pc += (A >= 131) ? 0 [4] : 1 [5]
-4: pc += (A > 131) ? 18 [23] : 33 [38]
-5: pc += (A >= 22) ? 0 [6] : 1 [7]
-6: pc += (A > 22) ? 8 [15] : 35 [42]
-7: pc += (A >= 13) ? 0 [8] : 1 [9]
-8: pc += (A > 13) ? 3 [12] : 37 [46]
-9: pc += (A >= 10) ? 0 [10] : 1 [11]
-10: pc += (A == 10) ? 39 [50] : 175 [186]
-11: pc += (A == 7) ? 42 [54] : 174 [186]
-12: pc += (A >= 19) ? 0 [13] : 1 [14]
-13: pc += (A == 19) ? 44 [58] : 172 [186]
-14: pc += (A == 16) ? 51 [66] : 171 [186]
-15: pc += (A >= 47) ? 0 [16] : 1 [17]
-16: pc += (A > 47) ? 3 [20] : 53 [70]
-17: pc += (A >= 37) ? 0 [18] : 1 [19]
-18: pc += (A == 37) ? 55 [74] : 167 [186]
-19: pc += (A == 25) ? 66 [86] : 166 [186]
-20: pc += (A >= 123) ? 0 [21] : 1 [22]
-21: pc += (A == 123) ? 71 [93] : 164 [186]
-22: pc += (A == 98) ? 74 [97] : 163 [186]
-23: pc += (A >= 212) ? 0 [24] : 1 [25]
-24: pc += (A > 212) ? 7 [32] : 89 [114]
-25: pc += (A >= 199) ? 0 [26] : 1 [27]
-26: pc += (A > 199) ? 3 [30] : 92 [119]
-27: pc += (A >= 168) ? 0 [28] : 1 [29]
-28: pc += (A == 168) ? 103 [132] : 157 [186]
-29: pc += (A == 167) ? 110 [140] : 156 [186]
-30: pc += (A >= 211) ? 117 [148] : 0 [31]
-31: pc += (A == 210) ? 121 [153] : 154 [186]
-32: pc += (A >= 226) ? 0 [33] : 1 [34]
-33: pc += (A > 226) ? 3 [37] : 123 [157]
-34: pc += (A >= 222) ? 0 [35] : 1 [36]
-35: pc += (A == 222) ? 124 [160] : 150 [186]
-36: pc += (A == 220) ? 138 [175] : 149 [186]
-37: pc += (A == 291) ? 141 [179] : 148 [186]
-38: A <- P[16:4]
-39: pc += (A == 26542) ? 0 [40] : 91 [131]
-40: A <- P[20:4]
-41: pc += (A == 0) ? 215 [257] : 89 [131]
-42: A <- P[48:4]
-43: pc += (A == 0) ? 0 [44] : 87 [131]
-44: A <- P[52:4]
-45: pc += (A == 0) ? 211 [257] : 85 [131]
-46: A <- P[16:4]
-47: pc += (A & 2147483648) ? 83 [131] : 0 [48]
-48: A <- P[20:4]
-49: pc += (A == 0) ? 207 [257] : 81 [131]
-50: A <- P[16:4]
-51: pc += (A & 2147483648) ? 79 [131] : 0 [52]
-52: A <- P[20:4]
-53: pc += (A == 0) ? 203 [257] : 77 [131]
-54: A <- P[16:4]
-55: pc += (A & 2147483648) ? 75 [131] : 0 [56]
-56: A <- P[20:4]
-57: pc += (A == 0) ? 199 [257] : 73 [131]
-58: A <- P[16:4]
-59: pc += (A == 0) ? 0 [60] : 71 [131]
-60: A <- P[20:4]
-61: pc += (A == 0) ? 0 [62] : 69 [131]
-62: A <- P[24:4]
-63: pc += (A == 0) ? 0 [64] : 67 [131]
-64: A <- P[28:4]
-65: pc += (A == 0) ? 191 [257] : 65 [131]
-66: A <- P[16:4]
-67: pc += (A & 2147483648) ? 63 [131] : 0 [68]
-68: A <- P[20:4]
-69: pc += (A == 0) ? 187 [257] : 61 [131]
-70: A <- P[24:4]
-71: pc += (A == 0) ? 0 [72] : 59 [131]
-72: A <- P[28:4]
-73: pc += (A == 0) ? 183 [257] : 57 [131]
-74: A <- P[16:4]
-75: pc += (A & 2147483648) ? 55 [131] : 0 [76]
-76: A <- P[20:4]
-77: pc += (A == 0) ? 0 [78] : 53 [131]
-78: A <- P[32:4]
-79: pc += (A & 2147483648) ? 51 [131] : 0 [80]
-80: A <- P[36:4]
-81: pc += (A == 0) ? 0 [82] : 49 [131]
-82: A <- P[48:4]
-83: pc += (A == 0) ? 0 [84] : 47 [131]
-84: A <- P[52:4]
-85: pc += (A == 0) ? 171 [257] : 45 [131]
-86: A <- P[28:4]
-87: pc += (A == 0) ? 0 [88] : 170 [258]
-88: A <- P[24:4]
-89: pc += (A == 3) ? 167 [257] : 0 [90]
-90: pc += (A == 4) ? 166 [257] : 0 [91]
-91: pc += (A == 1) ? 165 [257] : 0 [92]
-92: pc += (A == 1033) ? 164 [257] : 165 [258]
-93: A <- P[16:4]
-94: pc += (A == 0) ? 0 [95] : 163 [258]
-95: A <- P[20:4]
-96: pc += (A == 0) ? 160 [257] : 161 [258]
-97: A <- P[28:4]
-98: pc += (A == 0) ? 0 [99] : 159 [258]
-99: A <- P[24:4]
-100: pc += (A == 128) ? 0 [101] : 4 [105]
-101: A <- P[48:4]
-102: pc += (A == 0) ? 0 [103] : 2 [105]
-103: A <- P[52:4]
-104: pc += (A == 0) ? 152 [257] : 0 [105]
-105: A <- P[24:4]
-106: pc += (A == 129) ? 0 [107] : 4 [111]
-107: A <- P[48:4]
-108: pc += (A == 0) ? 0 [109] : 2 [111]
-109: A <- P[52:4]
-110: pc += (A == 0) ? 146 [257] : 0 [111]
-111: A <- P[24:4]
-112: pc += (A == 0) ? 144 [257] : 0 [113]
-113: pc += (A == 1) ? 143 [257] : 144 [258]
-114: A <- P[36:4]
-115: pc += (A == 0) ? 0 [116] : 142 [258]
-116: A <- P[32:4]
-117: pc += (A == 96) ? 139 [257] : 0 [118]
-118: pc += (A == 98) ? 138 [257] : 139 [258]
-119: A <- P[16:4]
-120: pc += (A == 1) ? 0 [121] : 10 [131]
-121: A <- P[20:4]
-122: pc += (A == 0) ? 0 [123] : 8 [131]
-123: A <- P[24:4]
-124: pc += (A == 524293) ? 0 [125] : 6 [131]
-125: A <- P[28:4]
-126: pc += (A == 0) ? 0 [127] : 4 [131]
-127: A <- P[32:4]
-128: pc += (A == 0) ? 0 [129] : 2 [131]
-129: A <- P[36:4]
-130: pc += (A == 0) ? 126 [257] : 0 [131]
-131: ret 2147483648
-132: A <- P[24:4]
-133: pc += (A == 0) ? 0 [134] : 124 [258]
-134: A <- P[28:4]
-135: pc += (A == 0) ? 0 [136] : 122 [258]
-136: A <- P[32:4]
-137: pc += (A == 0) ? 0 [138] : 120 [258]
-138: A <- P[36:4]
-139: pc += (A == 0) ? 117 [257] : 118 [258]
-140: A <- P[16:4]
-141: pc += (A == 1398164801) ? 0 [142] : 116 [258]
-142: A <- P[20:4]
-143: pc += (A == 0) ? 0 [144] : 114 [258]
-144: A <- P[24:4]
-145: pc += (A == 0) ? 0 [146] : 112 [258]
-146: A <- P[28:4]
-147: pc += (A == 0) ? 109 [257] : 110 [258]
-148: A <- P[36:4]
-149: pc += (A == 0) ? 0 [150] : 108 [258]
-150: A <- P[32:4]
-151: pc += (A == 0) ? 105 [257] : 0 [152]
-152: pc += (A == 16448) ? 104 [257] : 105 [258]
-153: A <- P[24:4]
-154: pc += (A == 2) ? 0 [155] : 103 [258]
-155: A <- P[28:4]
-156: pc += (A == 0) ? 100 [257] : 101 [258]
-157: A <- P[32:4]
-158: A <- A & 4
-159: pc += (A == 4) ? 98 [258] : 97 [257]
-160: A <- P[32:4]
-161: A <- A & 4
-162: pc += (A == 4) ? 95 [258] : 0 [163]
-163: A <- P[44:4]
-164: pc += (A == 0) ? 0 [165] : 93 [258]
-165: A <- P[40:4]
-166: pc += (A == 1) ? 90 [257] : 0 [167]
-167: pc += (A == 34) ? 89 [257] : 0 [168]
-168: pc += (A == 50) ? 88 [257] : 0 [169]
-169: A <- P[32:4]
-170: pc += (A == 3) ? 0 [171] : 87 [258]
-171: A <- P[36:4]
-172: pc += (A == 0) ? 0 [173] : 85 [258]
-173: A <- P[40:4]
-174: pc += (A == 40) ? 82 [257] : 83 [258]
-175: A <- P[16:4]
-176: pc += (A == 331520) ? 0 [177] : 81 [258]
-177: A <- P[20:4]
-178: pc += (A == 0) ? 78 [257] : 79 [258]
-179: A <- P[16:4]
-180: pc += (A & 2147483648) ? 77 [258] : 0 [181]
-181: A <- P[20:4]
-182: pc += (A == 0) ? 0 [183] : 75 [258]
-183: A <- P[32:4]
-184: A <- A & 4096
-185: pc += (A == 4096) ? 71 [257] : 72 [258]
-186: pc += (A >= 73) ? 0 [187] : 1 [188]
-187: pc += (A > 73) ? 32 [220] : 69 [257]
-188: pc += (A >= 46) ? 0 [189] : 1 [190]
-189: pc += (A > 46) ? 16 [206] : 67 [257]
-190: pc += (A >= 23) ? 0 [191] : 1 [192]
-191: pc += (A > 23) ? 7 [199] : 65 [257]
-192: pc += (A >= 12) ? 0 [193] : 1 [194]
-193: pc += (A > 12) ? 3 [197] : 63 [257]
-194: pc += (A >= 9) ? 0 [195] : 1 [196]
-195: pc += (A == 9) ? 61 [257] : 62 [258]
-196: pc += (A == 6) ? 60 [257] : 61 [258]
-197: pc += (A >= 21) ? 59 [257] : 0 [198]
-198: pc += (A == 15) ? 58 [257] : 59 [258]
-199: pc += (A >= 35) ? 0 [200] : 1 [201]
-200: pc += (A > 35) ? 2 [203] : 56 [257]
-201: pc += (A >= 34) ? 55 [257] : 0 [202]
-202: pc += (A == 33) ? 54 [257] : 55 [258]
-203: pc += (A >= 44) ? 0 [204] : 1 [205]
-204: pc += (A == 44) ? 52 [257] : 53 [258]
-205: pc += (A == 36) ? 51 [257] : 52 [258]
-206: pc += (A >= 61) ? 0 [207] : 1 [208]
-207: pc += (A > 61) ? 7 [215] : 49 [257]
-208: pc += (A >= 54) ? 0 [209] : 1 [210]
-209: pc += (A > 54) ? 2 [212] : 47 [257]
-210: pc += (A >= 53) ? 46 [257] : 0 [211]
-211: pc += (A == 52) ? 45 [257] : 46 [258]
-212: pc += (A >= 57) ? 0 [213] : 1 [214]
-213: pc += (A == 57) ? 43 [257] : 44 [258]
-214: pc += (A == 56) ? 42 [257] : 43 [258]
-215: pc += (A >= 64) ? 0 [216] : 41 [257]
-216: pc += (A > 64) ? 0 [217] : 40 [257]
-217: pc += (A >= 68) ? 0 [218] : 1 [219]
-218: pc += (A == 68) ? 38 [257] : 39 [258]
-219: pc += (A == 67) ? 37 [257] : 38 [258]
-220: pc += (A >= 134) ? 0 [221] : 1 [222]
-221: pc += (A > 134) ? 17 [239] : 35 [257]
-222: pc += (A >= 94) ? 0 [223] : 1 [224]
-223: pc += (A > 94) ? 7 [231] : 33 [257]
-224: pc += (A >= 82) ? 0 [225] : 1 [226]
-225: pc += (A > 82) ? 3 [229] : 31 [257]
-226: pc += (A >= 79) ? 0 [227] : 1 [228]
-227: pc += (A == 79) ? 29 [257] : 30 [258]
-228: pc += (A == 78) ? 28 [257] : 29 [258]
-229: pc += (A >= 93) ? 27 [257] : 0 [230]
-230: pc += (A == 88) ? 26 [257] : 27 [258]
-231: pc += (A >= 124) ? 0 [232] : 1 [233]
-232: pc += (A > 124) ? 3 [236] : 24 [257]
-233: pc += (A >= 113) ? 0 [234] : 1 [235]
-234: pc += (A == 113) ? 22 [257] : 23 [258]
-235: pc += (A == 101) ? 21 [257] : 22 [258]
-236: pc += (A >= 132) ? 0 [237] : 1 [238]
-237: pc += (A == 132) ? 19 [257] : 20 [258]
-238: pc += (A == 128) ? 18 [257] : 19 [258]
-239: pc += (A >= 202) ? 0 [240] : 1 [241]
-240: pc += (A > 202) ? 8 [249] : 16 [257]
-241: pc += (A >= 169) ? 0 [242] : 1 [243]
-242: pc += (A > 169) ? 3 [246] : 14 [257]
-243: pc += (A >= 139) ? 0 [244] : 1 [245]
-244: pc += (A == 139) ? 12 [257] : 13 [258]
-245: pc += (A == 135) ? 11 [257] : 12 [258]
-246: pc += (A >= 178) ? 0 [247] : 1 [248]
-247: pc += (A == 178) ? 9 [257] : 10 [258]
-248: pc += (A == 172) ? 8 [257] : 9 [258]
-249: pc += (A >= 276) ? 0 [250] : 1 [251]
-250: pc += (A > 276) ? 3 [254] : 6 [257]
-251: pc += (A >= 233) ? 0 [252] : 1 [253]
-252: pc += (A == 233) ? 4 [257] : 5 [258]
-253: pc += (A == 215) ? 3 [257] : 4 [258]
-254: pc += (A >= 279) ? 0 [255] : 1 [256]
-255: pc += (A == 279) ? 1 [257] : 2 [258]
-256: pc += (A == 278) ? 0 [257] : 1 [258]
-257: ret 2147418112
-258: ret 2147483648
+W0615 05:27:38.690142    9924 util.go:107] FATAL ERROR: Error reading mounts file: error unmarshaling mounts: unexpected end of JSON input
+JSON bytes:
 
-D0614 09:15:34.071763   26543 seccomp.go:799] Ordered seccomp rules:
-D0614 09:15:34.071825   26543 seccomp.go:809]   Hot non-trivial syscalls: None.
-D0614 09:15:34.071839   26543 seccomp.go:812]   Cold non-trivial syscalls:
-D0614 09:15:34.071899   26543 seccomp.go:819]     - Syscall   98: ((arg[0] > 0x7f05209000 && arg[1].high == 0 && arg[3] == 0 && arg[4] == 0 && arg[5] == 0 && rip > 0x7f05209000 && ((arg[1].low == 0x1 && arg[2] == 0x1) || arg[1].low == 0))) => allow
-D0614 09:15:34.071937   26543 seccomp.go:819]     - Syscall  124: (rip > 0x7f05209000) => allow
-D0614 09:15:34.071950   26543 seccomp.go:819]     - Syscall  139: (rip > 0x7f05209000) => allow
-D0614 09:15:34.071959   26543 seccomp.go:809]   Trivial syscalls: None.
-D0614 09:15:34.071967   26543 seccomp.go:822] End of ordered seccomp rules.
-I0614 09:15:34.072511   26542 seccomp.go:87] Seccomp filters installed.
-I0614 09:15:34.072584   26542 gofer.go:366] Serving "/data/data/com.termux/files/home/rootfs" mapped to "/data/data/com.termux/files/home/rootfs" on FD 7 (ro: true)
-D0614 09:15:34.072671   26543 seccomp.go:526] Seccomp program optimized from 175 to 51 instructions; took 644.583µs to build and 284.792µs to optimize
-D0614 09:15:34.072752   26543 seccomp.go:799] Ordered seccomp rules:
-D0614 09:15:34.072769   26543 seccomp.go:809]   Hot non-trivial syscalls: None.
-D0614 09:15:34.072779   26543 seccomp.go:809]   Cold non-trivial syscalls: None.
-D0614 09:15:34.072787   26543 seccomp.go:812]   Trivial syscalls:
-D0614 09:15:34.072798   26543 seccomp.go:819]     - Syscall   94: unotify
-D0614 09:15:34.072806   26543 seccomp.go:822] End of ordered seccomp rules.
-D0614 09:15:34.072876   26543 seccomp.go:526] Seccomp program optimized from 13 to 6 instructions; took 102.188µs to build and 26.614µs to optimize
-D0614 09:15:34.072985   26543 stub_unsafe.go:344] stubStart 7f05208000 stubSysmsgStart 7f05209000 stubSysmsgStack 7fe51a8000, stubContextQueue 7fe51f8000, stubThreadContextRegion 7fe5202000, mapLen 1060000
-D0614 09:15:34.073028   26543 stub_unsafe.go:345] sysmsg.ArchState{ fpLen 528 }
-D0614 09:15:34.074027   26543 seccomp.go:799] Ordered seccomp rules:
-D0614 09:15:34.074065   26543 seccomp.go:809]   Hot non-trivial syscalls: None.
-D0614 09:15:34.074080   26543 seccomp.go:812]   Cold non-trivial syscalls:
-D0614 09:15:34.074107   26543 seccomp.go:819]     - Syscall   98: ((arg[1].high == 0 && (arg[1].low == 0 || arg[1].low == 0x1))) => allow
-D0614 09:15:34.074125   26543 seccomp.go:819]     - Syscall  129: (arg[1] == 0x13) => allow
-D0614 09:15:34.074137   26543 seccomp.go:819]     - Syscall  130: (arg[1] == 0x13) => allow
-D0614 09:15:34.074169   26543 seccomp.go:819]     - Syscall  167: ((arg[0].high == 0 && arg[1].high == 0 && ((arg[0].low == 0x1 && arg[1].low == 0x9) || (arg[0].low == 0x26 && arg[1].low == 0x1) || (arg[0].low == 0x3b && arg[1].low == 0x1 && arg[2] == 0x7f05208000 && arg[3] == 0x5000)))) => allow
-D0614 09:15:34.074188   26543 seccomp.go:819]     - Syscall  220: ((arg[0].high == 0 && (arg[0].low == 0x8411 || arg[0].low == 0x411 || arg[0].low == 0x2709))) => allow
-D0614 09:15:34.074203   26543 seccomp.go:819]     - Syscall  277: ((arg[0] == 0x1 && arg[1].high == 0 && (arg[1].low == 0 || arg[1].low == 0x8))) => allow
-D0614 09:15:34.074243   26543 seccomp.go:812]   Trivial syscalls:
-D0614 09:15:34.074260   26543 seccomp.go:819]     - Syscall   93: allow
-D0614 09:15:34.074269   26543 seccomp.go:819]     - Syscall   94: allow
-D0614 09:15:34.074281   26543 seccomp.go:819]     - Syscall  124: allow
-D0614 09:15:34.074289   26543 seccomp.go:819]     - Syscall  132: allow
-D0614 09:15:34.074302   26543 seccomp.go:819]     - Syscall  139: allow
-D0614 09:15:34.074311   26543 seccomp.go:819]     - Syscall  172: allow
-D0614 09:15:34.074319   26543 seccomp.go:819]     - Syscall  173: allow
-D0614 09:15:34.074326   26543 seccomp.go:819]     - Syscall  178: allow
-D0614 09:15:34.074334   26543 seccomp.go:819]     - Syscall  215: allow
-D0614 09:15:34.074340   26543 seccomp.go:819]     - Syscall  222: allow
-D0614 09:15:34.074347   26543 seccomp.go:819]     - Syscall  260: allow
-D0614 09:15:34.074354   26543 seccomp.go:822] End of ordered seccomp rules.
-D0614 09:15:34.075806   26543 seccomp.go:526] Seccomp program optimized from 364 to 85 instructions; took 1.192448ms to build and 617.656µs to optimize
-I0614 09:15:34.080272   26543 loader.go:939] Disabling application huge pages: host shmem_enabled is unknown
-I0614 09:15:34.081100   26543 loader.go:670] Setting total memory to 7.26 GB
-I0614 09:15:34.081364   26543 loader.go:733] Packet logging disabled
-I0614 09:15:34.081411   26543 watchdog.go:179] Watchdog waiting 30s for startup
-W0614 09:15:34.081493   26543 limits.go:104] Host limit is lower than recommended, resource: "RLIMIT_NOFILE", host: 32768, recommended: 1048576
-I0614 09:15:34.081526   26543 limits.go:107] Setting limit from host, resource: "RLIMIT_NOFILE" {soft: 32768, hard: 32768}
-D0614 09:15:34.082260   26535 container.go:1241] Save container, cid: my-kernel
-D0614 09:15:34.083130   26535 container.go:439] Start container, cid: my-kernel
-D0614 09:15:34.083218   26535 hostsettings.go:189] Checking host settings
-D0614 09:15:34.083245   26535 hostsettings.go:317] Checking host setting: /sys/kernel/mm/transparent_hugepage/shmem_enabled
-D0614 09:15:34.083321   26535 hostsettings.go:317] Checking host setting: /sys/kernel/mm/transparent_hugepage/defrag
-D0614 09:15:34.083368   26535 hostsettings.go:317] Checking host setting: /proc/sys/vm/max_map_count
-D0614 09:15:34.083468   26535 hostsettings.go:317] Checking host setting: /proc/sys/user/max_user_namespaces
-D0614 09:15:34.083522   26535 hostsettings.go:317] Checking host setting: /proc/sys/kernel/unprivileged_userns_clone
-I0614 09:15:34.083552   26535 hostsettings.go:326] Host setting "/proc/sys/kernel/unprivileged_userns_clone" is optimal
-D0614 09:15:34.083566   26535 hostsettings.go:317] Checking host setting: /proc/sys/kernel/unprivileged_userns_apparmor_policy
-I0614 09:15:34.083585   26535 hostsettings.go:326] Host setting "/proc/sys/kernel/unprivileged_userns_apparmor_policy" is optimal
-W0614 09:15:34.083596   26535 hostsettings.go:39] Checking host settings: error: failed to check /sys/kernel/mm/transparent_hugepage/shmem_enabled: cannot read "/sys/kernel/mm/transparent_hugepage/shmem_enabled": open /sys/kernel/mm/transparent_hugepage/shmem_enabled: no such file or directory
-W0614 09:15:34.083615   26535 hostsettings.go:39] Checking host settings: error: failed to check /sys/kernel/mm/transparent_hugepage/defrag: cannot read "/sys/kernel/mm/transparent_hugepage/defrag": open /sys/kernel/mm/transparent_hugepage/defrag: no such file or directory
-W0614 09:15:34.083624   26535 hostsettings.go:39] Checking host settings: error: failed to check /proc/sys/vm/max_map_count: cannot read "/proc/sys/vm/max_map_count": open /proc/sys/vm/max_map_count: permission denied
-W0614 09:15:34.083656   26535 hostsettings.go:39] Checking host settings: error: failed to check /proc/sys/user/max_user_namespaces: cannot read "/proc/sys/user/max_user_namespaces": open /proc/sys/user/max_user_namespaces: permission denied
-D0614 09:15:34.083670   26535 sandbox.go:454] Start root sandbox "my-kernel", PID: 26543
-D0614 09:15:34.083685   26535 sandbox.go:836] Connecting to sandbox "my-kernel"
-I0614 09:15:34.083857   26535 network.go:56] Setting up network
-I0614 09:15:34.083881   26535 network.go:60] Network is disabled, create loopback interface only
-D0614 09:15:34.083923   26543 urpc.go:422] urpc: registering client with FD 6
-D0614 09:15:34.084271   26535 urpc.go:592] urpc: successfully marshalled 704 bytes.
-D0614 09:15:34.084393   26543 urpc.go:635] urpc: unmarshal success.
-D0614 09:15:34.084434   26543 urpc.go:302] urpc: handling RPC call for method containerManager.CreateLinksAndRoutes
-D0614 09:15:34.084880   26543 controller.go:1239] containerManager.CreateLinksAndRoutes
-I0614 09:15:34.084928   26543 network.go:312] Enabling loopback interface "lo" with id 1 on addresses [127.0.0.1/8 ::1/128]
-I0614 09:15:34.085193   26543 network.go:554] Setting routes [127.0.0.0/8 nic 1 ::1/128 nic 1]
-D0614 09:15:34.085327   26543 urpc.go:592] urpc: successfully marshalled 37 bytes.
-D0614 09:15:34.085352   26543 urpc.go:372] urpc: RPC call for method containerManager.CreateLinksAndRoutes succeeded.
-D0614 09:15:34.085451   26535 urpc.go:635] urpc: unmarshal success.
-D0614 09:15:34.085527   26535 urpc.go:592] urpc: successfully marshalled 57 bytes.
-D0614 09:15:34.085569   26543 urpc.go:635] urpc: unmarshal success.
-D0614 09:15:34.085634   26543 urpc.go:302] urpc: handling RPC call for method containerManager.StartRoot
-D0614 09:15:34.085674   26543 controller.go:294] containerManager.StartRoot, cid: my-kernel
-I0614 09:15:34.087710   26543 filter.go:57] No precompiled program found for config options GOARCH="arm64" Platform="systrap" HostNetwork=false HostNetworkRawSockets=false HostFilesystem=false ProfileEnable=false Instrumentation=false NVProxy=false NVProxyCaps= TPUProxy=false CgoEnabled=false PluginNetwork=false, building seccomp program from scratch. This may slow down container startup.
-D0614 09:15:34.088180   26543 filter.go:60] Precompiled seccomp-bpf program configuration option variants (42):
-D0614 09:15:34.088264   26543 filter.go:62]   0
-D0614 09:15:34.088467   26543 filter.go:62]   1
-D0614 09:15:34.088495   26543 filter.go:62]   2
-D0614 09:15:34.088674   26543 filter.go:62]   3
-D0614 09:15:34.088691   26543 filter.go:62]   4
-D0614 09:15:34.088701   26543 filter.go:62]   5
-D0614 09:15:34.088708   26543 filter.go:62]   6
-D0614 09:15:34.088721   26543 filter.go:62]   7
-D0614 09:15:34.088729   26543 filter.go:62]   8
-D0614 09:15:34.088736   26543 filter.go:62]   9
-D0614 09:15:34.088744   26543 filter.go:62]   10
-D0614 09:15:34.088755   26543 filter.go:62]   11
-D0614 09:15:34.088897   26543 filter.go:62]   12
-D0614 09:15:34.088911   26543 filter.go:62]   13
-D0614 09:15:34.088919   26543 filter.go:62]   14
-D0614 09:15:34.088926   26543 filter.go:62]   15
-D0614 09:15:34.088938   26543 filter.go:62]   16
-D0614 09:15:34.088945   26543 filter.go:62]   17
-D0614 09:15:34.088951   26543 filter.go:62]   18
-D0614 09:15:34.088957   26543 filter.go:62]   19
-D0614 09:15:34.088968   26543 filter.go:62]   20
-D0614 09:15:34.088974   26543 filter.go:62]   21
-D0614 09:15:34.088981   26543 filter.go:62]   22
-D0614 09:15:34.088988   26543 filter.go:62]   23
-D0614 09:15:34.089004   26543 filter.go:62]   24
-D0614 09:15:34.089023   26543 filter.go:62]   25
-D0614 09:15:34.089042   26543 filter.go:62]   26
-D0614 09:15:34.089282   26543 filter.go:62]   27
-D0614 09:15:34.089806   26543 filter.go:62]   28
-D0614 09:15:34.089824   26543 filter.go:62]   29
-D0614 09:15:34.089833   26543 filter.go:62]   30
-D0614 09:15:34.089840   26543 filter.go:62]   31
-D0614 09:15:34.089848   26543 filter.go:62]   32
-D0614 09:15:34.089856   26543 filter.go:62]   33
-D0614 09:15:34.089863   26543 filter.go:62]   34
-D0614 09:15:34.089871   26543 filter.go:62]   35
-D0614 09:15:34.089892   26543 filter.go:62]   36
-D0614 09:15:34.089901   26543 filter.go:62]   37
-D0614 09:15:34.089909   26543 filter.go:62]   38
-D0614 09:15:34.089916   26543 filter.go:62]   39
-D0614 09:15:34.089923   26543 filter.go:62]   40
-D0614 09:15:34.089930   26543 filter.go:62]   41
-I0614 09:15:34.090035   26543 seccomp.go:67] Installing seccomp filters for 80 syscalls (action=[default])
-D0614 09:15:34.094669   26543 seccomp.go:799] Ordered seccomp rules:
-D0614 09:15:34.094745   26543 seccomp.go:812]   Hot non-trivial syscalls:
-D0614 09:15:34.094780   26543 seccomp.go:819]     - Syscall   98: (arg[1] & 0xffffffffffffff7e == 0x0) => allow
-D0614 09:15:34.094796   26543 seccomp.go:812]   Cold non-trivial syscalls:
-D0614 09:15:34.094824   26543 seccomp.go:819]     - Syscall   19: ((arg[0] == 0 && arg[1] == 0)) => allow
-D0614 09:15:34.094838   26543 seccomp.go:819]     - Syscall   22: (arg[4] == 0) => allow
-D0614 09:15:34.094850   26543 seccomp.go:819]     - Syscall   24: (arg[2] == 0x80000) => allow
-D0614 09:15:34.094870   26543 seccomp.go:819]     - Syscall   25: ((arg[1].high == 0 && (arg[1].low == 0x3 || arg[1].low == 0x4 || arg[1].low == 0x1))) => allow
-D0614 09:15:34.094922   26543 seccomp.go:819]     - Syscall   29: ((arg[0] NonNegativeFD && arg[1].high == 0 && (arg[1].low == 0x541b || arg[1].low == 0x5401 || arg[1].low == 0x5402 || arg[1].low == 0x5404 || arg[1].low == 0x5403 || arg[1].low == 0x802c542a || arg[1].low == 0x402c542b || arg[1].low == 0x402c542d || arg[1].low == 0x402c542c || arg[1].low == 0x5414 || arg[1].low == 0x5413 || arg[1].low == 0x8942 || arg[1].low == 0xc0502100 || arg[1].low == 0xc0182101 || (arg[1].low == 0x40082104 && arg[2] == 0x1)))) => allow
-D0614 09:15:34.094962   26543 seccomp.go:819]     - Syscall   66: (arg[2] > 0x0) => allow
-D0614 09:15:34.094977   26543 seccomp.go:819]     - Syscall   77: ((arg[2] == 0x1 && arg[3] == 0x2)) => allow
-D0614 09:15:34.094989   26543 seccomp.go:819]     - Syscall   88: ((arg[1] == 0 && arg[3] == 0)) => allow
-D0614 09:15:34.095000   26543 seccomp.go:819]     - Syscall   95: ((arg[0] == 0x1 && arg[3] == 0x1000005)) => allow
-D0614 09:15:34.095011   26543 seccomp.go:819]     - Syscall  107: (arg[0] == 0x3) => allow
-D0614 09:15:34.095023   26543 seccomp.go:819]     - Syscall  110: ((arg[1] == 0 && arg[3] == 0)) => allow
-D0614 09:15:34.095068   26543 seccomp.go:819]     - Syscall  117: ((arg[0].high == 0 && (arg[0].low == 0x10 || (arg[0].low == 0x7 && arg[2] == 0 && arg[3] == 0) || arg[0].low == 0x4201 || (arg[0].low == 0x4204 && arg[2] == 0x1) || arg[0].low == 0x4202 || (arg[0].low == 0x4200 && arg[2] == 0 && arg[3] == 0x100041) || (arg[0].low == 0x4205 && arg[2] == 0x1) || (arg[0].low == 0x420b && arg[2] == 0x8) || (arg[0].low == 0x1f && arg[2] == 0 && arg[3] == 0) || arg[0].low == 0x11 || (arg[0].low == 0x4204 && arg[2] == 0x401) || (arg[0].low == 0x4205 && arg[2] == 0x401)))) => allow
-D0614 09:15:34.095083   26543 seccomp.go:819]     - Syscall  140: ((arg[0] == 0 && arg[2] == 0xfffffffffffffff7)) => allow
-D0614 09:15:34.095096   26543 seccomp.go:819]     - Syscall  167: ((arg[0] == 0x53564d41 && arg[1] == 0)) => allow
-D0614 09:15:34.095111   26543 seccomp.go:819]     - Syscall  168: ((arg[1] == 0 && arg[2] == 0)) => allow
-D0614 09:15:34.095124   26543 seccomp.go:819]     - Syscall  201: ((arg[0] == 0x7 && arg[1] == 0x10)) => allow
-D0614 09:15:34.095150   26543 seccomp.go:819]     - Syscall  209: ((arg[1] == 0x1 && arg[2].high == 0 && (arg[2].low == 0x27 || arg[2].low == 0x3 || arg[2].low == 0x4 || arg[2].low == 0x7 || arg[2].low == 0x10 || arg[2].low == 0x11))) => allow
-D0614 09:15:34.095173   26543 seccomp.go:819]     - Syscall  210: ((arg[1].high == 0 && (arg[1].low == 0 || arg[1].low == 0x1 || arg[1].low == 0x2))) => allow
-D0614 09:15:34.095184   26543 seccomp.go:819]     - Syscall  211: (arg[2] == 0x4040) => allow
-D0614 09:15:34.095209   26543 seccomp.go:819]     - Syscall  212: ((arg[2].high == 0 && (arg[2].low == 0x60 || arg[2].low == 0x62))) => allow
-D0614 09:15:34.095221   26543 seccomp.go:819]     - Syscall  220: (arg[0] == 0x50f00) => allow
-D0614 09:15:34.095249   26543 seccomp.go:819]     - Syscall  222: {(arg[2] & 0x4 == 0x4) => kill process; ((arg[3].high == 0 && (arg[3].low == 0x1 || arg[3].low == 0x11 || arg[3].low == 0x2 || arg[3].low == 0x22 || arg[3].low == 0x20022 || arg[3].low == 0x4022 || (arg[2] == 0x3 && arg[3].low == 0x32) || (arg[2] == 0x3 && arg[3].low == 0x28)))) => allow}
-D0614 09:15:34.095261   26543 seccomp.go:819]     - Syscall  226: {(arg[2] & 0x4 == 0x4) => kill process; allow}
-D0614 09:15:34.095273   26543 seccomp.go:819]     - Syscall  240: ((arg[0] == 0x67af && arg[2] == 0x9)) => allow
-D0614 09:15:34.095285   26543 seccomp.go:819]     - Syscall  242: (arg[0] == 0x7) => allow
-D0614 09:15:34.095297   26543 seccomp.go:819]     - Syscall  243: ((arg[2] == 0x8 && arg[3] == 0x40 && arg[4] == 0)) => allow
-D0614 09:15:34.095307   26543 seccomp.go:819]     - Syscall  269: (arg[3] == 0x40) => allow
-D0614 09:15:34.095318   26543 seccomp.go:819]     - Syscall  279: (arg[1] == 0) => allow
-D0614 09:15:34.095335   26543 seccomp.go:819]     - Syscall  283: ((arg[0] == 0x1 && arg[1] == 0)) => allow
-D0614 09:15:34.095347   26543 seccomp.go:819]     - Syscall  291: ((arg[0] NonNegativeFD && arg[2] & 0x1000 == 0x1000)) => allow
-D0614 09:15:34.095356   26543 seccomp.go:812]   Trivial syscalls:
-D0614 09:15:34.095371   26543 seccomp.go:819]     - Syscall    0: allow
-D0614 09:15:34.095380   26543 seccomp.go:819]     - Syscall    1: allow
-D0614 09:15:34.095388   26543 seccomp.go:819]     - Syscall    2: allow
-D0614 09:15:34.095395   26543 seccomp.go:819]     - Syscall    4: allow
-D0614 09:15:34.095404   26543 seccomp.go:819]     - Syscall   20: allow
-D0614 09:15:34.095423   26543 seccomp.go:819]     - Syscall   21: allow
-D0614 09:15:34.095433   26543 seccomp.go:819]     - Syscall   23: allow
-D0614 09:15:34.095441   26543 seccomp.go:819]     - Syscall   46: allow
-D0614 09:15:34.095448   26543 seccomp.go:819]     - Syscall   47: allow
-D0614 09:15:34.095456   26543 seccomp.go:819]     - Syscall   52: allow
-D0614 09:15:34.095464   26543 seccomp.go:819]     - Syscall   57: allow
-D0614 09:15:34.095471   26543 seccomp.go:819]     - Syscall   62: allow
-D0614 09:15:34.095479   26543 seccomp.go:819]     - Syscall   63: allow
-D0614 09:15:34.095487   26543 seccomp.go:819]     - Syscall   64: allow
-D0614 09:15:34.095495   26543 seccomp.go:819]     - Syscall   67: allow
-D0614 09:15:34.095503   26543 seccomp.go:819]     - Syscall   68: allow
-D0614 09:15:34.095511   26543 seccomp.go:819]     - Syscall   69: allow
-D0614 09:15:34.095519   26543 seccomp.go:819]     - Syscall   70: allow
-D0614 09:15:34.095527   26543 seccomp.go:819]     - Syscall   73: allow
-D0614 09:15:34.095534   26543 seccomp.go:819]     - Syscall   80: allow
-D0614 09:15:34.095548   26543 seccomp.go:819]     - Syscall   82: allow
-D0614 09:15:34.095556   26543 seccomp.go:819]     - Syscall   84: allow
-D0614 09:15:34.095564   26543 seccomp.go:819]     - Syscall   93: allow
-D0614 09:15:34.095572   26543 seccomp.go:819]     - Syscall   94: allow
-D0614 09:15:34.095580   26543 seccomp.go:819]     - Syscall  101: allow
-D0614 09:15:34.095588   26543 seccomp.go:819]     - Syscall  103: allow
-D0614 09:15:34.095596   26543 seccomp.go:819]     - Syscall  111: allow
-D0614 09:15:34.095604   26543 seccomp.go:819]     - Syscall  113: allow
-D0614 09:15:34.095612   26543 seccomp.go:819]     - Syscall  124: allow
-D0614 09:15:34.095620   26543 seccomp.go:819]     - Syscall  128: allow
-D0614 09:15:34.095627   26543 seccomp.go:819]     - Syscall  131: allow
-D0614 09:15:34.095635   26543 seccomp.go:819]     - Syscall  132: allow
-D0614 09:15:34.095643   26543 seccomp.go:819]     - Syscall  134: allow
-D0614 09:15:34.095651   26543 seccomp.go:819]     - Syscall  135: allow
-D0614 09:15:34.095660   26543 seccomp.go:819]     - Syscall  139: allow
-D0614 09:15:34.095669   26543 seccomp.go:819]     - Syscall  169: allow
-D0614 09:15:34.095679   26543 seccomp.go:819]     - Syscall  172: allow
-D0614 09:15:34.095688   26543 seccomp.go:819]     - Syscall  178: allow
-D0614 09:15:34.095698   26543 seccomp.go:819]     - Syscall  215: allow
-D0614 09:15:34.095707   26543 seccomp.go:819]     - Syscall  228: allow
-D0614 09:15:34.095716   26543 seccomp.go:819]     - Syscall  229: allow
-D0614 09:15:34.095723   26543 seccomp.go:819]     - Syscall  232: allow
-D0614 09:15:34.095730   26543 seccomp.go:819]     - Syscall  233: allow
-D0614 09:15:34.095738   26543 seccomp.go:819]     - Syscall  260: allow
-D0614 09:15:34.095746   26543 seccomp.go:819]     - Syscall  278: allow
-D0614 09:15:34.095754   26543 seccomp.go:819]     - Syscall  286: allow
-D0614 09:15:34.095762   26543 seccomp.go:819]     - Syscall  287: allow
-D0614 09:15:34.095769   26543 seccomp.go:822] End of ordered seccomp rules.
-D0614 09:15:34.111654   26543 seccomp.go:526] Seccomp program optimized from 1744 to 441 instructions; took 8.465417ms to build and 8.650468ms to optimize
-D0614 09:15:34.112210   26543 seccomp.go:76] Seccomp program dump:
-0: A <- P[4:4]
-1: pc += (A == 3221225655) ? 0 [2] : 143 [145]
-2: A <- P[0:4]
-3: pc += (A == 98) ? 0 [4] : 4 [8]
-4: A <- P[24:4]
-5: pc += (A & 4294967166) ? 139 [145] : 0 [6]
-6: A <- P[28:4]
-7: pc += (A == 0) ? 136 [144] : 137 [145]
-8: pc += (A >= 201) ? 0 [9] : 1 [10]
-9: pc += (A > 201) ? 30 [40] : 65 [75]
-10: pc += (A >= 88) ? 0 [11] : 1 [12]
-11: pc += (A > 88) ? 14 [26] : 71 [83]
-12: pc += (A >= 25) ? 0 [13] : 1 [14]
-13: pc += (A > 25) ? 6 [20] : 77 [91]
-14: pc += (A >= 22) ? 0 [15] : 1 [16]
-15: pc += (A > 22) ? 2 [18] : 81 [97]
-16: pc += (A == 19) ? 84 [101] : 0 [17]
-17: pc += 354 [372]
-18: pc += (A == 24) ? 90 [109] : 0 [19]
-19: pc += 352 [372]
-20: pc += (A >= 66) ? 0 [21] : 1 [22]
-21: pc += (A > 66) ? 2 [24] : 91 [113]
-22: pc += (A == 29) ? 95 [118] : 0 [23]
-23: pc += 348 [372]
-24: pc += (A == 77) ? 121 [146] : 0 [25]
-25: pc += 346 [372]
-26: pc += (A >= 117) ? 0 [27] : 1 [28]
-27: pc += (A > 117) ? 6 [34] : 126 [154]
-28: pc += (A >= 107) ? 0 [29] : 1 [30]
-29: pc += (A > 107) ? 2 [32] : 190 [220]
-30: pc += (A == 95) ? 193 [224] : 0 [31]
-31: pc += 340 [372]
-32: pc += (A == 110) ? 199 [232] : 0 [33]
-33: pc += 338 [372]
-34: pc += (A >= 167) ? 0 [35] : 1 [36]
-35: pc += (A > 167) ? 2 [38] : 204 [240]
-36: pc += (A == 140) ? 211 [248] : 0 [37]
-37: pc += 334 [372]
-38: pc += (A == 168) ? 217 [256] : 0 [39]
-39: pc += 332 [372]
-40: pc += (A >= 240) ? 0 [41] : 1 [42]
-41: pc += (A > 240) ? 14 [56] : 222 [264]
-42: pc += (A >= 212) ? 0 [43] : 1 [44]
-43: pc += (A > 212) ? 4 [48] : 228 [272]
-44: pc += (A >= 210) ? 0 [45] : 1 [46]
-45: pc += (A > 210) ? 250 [296] : 231 [277]
-46: pc += (A == 209) ? 236 [283] : 0 [47]
-47: pc += 324 [372]
-48: pc += (A >= 222) ? 0 [49] : 1 [50]
-49: pc += (A > 222) ? 3 [53] : 250 [300]
-50: pc += (A == 220) ? 1 [52] : 0 [51]
-51: pc += 320 [372]
-52: pc += 272 [325]
-53: pc += (A == 226) ? 1 [55] : 0 [54]
-54: pc += 317 [372]
-55: pc += 273 [329]
-56: pc += (A >= 279) ? 0 [57] : 2 [59]
-57: pc += (A > 279) ? 10 [68] : 0 [58]
-58: pc += 273 [332]
-59: pc += (A >= 243) ? 0 [60] : 2 [62]
-60: pc += (A > 243) ? 4 [65] : 0 [61]
-61: pc += 274 [336]
-62: pc += (A == 242) ? 1 [64] : 0 [63]
-63: pc += 308 [372]
-64: pc += 284 [349]
-65: pc += (A == 269) ? 1 [67] : 0 [66]
-66: pc += 305 [372]
-67: pc += 285 [353]
-68: pc += (A >= 291) ? 0 [69] : 3 [72]
-69: pc += (A == 291) ? 1 [71] : 0 [70]
-70: pc += 301 [372]
-71: pc += 285 [357]
-72: pc += (A == 283) ? 1 [74] : 0 [73]
-73: pc += 298 [372]
-74: pc += 289 [364]
-75: A <- P[16:4]
-76: pc += (A == 7) ? 0 [77] : 68 [145]
-77: A <- P[20:4]
-78: pc += (A == 0) ? 0 [79] : 66 [145]
-79: A <- P[24:4]
-80: pc += (A == 16) ? 0 [81] : 64 [145]
-81: A <- P[28:4]
-82: pc += (A == 0) ? 61 [144] : 62 [145]
-83: A <- P[24:4]
-84: pc += (A == 0) ? 0 [85] : 60 [145]
-85: A <- P[28:4]
-86: pc += (A == 0) ? 0 [87] : 58 [145]
-87: A <- P[40:4]
-88: pc += (A == 0) ? 0 [89] : 56 [145]
-89: A <- P[44:4]
-90: pc += (A == 0) ? 53 [144] : 54 [145]
-91: A <- P[28:4]
-92: pc += (A == 0) ? 0 [93] : 52 [145]
-93: A <- P[24:4]
-94: pc += (A == 3) ? 49 [144] : 0 [95]
-95: pc += (A == 4) ? 48 [144] : 0 [96]
-96: pc += (A == 1) ? 47 [144] : 48 [145]
-97: A <- P[48:4]
-98: pc += (A == 0) ? 0 [99] : 46 [145]
-99: A <- P[52:4]
-100: pc += (A == 0) ? 43 [144] : 44 [145]
-101: A <- P[16:4]
-102: pc += (A == 0) ? 0 [103] : 42 [145]
-103: A <- P[20:4]
-104: pc += (A == 0) ? 0 [105] : 40 [145]
-105: A <- P[24:4]
-106: pc += (A == 0) ? 0 [107] : 38 [145]
-107: A <- P[28:4]
-108: pc += (A == 0) ? 35 [144] : 36 [145]
-109: A <- P[32:4]
-110: pc += (A == 524288) ? 0 [111] : 34 [145]
-111: A <- P[36:4]
-112: pc += (A == 0) ? 31 [144] : 32 [145]
-113: A <- P[36:4]
-114: pc += (A >= 0) ? 0 [115] : 30 [145]
-115: pc += (A == 0) ? 0 [116] : 28 [144]
-116: A <- P[32:4]
-117: pc += (A > 0) ? 26 [144] : 27 [145]
-118: A <- P[16:4]
-119: pc += (A & 2147483648) ? 25 [145] : 0 [120]
-120: A <- P[20:4]
-121: pc += (A == 0) ? 0 [122] : 23 [145]
-122: A <- P[28:4]
-123: pc += (A == 0) ? 0 [124] : 21 [145]
-124: A <- P[24:4]
-125: pc += (A == 21531) ? 18 [144] : 0 [126]
-126: pc += (A == 21505) ? 17 [144] : 0 [127]
-127: pc += (A == 21506) ? 16 [144] : 0 [128]
-128: pc += (A == 21508) ? 15 [144] : 0 [129]
-129: pc += (A == 21507) ? 14 [144] : 0 [130]
-130: pc += (A == 2150388778) ? 13 [144] : 0 [131]
-131: pc += (A == 1076646955) ? 12 [144] : 0 [132]
-132: pc += (A == 1076646957) ? 11 [144] : 0 [133]
-133: pc += (A == 1076646956) ? 10 [144] : 0 [134]
-134: pc += (A == 21524) ? 9 [144] : 0 [135]
-135: pc += (A == 21523) ? 8 [144] : 0 [136]
-136: pc += (A == 35138) ? 7 [144] : 0 [137]
-137: pc += (A == 3226476800) ? 6 [144] : 0 [138]
-138: pc += (A == 3222806785) ? 5 [144] : 0 [139]
-139: pc += (A == 1074274564) ? 0 [140] : 5 [145]
-140: A <- P[32:4]
-141: pc += (A == 1) ? 0 [142] : 3 [145]
-142: A <- P[36:4]
-143: pc += (A == 0) ? 0 [144] : 1 [145]
-144: ret 2147418112
-145: ret 2147483648
-146: A <- P[32:4]
-147: pc += (A == 1) ? 0 [148] : 200 [348]
-148: A <- P[36:4]
-149: pc += (A == 0) ? 0 [150] : 198 [348]
-150: A <- P[40:4]
-151: pc += (A == 2) ? 0 [152] : 196 [348]
-152: A <- P[44:4]
-153: pc += (A == 0) ? 170 [324] : 194 [348]
-154: A <- P[20:4]
-155: pc += (A == 0) ? 0 [156] : 192 [348]
-156: A <- P[16:4]
-157: pc += (A == 16) ? 166 [324] : 0 [158]
-158: pc += (A == 7) ? 0 [159] : 8 [167]
-159: A <- P[32:4]
-160: pc += (A == 0) ? 0 [161] : 6 [167]
-161: A <- P[36:4]
-162: pc += (A == 0) ? 0 [163] : 4 [167]
-163: A <- P[40:4]
-164: pc += (A == 0) ? 0 [165] : 2 [167]
-165: A <- P[44:4]
-166: pc += (A == 0) ? 157 [324] : 0 [167]
-167: A <- P[16:4]
-168: pc += (A == 16897) ? 155 [324] : 0 [169]
-169: pc += (A == 16900) ? 0 [170] : 4 [174]
-170: A <- P[32:4]
-171: pc += (A == 1) ? 0 [172] : 2 [174]
-172: A <- P[36:4]
-173: pc += (A == 0) ? 150 [324] : 0 [174]
-174: A <- P[16:4]
-175: pc += (A == 16898) ? 148 [324] : 0 [176]
-176: pc += (A == 16896) ? 0 [177] : 8 [185]
-177: A <- P[32:4]
-178: pc += (A == 0) ? 0 [179] : 6 [185]
-179: A <- P[36:4]
-180: pc += (A == 0) ? 0 [181] : 4 [185]
-181: A <- P[40:4]
-182: pc += (A == 1048641) ? 0 [183] : 2 [185]
-183: A <- P[44:4]
-184: pc += (A == 0) ? 139 [324] : 0 [185]
-185: A <- P[16:4]
-186: pc += (A == 16901) ? 0 [187] : 4 [191]
-187: A <- P[32:4]
-188: pc += (A == 1) ? 0 [189] : 2 [191]
-189: A <- P[36:4]
-190: pc += (A == 0) ? 133 [324] : 0 [191]
-191: A <- P[16:4]
-192: pc += (A == 16907) ? 0 [193] : 4 [197]
-193: A <- P[32:4]
-194: pc += (A == 8) ? 0 [195] : 2 [197]
-195: A <- P[36:4]
-196: pc += (A == 0) ? 127 [324] : 0 [197]
-197: A <- P[16:4]
-198: pc += (A == 31) ? 0 [199] : 8 [207]
-199: A <- P[32:4]
-200: pc += (A == 0) ? 0 [201] : 6 [207]
-201: A <- P[36:4]
-202: pc += (A == 0) ? 0 [203] : 4 [207]
-203: A <- P[40:4]
-204: pc += (A == 0) ? 0 [205] : 2 [207]
-205: A <- P[44:4]
-206: pc += (A == 0) ? 117 [324] : 0 [207]
-207: A <- P[16:4]
-208: pc += (A == 17) ? 115 [324] : 0 [209]
-209: pc += (A == 16900) ? 0 [210] : 4 [214]
-210: A <- P[32:4]
-211: pc += (A == 1025) ? 0 [212] : 2 [214]
-212: A <- P[36:4]
-213: pc += (A == 0) ? 110 [324] : 0 [214]
-214: A <- P[16:4]
-215: pc += (A == 16901) ? 0 [216] : 132 [348]
-216: A <- P[32:4]
-217: pc += (A == 1025) ? 0 [218] : 130 [348]
-218: A <- P[36:4]
-219: pc += (A == 0) ? 104 [324] : 128 [348]
-220: A <- P[16:4]
-221: pc += (A == 3) ? 0 [222] : 126 [348]
-222: A <- P[20:4]
-223: pc += (A == 0) ? 100 [324] : 124 [348]
-224: A <- P[16:4]
-225: pc += (A == 1) ? 0 [226] : 122 [348]
-226: A <- P[20:4]
-227: pc += (A == 0) ? 0 [228] : 120 [348]
-228: A <- P[40:4]
-229: pc += (A == 16777221) ? 0 [230] : 118 [348]
-230: A <- P[44:4]
-231: pc += (A == 0) ? 92 [324] : 116 [348]
-232: A <- P[24:4]
-233: pc += (A == 0) ? 0 [234] : 114 [348]
-234: A <- P[28:4]
-235: pc += (A == 0) ? 0 [236] : 112 [348]
-236: A <- P[40:4]
-237: pc += (A == 0) ? 0 [238] : 110 [348]
-238: A <- P[44:4]
-239: pc += (A == 0) ? 84 [324] : 108 [348]
-240: A <- P[16:4]
-241: pc += (A == 1398164801) ? 0 [242] : 106 [348]
-242: A <- P[20:4]
-243: pc += (A == 0) ? 0 [244] : 104 [348]
-244: A <- P[24:4]
-245: pc += (A == 0) ? 0 [246] : 102 [348]
-246: A <- P[28:4]
-247: pc += (A == 0) ? 76 [324] : 100 [348]
-248: A <- P[16:4]
-249: pc += (A == 0) ? 0 [250] : 98 [348]
-250: A <- P[20:4]
-251: pc += (A == 0) ? 0 [252] : 96 [348]
-252: A <- P[32:4]
-253: pc += (A == 4294967287) ? 0 [254] : 94 [348]
-254: A <- P[36:4]
-255: pc += (A == 4294967295) ? 68 [324] : 92 [348]
-256: A <- P[24:4]
-257: pc += (A == 0) ? 0 [258] : 90 [348]
-258: A <- P[28:4]
-259: pc += (A == 0) ? 0 [260] : 88 [348]
-260: A <- P[32:4]
-261: pc += (A == 0) ? 0 [262] : 86 [348]
-262: A <- P[36:4]
-263: pc += (A == 0) ? 60 [324] : 84 [348]
-264: A <- P[16:4]
-265: pc += (A == 26543) ? 0 [266] : 174 [440]
-266: A <- P[20:4]
-267: pc += (A == 0) ? 0 [268] : 172 [440]
-268: A <- P[32:4]
-269: pc += (A == 9) ? 0 [270] : 170 [440]
-270: A <- P[36:4]
-271: pc += (A == 0) ? 52 [324] : 168 [440]
-272: A <- P[36:4]
-273: pc += (A == 0) ? 0 [274] : 166 [440]
-274: A <- P[32:4]
-275: pc += (A == 96) ? 48 [324] : 0 [276]
-276: pc += (A == 98) ? 47 [324] : 163 [440]
-277: A <- P[28:4]
-278: pc += (A == 0) ? 0 [279] : 161 [440]
-279: A <- P[24:4]
-280: pc += (A == 0) ? 43 [324] : 0 [281]
-281: pc += (A == 1) ? 42 [324] : 0 [282]
-282: pc += (A == 2) ? 41 [324] : 157 [440]
-283: A <- P[24:4]
-284: pc += (A == 1) ? 0 [285] : 155 [440]
-285: A <- P[28:4]
-286: pc += (A == 0) ? 0 [287] : 153 [440]
-287: A <- P[36:4]
-288: pc += (A == 0) ? 0 [289] : 151 [440]
-289: A <- P[32:4]
-290: pc += (A == 39) ? 33 [324] : 0 [291]
-291: pc += (A == 3) ? 32 [324] : 0 [292]
-292: pc += (A == 4) ? 31 [324] : 0 [293]
-293: pc += (A == 7) ? 30 [324] : 0 [294]
-294: pc += (A == 16) ? 29 [324] : 0 [295]
-295: pc += (A == 17) ? 28 [324] : 144 [440]
-296: A <- P[32:4]
-297: pc += (A == 16448) ? 0 [298] : 142 [440]
-298: A <- P[36:4]
-299: pc += (A == 0) ? 24 [324] : 140 [440]
-300: A <- P[32:4]
-301: A <- A & 4
-302: pc += (A == 4) ? 137 [440] : 0 [303]
-303: A <- P[44:4]
-304: pc += (A == 0) ? 0 [305] : 135 [440]
-305: A <- P[40:4]
-306: pc += (A == 1) ? 17 [324] : 0 [307]
-307: pc += (A == 17) ? 16 [324] : 0 [308]
-308: pc += (A == 2) ? 15 [324] : 0 [309]
-309: pc += (A == 34) ? 14 [324] : 0 [310]
-310: pc += (A == 131106) ? 13 [324] : 0 [311]
-311: pc += (A == 16418) ? 12 [324] : 0 [312]
-312: A <- P[32:4]
-313: pc += (A == 3) ? 0 [314] : 4 [318]
-314: A <- P[36:4]
-315: pc += (A == 0) ? 0 [316] : 2 [318]
-316: A <- P[40:4]
-317: pc += (A == 50) ? 6 [324] : 0 [318]
-318: A <- P[32:4]
-319: pc += (A == 3) ? 0 [320] : 120 [440]
-320: A <- P[36:4]
-321: pc += (A == 0) ? 0 [322] : 118 [440]
-322: A <- P[40:4]
-323: pc += (A == 40) ? 0 [324] : 116 [440]
-324: ret 2147418112
-325: A <- P[16:4]
-326: pc += (A == 331520) ? 0 [327] : 113 [440]
-327: A <- P[20:4]
-328: pc += (A == 0) ? 110 [439] : 111 [440]
-329: A <- P[32:4]
-330: A <- A & 4
-331: pc += (A == 4) ? 108 [440] : 107 [439]
-332: A <- P[24:4]
-333: pc += (A == 0) ? 0 [334] : 106 [440]
-334: A <- P[28:4]
-335: pc += (A == 0) ? 103 [439] : 104 [440]
-336: A <- P[32:4]
-337: pc += (A == 8) ? 0 [338] : 10 [348]
-338: A <- P[36:4]
-339: pc += (A == 0) ? 0 [340] : 8 [348]
-340: A <- P[40:4]
-341: pc += (A == 64) ? 0 [342] : 6 [348]
-342: A <- P[44:4]
-343: pc += (A == 0) ? 0 [344] : 4 [348]
-344: A <- P[48:4]
-345: pc += (A == 0) ? 0 [346] : 2 [348]
-346: A <- P[52:4]
-347: pc += (A == 0) ? 91 [439] : 0 [348]
-348: ret 2147483648
-349: A <- P[16:4]
-350: pc += (A == 7) ? 0 [351] : 89 [440]
-351: A <- P[20:4]
-352: pc += (A == 0) ? 86 [439] : 87 [440]
-353: A <- P[40:4]
-354: pc += (A == 64) ? 0 [355] : 85 [440]
-355: A <- P[44:4]
-356: pc += (A == 0) ? 82 [439] : 83 [440]
-357: A <- P[16:4]
-358: pc += (A & 2147483648) ? 81 [440] : 0 [359]
-359: A <- P[20:4]
-360: pc += (A == 0) ? 0 [361] : 79 [440]
-361: A <- P[32:4]
-362: A <- A & 4096
-363: pc += (A == 4096) ? 75 [439] : 76 [440]
-364: A <- P[16:4]
-365: pc += (A == 1) ? 0 [366] : 74 [440]
-366: A <- P[20:4]
-367: pc += (A == 0) ? 0 [368] : 72 [440]
-368: A <- P[24:4]
-369: pc += (A == 0) ? 0 [370] : 70 [440]
-370: A <- P[28:4]
-371: pc += (A == 0) ? 67 [439] : 68 [440]
-372: pc += (A >= 94) ? 0 [373] : 1 [374]
-373: pc += (A > 94) ? 27 [401] : 65 [439]
-374: pc += (A >= 62) ? 0 [375] : 1 [376]
-375: pc += (A > 62) ? 13 [389] : 63 [439]
-376: pc += (A >= 21) ? 0 [377] : 1 [378]
-377: pc += (A > 21) ? 4 [382] : 61 [439]
-378: pc += (A >= 2) ? 0 [379] : 60 [439]
-379: pc += (A > 2) ? 0 [380] : 59 [439]
-380: pc += (A >= 20) ? 58 [439] : 0 [381]
-381: pc += (A == 4) ? 57 [439] : 58 [440]
-382: pc += (A >= 47) ? 0 [383] : 1 [384]
-383: pc += (A > 47) ? 2 [386] : 55 [439]
-384: pc += (A >= 46) ? 54 [439] : 0 [385]
-385: pc += (A == 23) ? 53 [439] : 54 [440]
-386: pc += (A >= 57) ? 0 [387] : 1 [388]
-387: pc += (A == 57) ? 51 [439] : 52 [440]
-388: pc += (A == 52) ? 50 [439] : 51 [440]
-389: pc += (A >= 70) ? 0 [390] : 1 [391]
-390: pc += (A > 70) ? 3 [394] : 48 [439]
-391: pc += (A >= 67) ? 47 [439] : 0 [392]
-392: pc += (A >= 64) ? 0 [393] : 46 [439]
-393: pc += (A == 64) ? 45 [439] : 46 [440]
-394: pc += (A >= 82) ? 0 [395] : 1 [396]
-395: pc += (A > 82) ? 3 [399] : 43 [439]
-396: pc += (A >= 80) ? 0 [397] : 1 [398]
-397: pc += (A == 80) ? 41 [439] : 42 [440]
-398: pc += (A == 73) ? 40 [439] : 41 [440]
-399: pc += (A >= 93) ? 39 [439] : 0 [400]
-400: pc += (A == 84) ? 38 [439] : 39 [440]
-401: pc += (A >= 169) ? 0 [402] : 1 [403]
-402: pc += (A > 169) ? 18 [421] : 36 [439]
-403: pc += (A >= 128) ? 0 [404] : 1 [405]
-404: pc += (A > 128) ? 8 [413] : 34 [439]
-405: pc += (A >= 111) ? 0 [406] : 1 [407]
-406: pc += (A > 111) ? 3 [410] : 32 [439]
-407: pc += (A >= 103) ? 0 [408] : 1 [409]
-408: pc += (A == 103) ? 30 [439] : 31 [440]
-409: pc += (A == 101) ? 29 [439] : 30 [440]
-410: pc += (A >= 124) ? 0 [411] : 1 [412]
-411: pc += (A == 124) ? 27 [439] : 28 [440]
-412: pc += (A == 113) ? 26 [439] : 27 [440]
-413: pc += (A >= 134) ? 0 [414] : 1 [415]
-414: pc += (A > 134) ? 3 [418] : 24 [439]
-415: pc += (A >= 132) ? 0 [416] : 1 [417]
-416: pc += (A == 132) ? 22 [439] : 23 [440]
-417: pc += (A == 131) ? 21 [439] : 22 [440]
-418: pc += (A >= 139) ? 0 [419] : 1 [420]
-419: pc += (A == 139) ? 19 [439] : 20 [440]
-420: pc += (A == 135) ? 18 [439] : 19 [440]
-421: pc += (A >= 232) ? 0 [422] : 1 [423]
-422: pc += (A > 232) ? 8 [431] : 16 [439]
-423: pc += (A >= 215) ? 0 [424] : 1 [425]
-424: pc += (A > 215) ? 3 [428] : 14 [439]
-425: pc += (A >= 178) ? 0 [426] : 1 [427]
-426: pc += (A == 178) ? 12 [439] : 13 [440]
-427: pc += (A == 172) ? 11 [439] : 12 [440]
-428: pc += (A >= 229) ? 0 [429] : 1 [430]
-429: pc += (A == 229) ? 9 [439] : 10 [440]
-430: pc += (A == 228) ? 8 [439] : 9 [440]
-431: pc += (A >= 278) ? 0 [432] : 1 [433]
-432: pc += (A > 278) ? 3 [436] : 6 [439]
-433: pc += (A >= 260) ? 0 [434] : 1 [435]
-434: pc += (A == 260) ? 4 [439] : 5 [440]
-435: pc += (A == 233) ? 3 [439] : 4 [440]
-436: pc += (A >= 287) ? 0 [437] : 1 [438]
-437: pc += (A == 287) ? 1 [439] : 2 [440]
-438: pc += (A == 286) ? 0 [439] : 1 [440]
-439: ret 2147418112
-440: ret 2147483648
+Error reading mounts file: error unmarshaling mounts: unexpected end of JSON input
+JSON bytes:
 
-I0614 09:15:34.113412   26543 seccomp.go:87] Seccomp filters installed.
-I0614 09:15:34.113933   26543 vfs.go:1243] Setting cgroupfs cpu defaults: quota=-1, period=100000 (raw quota=-1, raw period=0)
-D0614 09:15:34.114016   26543 loader.go:1401] Monitoring gofer health for container "my-kernel"
-D0614 09:15:34.114030   26543 cgroupfs.go:337] cgroupfs.FilesystemType.GetFilesystem: default control values: map[cpu.cfs_period_us:100000 cpu.cfs_quota_us:-1]
-I0614 09:15:34.114343   26543 vfs.go:1250] Setting cgroupfs memory defaults: limit=7800090624 bytes (7.26 GB)
-D0614 09:15:34.114383   26543 cgroupfs.go:337] cgroupfs.FilesystemType.GetFilesystem: default control values: map[memory.limit_in_bytes:7800090624]
-I0614 09:15:34.114476   26543 vfs.go:1276] created cgroup mounts for controllers [cpu cpuacct cpuset devices job memory pids]
-I0614 09:15:34.114522   26543 vfs.go:473] Configuring container's file system
-I0614 09:15:34.114558   26543 vfs.go:567] Mounting root with 9p, ioFD: 4
-I0614 09:15:34.114573   26543 vfs.go:570] Adding overlay on top of root
-D0614 09:15:34.114671   26543 client.go:395] send [sockComm 4] MountReq{}
-D0614 09:15:34.115252   26543 client.go:395] recv [sockComm 4] MountResp{Root: Inode{ControlFD: 1, Stat: Statx{Mask: 0x7ff, Mode: S_IFDIR|0o711, UID: 10270, GID: 10270, Ino: 1564585, DevMajor: 253, DevMinor: 52, Size: 3452, Blocks: 7, Blksize: 4096, Nlink: 19, Atime: 2026-06-13 09:02:26.034171196 +0000 UTC, Btime: 1970-01-01 00:00:00 +0000 UTC, Ctime: 2026-06-14 08:47:56.23055022 +0000 UTC, Mtime: 2026-06-14 08:47:56.23055022 +0000 UTC, Attributes: 0, AttributesMask: 0, RdevMajor: 0, RdevMinor: 0}}, MaxMessageSize: 2093056, SupportedMs: [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 21 22 23 24 25 26 27 28 29 30 31 32 33]}
-D0614 09:15:34.115333   26543 client.go:395] send [sockComm 4] ChannelReq{}
-D0614 09:15:34.115693   26543 client.go:395] recv [sockComm 4] ChannelResp{dataOffset: 0, dataLength: 2097152}
-D0614 09:15:34.116006   26543 client.go:395] send [sockComm 4] ChannelReq{}
-D0614 09:15:34.118137   26543 client.go:395] recv [sockComm 4] ChannelResp{dataOffset: 2097152, dataLength: 2097152}
-D0614 09:15:34.118510   26543 client.go:395] send [sockComm 4] ChannelReq{}
-D0614 09:15:34.119078   26543 client.go:395] recv [sockComm 4] ChannelResp{dataOffset: 4194304, dataLength: 2097152}
-D0614 09:15:34.119513   26543 client.go:395] send [sockComm 4] ChannelReq{}
-D0614 09:15:34.119941   26543 client.go:395] recv [sockComm 4] ChannelResp{dataOffset: 6291456, dataLength: 2097152}
-D0614 09:15:34.120444   26543 client.go:395] send [channel 0x74e4b48870] FStatFSReq{FD: 1}
-D0614 09:15:34.120612   26543 client.go:395] recv [channel 0x74e4b48870] StatFS{Type: 4076150800, BlockSize: 4096, Blocks: 28372219, BlocksFree: 13568275, BlocksAvailable: 13535507, Files: 13511677, FilesFree: 13297612, NameLength: 255}
-D0614 09:15:34.120732   26543 vfs.go:778] Mounting "" to "/sys", type: sysfs, options: []
-D0614 09:15:34.120970   26543 client.go:395] send [channel 0x74e4b48870] WalkReq{DirFD: 1, Path: [sys]}
-D0614 09:15:34.121347   26543 client.go:395] recv [channel 0x74e4b48870] WalkResp{Status: Success, Inodes: [Inode{ControlFD: 2, Stat: Statx{Mask: 0x7ff, Mode: S_IFDIR|0o700, UID: 10270, GID: 10270, Ino: 1589862, DevMajor: 253, DevMinor: 52, Size: 3452, Blocks: 7, Blksize: 4096, Nlink: 2, Atime: 2026-06-13 09:02:36.266171192 +0000 UTC, Btime: 1970-01-01 00:00:00 +0000 UTC, Ctime: 2026-06-13 09:02:36.266171192 +0000 UTC, Mtime: 2026-06-09 13:58:25 +0000 UTC, Attributes: 0, AttributesMask: 0, RdevMajor: 0, RdevMinor: 0}}]}
-I0614 09:15:34.121466   26543 vfs.go:949] Mounted "" to "/sys" type: sysfs, internal-options: ""
-D0614 09:15:34.121497   26543 vfs.go:778] Mounting "" to "/dev", type: dev, options: []
-D0614 09:15:34.121645   26543 client.go:395] send [channel 0x74e4b48870] WalkReq{DirFD: 1, Path: [dev]}
-D0614 09:15:34.121815   26543 client.go:395] recv [channel 0x74e4b48870] WalkResp{Status: Success, Inodes: [Inode{ControlFD: 3, Stat: Statx{Mask: 0x7ff, Mode: S_IFDIR|0o700, UID: 10270, GID: 10270, Ino: 1597213, DevMajor: 253, DevMinor: 52, Size: 3452, Blocks: 7, Blksize: 4096, Nlink: 2, Atime: 2026-06-13 09:02:36.266171192 +0000 UTC, Btime: 1970-01-01 00:00:00 +0000 UTC, Ctime: 2026-06-13 09:02:36.266171192 +0000 UTC, Mtime: 2026-06-09 13:58:25 +0000 UTC, Attributes: 0, AttributesMask: 0, RdevMajor: 0, RdevMinor: 0}}]}
-I0614 09:15:34.121906   26543 vfs.go:949] Mounted "" to "/dev" type: dev, internal-options: ""
-D0614 09:15:34.121933   26543 vfs.go:778] Mounting "" to "/proc", type: proc, options: []
-D0614 09:15:34.122989   26543 client.go:395] send [channel 0x74e4b48870] WalkReq{DirFD: 1, Path: [proc]}
-D0614 09:15:34.123242   26543 client.go:395] recv [channel 0x74e4b48870] WalkResp{Status: Success, Inodes: [Inode{ControlFD: 4, Stat: Statx{Mask: 0x7ff, Mode: S_IFDIR|0o700, UID: 10270, GID: 10270, Ino: 1582894, DevMajor: 253, DevMinor: 52, Size: 3452, Blocks: 7, Blksize: 4096, Nlink: 2, Atime: 2026-06-13 09:02:36.266171192 +0000 UTC, Btime: 1970-01-01 00:00:00 +0000 UTC, Ctime: 2026-06-13 09:02:36.266171192 +0000 UTC, Mtime: 2026-06-09 13:58:25 +0000 UTC, Attributes: 0, AttributesMask: 0, RdevMajor: 0, RdevMinor: 0}}]}
-I0614 09:15:34.123345   26543 vfs.go:949] Mounted "" to "/proc" type: proc, internal-options: ""
-D0614 09:15:34.123379   26543 vfs.go:778] Mounting "" to "/dev/pts", type: devpts, options: []
-I0614 09:15:34.123448   26543 vfs.go:949] Mounted "" to "/dev/pts" type: devpts, internal-options: ""
-D0614 09:15:34.123490   26543 client.go:395] send [channel 0x74e4b48870] WalkReq{DirFD: 1, Path: [tmp]}
-D0614 09:15:34.123622   26543 client.go:395] recv [channel 0x74e4b48870] WalkResp{Status: Success, Inodes: [Inode{ControlFD: 5, Stat: Statx{Mask: 0x7ff, Mode: S_IFDIR|0o700, UID: 10270, GID: 10270, Ino: 1532611, DevMajor: 253, DevMinor: 52, Size: 3452, Blocks: 7, Blksize: 4096, Nlink: 2, Atime: 2026-06-13 09:02:36.266171192 +0000 UTC, Btime: 1970-01-01 00:00:00 +0000 UTC, Ctime: 2026-06-13 09:02:36.266171192 +0000 UTC, Mtime: 2026-06-09 13:58:25 +0000 UTC, Attributes: 0, AttributesMask: 0, RdevMajor: 0, RdevMinor: 0}}]}
-D0614 09:15:34.123723   26543 client.go:395] send [channel 0x74e4b48870] OpenAtReq{FD: 5, Flags: 0}
-D0614 09:15:34.123923   26543 client.go:395] recv [channel 0x74e4b48870] OpenAtResp{OpenFD: 6}
-D0614 09:15:34.123979   26543 client.go:395] send [channel 0x74e4b48870] Getdents64Req{DirFD: 6, Count: -65536}
-D0614 09:15:34.124188   26543 client.go:395] recv [channel 0x74e4b48870] Getdents64Resp{Dirents: []}
-I0614 09:15:34.124252   26543 vfs.go:1177] Mounting internal tmpfs on top of empty "/tmp"
-I0614 09:15:34.124349   26543 vfs.go:949] Mounted "" to "/tmp" type: tmpfs, internal-options: "mode=01777"
-D0614 09:15:34.124413   26543 client.go:395] send [channel 0x74e4b48870] WalkReq{DirFD: 1, Path: [etc]}
-D0614 09:15:34.124598   26543 client.go:395] recv [channel 0x74e4b48870] WalkResp{Status: Success, Inodes: [Inode{ControlFD: 7, Stat: Statx{Mask: 0x7ff, Mode: S_IFDIR|0o700, UID: 10270, GID: 10270, Ino: 1570738, DevMajor: 253, DevMinor: 52, Size: 3452, Blocks: 7, Blksize: 4096, Nlink: 17, Atime: 2026-06-13 09:02:36.458171192 +0000 UTC, Btime: 1970-01-01 00:00:00 +0000 UTC, Ctime: 2026-06-13 09:02:36.506171192 +0000 UTC, Mtime: 2026-06-09 13:58:25 +0000 UTC, Attributes: 0, AttributesMask: 0, RdevMajor: 0, RdevMinor: 0}}]}
-I0614 09:15:34.124663   26543 kernel.go:1225] EXEC: []string{"/bin/sh"}
-D0614 09:15:34.126457   26543 syscall_thread.go:159] [ 26571: 26571] failed to set SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP
-D0614 09:15:34.127523   26543 subprocess.go:300] [ 26572: 26572] PR_SET_SYSCALL_USER_DISPATCH isn't supported. User syscalls will be trapped by seccomp.
-D0614 09:15:34.129177   26543 client.go:395] send [channel 0x74e4b48870] WalkReq{DirFD: 1, Path: [bin]}
-D0614 09:15:34.129490   26543 client.go:395] recv [channel 0x74e4b48870] WalkResp{Status: Success, Inodes: [Inode{ControlFD: 8, Stat: Statx{Mask: 0x7ff, Mode: S_IFDIR|0o700, UID: 10270, GID: 10270, Ino: 1594345, DevMajor: 253, DevMinor: 52, Size: 3452, Blocks: 7, Blksize: 4096, Nlink: 2, Atime: 2026-06-13 09:02:36.430171192 +0000 UTC, Btime: 1970-01-01 00:00:00 +0000 UTC, Ctime: 2026-06-13 09:02:36.506171192 +0000 UTC, Mtime: 2026-06-09 13:58:25 +0000 UTC, Attributes: 0, AttributesMask: 0, RdevMajor: 0, RdevMinor: 0}}]}
-I0614 09:15:34.129587   26543 loader.go:194] Error opening /bin/sh: permission denied
-D0614 09:15:34.130323   26542 connection.go:150] sock read failed, closing connection: EOF
-D0614 09:15:34.130484   26543 urpc.go:592] urpc: successfully marshalled 117 bytes.
-W0614 09:15:34.130541   26543 urpc.go:368] urpc: RPC call for method containerManager.StartRoot failed: starting sandbox: creating process: failed to load /bin/sh: permission denied
-D0614 09:15:34.130857   26535 urpc.go:635] urpc: unmarshal success.
-D0614 09:15:34.131044   26535 container.go:906] Destroy container, cid: my-kernel
-D0614 09:15:34.131155   26535 container.go:1255] Destroying container, cid: my-kernel
-I0614 09:15:34.131125   26542 gofer.go:459] All lisafs servers exited.
-D0614 09:15:34.131178   26535 sandbox.go:2132] Destroying root container by destroying sandbox, cid: my-kernel
-D0614 09:15:34.131206   26535 sandbox.go:1522] Destroying sandbox "my-kernel"
-I0614 09:15:34.131209   26542 cli.go:310] Exiting with status: 0
-D0614 09:15:34.131341   26535 sandbox.go:1532] Killing sandbox "my-kernel"
-D0614 09:15:34.135115   26535 container.go:1269] Killing gofer for container, cid: my-kernel, PID: 26542
-W0614 09:15:34.135544   26535 util.go:107] FATAL ERROR: running container: starting container: starting root container: starting sandbox: creating process: failed to load /bin/sh: permission denied
-W0614 09:15:34.135672   26535 cli.go:319] Failure to execute command, err: 1
+D0615 05:27:38.691768    9916 sandbox.go:1522] Destroying sandbox "my-kernel"
+D0615 05:27:38.691966    9916 sandbox.go:1532] Killing sandbox "my-kernel"
+D0615 05:27:38.692071    9916 container.go:906] Destroy container, cid: my-kernel
+D0615 05:27:38.692145    9916 container.go:1269] Killing gofer for container, cid: my-kernel, PID: 9923
+W0615 05:27:38.692335    9916 util.go:107] FATAL ERROR: running container: creating container: cannot create sandbox: cannot read client sync file: waiting for sandbox to start: EOF
+W0615 05:27:38.692398    9916 cli.go:319] Failure to execute command, err: 1
