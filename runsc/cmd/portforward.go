@@ -25,6 +25,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"syscall"
 
 	"github.com/google/subcommands"
@@ -37,6 +38,10 @@ import (
 	"gvisor.dev/gvisor/runsc/container"
 	"gvisor.dev/gvisor/runsc/flag"
 )
+
+// portForwardUDSCounter generates unique abstract socket names for concurrent
+// port-forwarding connections.
+var portForwardUDSCounter atomic.Int64
 
 // PortForward implements subcommands.Command for the "portforward" command.
 type PortForward struct {
@@ -250,11 +255,8 @@ func (p *PortForward) doStream(ctx context.Context, port string, c *container.Co
 // portCopy creates a UDS and begins copying data to and from the local
 // connection.
 func portCopy(ctx context.Context, c *container.Container, localConn net.Conn, port uint16) error {
-	// Create a new path address for the UDS.
-	addr, err := tmpUDSAddr()
-	if err != nil {
-		return err
-	}
+	// Create a new abstract address for the UDS.
+	addr := tmpUDSAddr()
 
 	// Create the UDS and Listen on it.
 	l, err := net.Listen("unix", addr)
@@ -329,17 +331,13 @@ func portCopy(ctx context.Context, c *container.Container, localConn net.Conn, p
 	}
 }
 
-// tmpUDS generates a temporary UDS addr.
-func tmpUDSAddr() (string, error) {
-	tmpFile, err := os.CreateTemp("", "runsc-port-forward")
-	if err != nil {
-		return "", err
-	}
-	path := tmpFile.Name()
-	// Remove the tempfile and just use its name.
-	os.Remove(path)
-
-	return path, nil
+// tmpUDSAddr generates a temporary abstract UDS address.
+//
+// Abstract sockets are used so that port-forwarding also works on filesystems
+// that do not allow creating socket files (e.g. Android).
+func tmpUDSAddr() string {
+	next := portForwardUDSCounter.Add(1)
+	return fmt.Sprintf("\x00runsc-port-forward-%d-%d", os.Getpid(), next)
 }
 
 // openStream opens a UDS as a socket and returns the file descriptor in an

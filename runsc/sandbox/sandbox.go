@@ -93,8 +93,11 @@ func controlSocketName(id string) string {
 // createControlSocket finds a location and creates the socket used to
 // communicate with the sandbox. The socket is a UDS on the host filesystem.
 //
-// Note that abstract sockets are *not* used, because any user can connect to
-// them. There is no file mode protecting abstract sockets.
+// If the filesystem does not allow creating socket files (e.g. Android,
+// read-only or network filesystems), it falls back to an abstract socket.
+// Note that abstract sockets are *not* protected by file modes: any process
+// in the same network namespace can connect to them. The abstract socket
+// name is scoped by the caller's UID to avoid collisions between users.
 func createControlSocket(rootDir, id string) (string, int, error) {
 	name := controlSocketName(id)
 
@@ -109,7 +112,18 @@ func createControlSocket(rootDir, id string) (string, int, error) {
 		}
 		log.Debugf("Failed to create socket file %q: %v", path, err)
 	}
-	return "", -1, fmt.Errorf("unable to find location to write socket file")
+
+	// Fall back to an abstract socket, which lives in the network namespace
+	// instead of on the filesystem and is therefore not subject to filesystem
+	// permissions or the lack of socket support on the underlying filesystem.
+	abstractName := "\x00" + fmt.Sprintf("runsc-%d-%s.sock", os.Geteuid(), id)
+	log.Debugf("Attempting to create abstract socket %q", abstractName)
+	fd, err := server.CreateSocket(abstractName)
+	if err != nil {
+		return "", -1, fmt.Errorf("unable to create socket: %v", err)
+	}
+	log.Debugf("Using abstract socket %q", abstractName)
+	return abstractName, fd, nil
 }
 
 // Pid is an atomic type that implements JSON marshal/unmarshal interfaces.
@@ -813,6 +827,11 @@ func (s *Sandbox) GetControlSocketPath() string {
 
 // getControlSocketPath gets the control socket path for the sandbox.
 func (s *Sandbox) getControlSocketPath() string {
+	// Abstract sockets have no filesystem entry, so they cannot be checked
+	// with access(2) and cannot be re-discovered in the root directory.
+	if strings.HasPrefix(s.ControlSocketPath, "\x00") {
+		return s.ControlSocketPath
+	}
 	err := unix.Access(s.ControlSocketPath, unix.F_OK)
 	if err == nil {
 		return s.ControlSocketPath
@@ -838,7 +857,7 @@ func (s *Sandbox) sandboxConnect() (*urpc.Client, error) {
 	if path == "" {
 		return nil, fmt.Errorf("no control socket found for sandbox %q", s.ID)
 	}
-	if len(path) >= linux.UnixPathMax {
+	if len(path) >= linux.UnixPathMax && !strings.HasPrefix(path, "\x00") {
 		// This is not an abstract socket path. It is a filesystem path.
 		// UDS connect fails when the len(socket path) >= UNIX_PATH_MAX. Instead
 		// open the socket using open(2) and use /proc to refer to the open FD.
@@ -1520,9 +1539,10 @@ func (s *Sandbox) IsRootContainer(cid string) bool {
 // is idempotent.
 func (s *Sandbox) destroy() error {
 	log.Debugf("Destroying sandbox %q", s.ID)
-	// Only delete the control file if it exists.
+	// Only delete the control file if it exists. Abstract sockets have no
+	// filesystem entry and are freed automatically when the socket closes.
 	controlSocketPath := s.getControlSocketPath()
-	if len(controlSocketPath) > 0 {
+	if len(controlSocketPath) > 0 && !strings.HasPrefix(controlSocketPath, "\x00") {
 		if err := os.Remove(controlSocketPath); err != nil {
 			log.Warningf("failed to delete control socket file %q: %v", controlSocketPath, err)
 		}
